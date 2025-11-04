@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/src/style.css" rel="stylesheet" />
+    <title>Data table</title>
+  </head>
+  <body>
+    <h1 class="text-3xl">Data Table</h1>
+
+    <div
+      class="w-10/12 m-auto border-2 border-gray-300 rounded-s-md overflow-hidden"
+    >
+      <div class="flex bg-[#F4F7FC] p-2">
+        <div>filter</div>
+        <div>search</div>
+        <button class="ml-auto border-2 px-5 hover:cursor-pointer add-customer">
+          add customer
+        </button>
+      </div>
+
+      <div>
+        <table>
+          <thead>
+            <tr class="bg-[#F4F7FC]">
+              <th
+                class="border-b border-solid border-gray-300 px-2.5 py-5 text-start text-gray-700"
+                scope="col"
+              >
+                <input type="checkbox" />
+              </th>
+              <th
+                class="border-b border-solid border-gray-400 px-2.5 py-5 text-start text-gray-700"
+                scope="col"
+              >
+                #
+              </th>
+              <th
+                class="border-b border-solid border-gray-400 px-2.5 py-5 text-start text-gray-600 font-semibold"
+                scope="col"
+              >
+                Name
+              </th>
+              <th
+                class="border-b border-solid border-gray-400 px-2.5 py-5 text-start"
+                scope="col"
+              >
+                Description
+              </th>
+              <th
+                class="border-b border-solid border-gray-400 px-2.5 py-5"
+                scope="col"
+              >
+                Status
+              </th>
+              <th
+                class="border-b border-solid border-gray-400 px-2.5 py-5"
+                scope="col"
+              >
+                Rate
+              </th>
+              <th
+                class="border-b border-solid border-gray-400 px-2.5 py-5"
+                scope="col"
+              >
+                Balance
+              </th>
+              <th
+                class="border-b border-solid border-gray-400 px-2.5 py-5"
+                scope="col"
+              >
+                Deposit
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="px-2.5 py-3">
+                <input type="checkbox" />
+              </td>
+              <td class="px-2.5 py-3">1</td>
+              <td class="px-2.5 py-3">Ann Culhane</td>
+              <td class="px-2.5 py-3 w-2/7">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Nulla...
+              </td>
+
+              <td class="px-2.5 py-3 text-center">open</td>
+              <td class="px-2.5 py-3 text-center">$70.00</td>
+              <td class="px-2.5 py-3 text-center">-$270.00</td>
+              <td class="px-2.5 py-3 text-center">-$500.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
