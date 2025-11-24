@@ -11,87 +11,139 @@
     <h1 class="text-3xl">Personal Expense Tracker</h1>
 
     <div
-      class="w-[1000px] m-auto border-2 border-gray-300 rounded-s-md overflow-hidden"
+      class="w-[1300px] m-auto border-2 border-gray-300 rounded-s-md overflow-hidden"
     >
       <div class="flex bg-[#F4F7FC] p-2 w-full">
-        <div>filter</div>
+        <!-- <div>filter</div> -->
         <div>search</div>
-        <button class="ml-auto border-2 px-5 hover:cursor-pointer add-customer">
+        <button class="ml-auto border-2 px-5 hover:cursor-pointer add-expense">
           Add Expenses
         </button>
       </div>
 
-      <div>
-        <table class="w-full">
-          <thead>
-            <tr class="bg-[#F4F7FC]">
-              <th
-                class="border-b border-solid border-gray-300 px-2.5 py-5 text-start text-gray-700"
-                scope="col"
-              >
-                <input type="checkbox" />
-              </th>
-              <th
-                class="border-b border-solid border-gray-400 px-2.5 py-5 text-start"
-                scope="col"
-              >
-                #
-              </th>
-              <th
-                class="border-b border-solid border-gray-400 px-2.5 py-5 text-start font-semibold"
-                scope="col"
-              >
-                Date
-              </th>
-              <th
-                class="border-b border-solid border-gray-400 px-2.5 py-5 text-start"
-                scope="col"
-              >
-                Category
-              </th>
-              <th
-                class="border-b border-solid border-gray-400 px-2.5 py-5"
-                scope="col"
-              >
-                Description
-              </th>
-              <th
-                class="border-b border-solid border-gray-400 px-2.5 py-5"
-                scope="col"
-              >
-                Amount
-              </th>
-              <th
-                class="border-b border-solid border-gray-400 px-2.5 py-5"
-                scope="col"
-              >
-                Payment
-              </th>
-              <th
-                class="border-b border-solid border-gray-400 px-2.5 py-5"
-                scope="col"
-              >
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody class="expenses_list">
-            <!-- <tr>
-              <td class="px-2.5 py-3">
-                <input type="checkbox" />
-              </td>
-              <td class="px-2.5 py-3 min-w-5">1</td>
-              <td class="px-2.5 py-3">2025-11-03</td>
-              <td class="px-5 py-3">Groceries</td>
+      <!-- <form class="edit_form" id="edit_form"></form> -->
+      <table class="w-full">
+        <thead>
+          <tr class="bg-[#F4F7FC]">
+            <th
+              class="border-b border-solid border-gray-300 px-2.5 py-5 text-start text-gray-700"
+              scope="col"
+            >
+              <input type="checkbox" />
+            </th>
+            <th
+              class="border-b border-solid border-gray-400 px-2.5 py-5 text-start"
+              scope="col"
+            >
+              #
+            </th>
+            <th
+              class="border-b border-solid border-gray-400 px-2.5 py-5 text-start font-semibold"
+              scope="col"
+            >
+              Date
+            </th>
+            <th
+              class="border-b border-solid border-gray-400 px-2.5 py-5 text-start"
+              scope="col"
+            >
+              Category
+            </th>
+            <th
+              class="border-b border-solid border-gray-400 px-2.5 py-5"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="border-b border-solid border-gray-400 px-2.5 py-5"
+              scope="col"
+            >
+              Amount
+            </th>
+            <th
+              class="border-b border-solid border-gray-400 px-2.5 py-5"
+              scope="col"
+            >
+              Payment
+            </th>
+            <th
+              class="border-b border-solid border-gray-400 px-2.5 py-5"
+              scope="col"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="expenses_list">
+          <form class="expenseForm" id="expenseForm"></form>
+          <tr class="fill-expenses-row hidden">
+            <td class="px-2.5 py-3"></td>
+            <td class="px-2.5 py-3 min-w-5"></td>
+            <td class="px-2.5 py-3">
+              <input
+                type="date"
+                class="border border-gray-400 px-2 input_date"
+                name="date"
+                form="expenseForm"
+                required
+              />
+            </td>
+            <td class="px-5 py-3">
+              <input
+                type="text"
+                placeholder="enter category"
+                class="border border-gray-400 px-2 input_catergory"
+                name="category"
+                form="expenseForm"
+                required
+              />
+            </td>
 
-              <td class="px-2.5 py-3 text-center">Trader Joe’s</td>
-              <td class="px-2.5 py-3 text-center">$45.23</td>
-              <td class="px-2.5 py-3 text-center">Credit Card</td>
-              <td class="px-2.5 py-3 text-center">Edit/Delete</td>
-            </tr> -->
-          </tbody>
-        </table>
-      </div>
+            <td class="px-2.5 py-3 text-start">
+              <input
+                type="text"
+                placeholder="Enter description"
+                class="border border-gray-400 px-2 input_description"
+                name="description"
+                form="expenseForm"
+                required
+              />
+            </td>
+            <td class="px-2.5 py-3 text-center">
+              <input
+                type="number"
+                placeholder="Enter Amount"
+                class="border border-gray-400 px-2 input_amount"
+                name="amount"
+                form="expenseForm"
+                required
+              />
+            </td>
+            <td class="px-2.5 py-3 text-center">
+              <select
+                name="payment"
+                class="border border-gray-400 px-2 input_payment"
+                form="expenseForm"
+                required
+              >
+                <option value="cash">Cash</option>
+                <option value="debit">Debit</option>
+                <option value="credit">Credit</option>
+              </select>
+            </td>
+            <td class="px-2.5 py-3 text-center">
+              <button
+                type="submit"
+                form="expenseForm"
+                class="confirm cursor-pointer"
+              >
+                Confirm
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
