@@ -5,7 +5,7 @@ export function expenseTemplate(item, rowNum) {
                 <td class="px-2.5 py-3">
                   <input type="checkbox" />
                 </td>
-                <td class="px-2.5 py-3 min-w-5">${rowNum}</td>
+                <td class="px-2.5 py-3 min-w-5 rowNum">${rowNum}</td>
                 <td class="px-2.5 py-3">
                   <span class="date_value group-[.edit]:hidden">
                       ${formatDate(item.date)}

@@ -61,3 +61,15 @@ export function updateSavedExpense(rowId, inputData) {
   removeNewFormElement(rowId);
 }
 
+export function renumberRows() {
+  const rows = expensesContainer.querySelectorAll("tr");
+
+  rows.forEach((row, i) => {
+    const rowSerial = row.querySelector(".rowNum");
+
+    if (rowSerial && rowSerial.textContent == i + 1) {
+      rowSerial.textContent = +rowSerial.textContent - 1;
+    }
+  });
+}
+

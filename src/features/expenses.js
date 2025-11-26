@@ -11,7 +11,8 @@ import { state } from "../core/state";
 import {
   toggleEditExpense,
   createNewFormElement,
-  updateSavedExpense
+  updateSavedExpense,
+  renumberRows
 } from "../UI/render";
 
 // export const getFormData = function (form) {
@@ -106,13 +107,13 @@ export const handleDeleteExpense = function (e) {
   if (!isBtnDelete) return;
 
   const row = e.target.closest("tr");
-  // row.remove();
+  row.remove();
 
   //update expenses
   state.removeExpense(row.dataset.id);
 
-  //render all elements
-  expensesContainer.innerHTML = "";
-  renderExpenses(state.expenses);
+  //update row serial number
+  const rowNum = row.querySelector(".rowNum");
+  renumberRows(rowNum);
 };
 
