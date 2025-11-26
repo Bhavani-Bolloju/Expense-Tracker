@@ -1,5 +1,6 @@
 import { expenseTemplate } from "./templates";
 import { expensesContainer } from "./elements";
+import { formatDate } from "../utils/format";
 
 export function renderExpenses(expenses) {
   const list = expenses
@@ -15,5 +16,48 @@ export function renderExpenses(expenses) {
 export function renderNewExpense(expense, rowId) {
   const row = expenseTemplate(expense, rowId);
   expensesContainer.insertAdjacentHTML("beforeend", row);
+}
+
+export function toggleEditExpense(rowId) {
+  // console.log(row, "el edit");
+  const row = document.querySelector(`.item-${rowId}`);
+  row.classList.toggle("edit");
+  row.classList.toggle("static");
+}
+
+export function createNewFormElement(rowId) {
+  const newForm = document.createElement("form");
+  newForm.setAttribute("id", `edit_form-${rowId}`);
+  newForm.dataset.formId = rowId;
+  expensesContainer.prepend(newForm);
+}
+
+export function removeNewFormElement(rowId) {
+  const formEl = document.querySelector(`#edit_form-${rowId}`);
+  formEl.remove();
+}
+
+export function updateSavedExpense(rowId, inputData) {
+  const row = document.querySelector(`.item-${rowId}`);
+
+  //get elements
+  const dateInputEL = row.querySelector(".date_value");
+  const categoryInputEl = row.querySelector(".category_value");
+  const descriptionInputEl = row.querySelector(".description_value");
+  const amountInputEl = row.querySelector(".amount_value");
+  const paymentInputEl = row.querySelector(".payment_value");
+
+  //update DOM
+  dateInputEL.innerHTML = formatDate(inputData.date);
+  categoryInputEl.innerHTML = inputData.category;
+  descriptionInputEl.innerHTML = inputData.description;
+  amountInputEl.innerHTML = inputData.amount;
+  paymentInputEl.innerHTML = inputData.payment;
+
+  //switch to the static mode
+  toggleEditExpense(rowId);
+
+  //delete the form element
+  removeNewFormElement(rowId);
 }
 

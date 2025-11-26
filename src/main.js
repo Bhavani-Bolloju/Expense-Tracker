@@ -3,7 +3,14 @@ import { state } from "./core/state";
 import { dummyData } from "./core/state";
 import { renderExpenses } from "./UI/render";
 
-import { handleAddExpense, handleSubmitForm } from "./features/expenses";
+import {
+  handleAddExpense,
+  handleSubmitForm,
+  handleEditExpense,
+  handleSubmitEditExpense,
+  handleCancelEdit,
+  handleDeleteExpense
+} from "./features/expenses";
 
 import { registerEvents } from "./core/events";
 
@@ -16,11 +23,11 @@ renderExpenses(state.expenses);
 registerEvents({
   onAddExpense: handleAddExpense,
   onSubmitForm: handleSubmitForm,
+  onEditExpense: handleEditExpense,
+  onSubmitEditForm: handleSubmitEditExpense,
+  onCancelEditForm: handleCancelEdit,
+  onDeleteExpense: handleDeleteExpense
 });
-
-
-
-
 
 /*
 

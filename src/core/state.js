@@ -56,6 +56,20 @@ export const state = {
     this.expenses.push(expense);
     storage.removeExpenses("expenses");
     storage.addExpenses(this.expenses);
+  },
+  updateEditedExpense: function (id, newExpense) {
+    const index = this.expenses.findIndex((item) => item.id === id);
+    const item = this.expenses[index];
+    const updatedExpense = { ...item, ...newExpense };
+    this.expenses[index] = updatedExpense;
+
+    storage.addExpenses(this.expenses);
+  },
+
+  removeExpense: function (id) {
+    this.expenses = this.expenses.filter((item) => item.id !== id);
+
+    storage.addExpenses(this.expenses);
   }
 };
 
