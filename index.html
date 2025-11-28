@@ -16,8 +16,15 @@
       <div class="flex bg-[#F4F7FC] p-2 w-full">
         <!-- <div>filter</div> -->
         <div>search</div>
+        <p class="ml-2 bg-amber-300 items-selected"></p>
         <button class="ml-auto border-2 px-5 hover:cursor-pointer add-expense">
           Add Expenses
+        </button>
+
+        <button
+          class="ml-auto border-2 px-5 hover:cursor-pointer delete-expenses hidden"
+        >
+          delete
         </button>
       </div>
 
@@ -29,7 +36,10 @@
               class="border-b border-solid border-gray-300 px-2.5 py-5 text-start text-gray-700"
               scope="col"
             >
-              <input type="checkbox" />
+              <label for="select-all" class="flex gap-2 items-center">
+                <input type="checkbox" id="select-all" class="select-all" />
+                <span>select all</span>
+              </label>
             </th>
             <th
               class="border-b border-solid border-gray-400 px-2.5 py-5 text-start"
@@ -75,7 +85,7 @@
             </th>
           </tr>
         </thead>
-        <tbody class="expenses_list">
+        <tbody class="expenses_list group">
           <form class="expenseForm" id="expenseForm"></form>
           <tr class="fill-expenses-row hidden">
             <td class="px-2.5 py-3"></td>

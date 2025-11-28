@@ -1,9 +1,13 @@
-import { expenseFormRow, expensesContainer } from "../UI/elements";
+import {
+  expenseFormRow,
+  expensesContainer,
+  selectAllCheckbox
+} from "../UI/elements";
 import { nanoid } from "nanoid";
 import {
   removeNewFormElement,
   renderNewExpense,
-  renderExpenses
+  toggleMultiSelect
 } from "../UI/render";
 
 import { state } from "../core/state";
@@ -14,18 +18,6 @@ import {
   updateSavedExpense,
   renumberRows
 } from "../UI/render";
-
-// export const getFormData = function (form) {
-//   if (!form.checkValidity()) {
-//     form.reportValidity();
-//     return;
-//   }
-//   const formData = new FormData(form);
-
-//   const inputData = Object.fromEntries(formData.entries());
-
-//   return inputData;
-// };
 
 export const handleAddExpense = function () {
   expenseFormRow.classList.toggle("hidden");
@@ -115,5 +107,93 @@ export const handleDeleteExpense = function (e) {
   //update row serial number
   const rowNum = row.querySelector(".rowNum");
   renumberRows(rowNum);
+};
+
+export const handleSelectAllExpenses = function (e) {
+  const isChecked = e.target.checked;
+  const rows = expensesContainer.querySelectorAll("tr");
+
+  rows.forEach((row) => {
+    const inputCheckbox = row.querySelector("input[type='checkbox']");
+
+    if (inputCheckbox) {
+      inputCheckbox.checked = isChecked;
+    }
+
+    if (inputCheckbox) {
+      isChecked
+        ? row.classList.add("bg-gray-50")
+        : row.classList.remove("bg-gray-50");
+    }
+  });
+
+  if (isChecked) {
+    toggleMultiSelect(rows.length - 1);
+  } else {
+    toggleMultiSelect(0);
+  }
+};
+
+let count = 0;
+export const handleMultiSelectExpenses = function (e) {
+  // const isCheckbox =
+
+  if (e.target.tagName !== "INPUT") return;
+
+  const rows = this.querySelectorAll("tr");
+  count = rows.length - 1;
+
+  rows.forEach((item) => {
+    const checkBox = item.querySelector('input[type="checkbox"]');
+    if (checkBox) {
+      if (!checkBox.checked) {
+        count--;
+        item.classList.remove("bg-gray-100");
+      } else {
+        item.classList.add("bg-gray-100");
+      }
+    }
+  });
+
+  if (count >= 1) {
+    //hide add expense and display delete
+    toggleMultiSelect(count);
+  } else {
+    //hide add expense and display delete
+    toggleMultiSelect(count);
+  }
+
+  if (count === rows.length - 1) {
+    selectAllCheckbox.checked = true;
+  } else {
+    selectAllCheckbox.checked = false;
+  }
+};
+
+export const handleMultiSelectedExpensesDelete = function (e) {
+  //get all the items -> remove those that are have checked on them
+  const rows = expensesContainer.querySelectorAll("tr");
+
+  const deleteIds = new Set();
+
+  rows.forEach((row) => {
+    const checkbox = row.querySelector("input[type='checkbox']");
+
+    if (checkbox && checkbox.checked) {
+      const id = checkbox.dataset.check;
+      row.remove();
+      deleteIds.add(id);
+    }
+  });
+
+  //remove all the items from the state
+  state.removeMultipleExpenses(deleteIds);
+  selectAllCheckbox.checked = false;
+
+  //fix the row numbers
+  renumberRows();
+
+  //uncheck select all -> remove display of total selected items, display add expenses btn
+  toggleMultiSelect(0);
 };
 

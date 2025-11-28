@@ -1,9 +1,13 @@
 import { formatDate } from "../utils/format";
 
 export function expenseTemplate(item, rowNum) {
-  const row = `<tr class="item-${item.id} group static" data-id="${item.id}" >
+  const row = `<tr class="item-${
+    item.id
+  } not-last:border-b-2 border-gray-200  group static" data-id="${item.id}" >
                 <td class="px-2.5 py-3">
-                  <input type="checkbox" />
+                  <input type="checkbox" class="check_${item.id}" data-check="${
+    item.id
+  }" />
                 </td>
                 <td class="px-2.5 py-3 min-w-5 rowNum">${rowNum}</td>
                 <td class="px-2.5 py-3">

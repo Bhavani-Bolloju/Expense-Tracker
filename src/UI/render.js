@@ -1,5 +1,10 @@
 import { expenseTemplate } from "./templates";
-import { expensesContainer } from "./elements";
+import {
+  expensesContainer,
+  addExpenseBtn,
+  deleteExpensesBtn,
+  selectedItemsCount
+} from "./elements";
 import { formatDate } from "../utils/format";
 
 export function renderExpenses(expenses) {
@@ -41,11 +46,11 @@ export function updateSavedExpense(rowId, inputData) {
   const row = document.querySelector(`.item-${rowId}`);
 
   //get elements
-  const dateInputEL = row.querySelector(".date_value");
-  const categoryInputEl = row.querySelector(".category_value");
-  const descriptionInputEl = row.querySelector(".description_value");
-  const amountInputEl = row.querySelector(".amount_value");
-  const paymentInputEl = row.querySelector(".payment_value");
+  const dateInputEL = row?.querySelector(".date_value");
+  const categoryInputEl = row?.querySelector(".category_value");
+  const descriptionInputEl = row?.querySelector(".description_value");
+  const amountInputEl = row?.querySelector(".amount_value");
+  const paymentInputEl = row?.querySelector(".payment_value");
 
   //update DOM
   dateInputEL.innerHTML = formatDate(inputData.date);
@@ -67,9 +72,21 @@ export function renumberRows() {
   rows.forEach((row, i) => {
     const rowSerial = row.querySelector(".rowNum");
 
-    if (rowSerial && rowSerial.textContent == i + 1) {
-      rowSerial.textContent = +rowSerial.textContent - 1;
+    if (rowSerial && rowSerial.textContent !== i + 1) {
+      rowSerial.textContent = i ;
     }
   });
+}
+
+export function toggleMultiSelect(count) {
+  if (count > 0) {
+    addExpenseBtn.classList.add("hidden");
+    deleteExpensesBtn.classList.remove("hidden");
+    selectedItemsCount.innerHTML = `${count} items selected`;
+  } else {
+    addExpenseBtn.classList.remove("hidden");
+    deleteExpensesBtn.classList.add("hidden");
+    selectedItemsCount.innerHTML = "";
+  }
 }
 

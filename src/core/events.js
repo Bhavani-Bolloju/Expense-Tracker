@@ -1,4 +1,10 @@
-import { addExpenseBtn, expenseForm, expensesContainer } from "../UI/elements";
+import {
+  addExpenseBtn,
+  expenseForm,
+  expensesContainer,
+  selectAllCheckbox,
+  deleteExpensesBtn
+} from "../UI/elements";
 
 export function registerEvents({
   onAddExpense,
@@ -6,7 +12,10 @@ export function registerEvents({
   onEditExpense,
   onSubmitEditForm,
   onCancelEditForm,
-  onDeleteExpense
+  onDeleteExpense,
+  onSelectExpenses,
+  onSelectAll,
+  onMultiDelete
 }) {
   addExpenseBtn.addEventListener("click", onAddExpense);
 
@@ -19,5 +28,11 @@ export function registerEvents({
   expensesContainer.addEventListener("click", onCancelEditForm);
 
   expensesContainer.addEventListener("click", onDeleteExpense);
+
+  expensesContainer.addEventListener("change", onSelectExpenses);
+
+  selectAllCheckbox.addEventListener("click", onSelectAll);
+
+  deleteExpensesBtn.addEventListener("click", onMultiDelete);
 }
 
