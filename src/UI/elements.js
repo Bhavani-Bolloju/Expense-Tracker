@@ -6,6 +6,9 @@ const submitExpense = document.querySelector(".confirm");
 const deleteExpensesBtn = document.querySelector(".delete-expenses");
 const selectedItemsCount = document.querySelector(".items-selected");
 const selectAllCheckbox = document.querySelector(".select-all");
+const btnSortDate = document.querySelector(".btn-sort-date");
+const sortAsc = document.querySelector(".sort-asc");
+const sortDsc = document.querySelector(".sort-dsc");
 
 export {
   addExpenseBtn,
@@ -15,6 +18,9 @@ export {
   expenseFormRow,
   deleteExpensesBtn,
   selectedItemsCount,
-  selectAllCheckbox
+  selectAllCheckbox,
+  btnSortDate,
+  sortAsc,
+  sortDsc
 };
 

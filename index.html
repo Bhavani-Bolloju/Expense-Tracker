@@ -51,7 +51,48 @@
               class="border-b border-solid border-gray-400 px-2.5 py-5 text-start font-semibold"
               scope="col"
             >
-              Date
+              <div class="flex items-center">
+                <span>Date </span>
+                <button class="cursor-pointer flex btn-sort-date">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-4 h-4 sort-asc"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a.75.75 0 0 1-.75-.75V4.66L7.3 6.76a.75.75 0 0 1-1.1-1.02l3.25-3.5a.75.75 0 0 1 1.1 0l3.25 3.5a.75.75 0 1 1-1.1 1.02l-1.95-2.1v12.59A.75.75 0 0 1 10 18Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-4 h-4 -ml-2 sort-dsc"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 2a.75.75 0 0 1 .75.75v12.59l1.95-2.1a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 1 1 1.1-1.02l1.95 2.1V2.75A.75.75 0 0 1 10 2Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <button class="btn-clear-date hidden">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="size-5"
+                  >
+                    <path
+                      d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"
+                    />
+                  </svg>
+                </button>
+              </div>
             </th>
             <th
               class="border-b border-solid border-gray-400 px-2.5 py-5 text-start"
@@ -69,7 +110,35 @@
               class="border-b border-solid border-gray-400 px-2.5 py-5"
               scope="col"
             >
-              Amount
+              <span>Amount</span>
+
+              <button class="cursor-pointer flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a.75.75 0 0 1-.75-.75V4.66L7.3 6.76a.75.75 0 0 1-1.1-1.02l3.25-3.5a.75.75 0 0 1 1.1 0l3.25 3.5a.75.75 0 1 1-1.1 1.02l-1.95-2.1v12.59A.75.75 0 0 1 10 18Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  class="w-4 h-4 -ml-2"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 2a.75.75 0 0 1 .75.75v12.59l1.95-2.1a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 1 1 1.1-1.02l1.95 2.1V2.75A.75.75 0 0 1 10 2Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
             </th>
             <th
               class="border-b border-solid border-gray-400 px-2.5 py-5"

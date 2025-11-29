@@ -1,13 +1,16 @@
 import {
   expenseFormRow,
   expensesContainer,
-  selectAllCheckbox
+  selectAllCheckbox,
+  sortAsc,
+  sortDsc
 } from "../UI/elements";
 import { nanoid } from "nanoid";
 import {
   removeNewFormElement,
   renderNewExpense,
-  toggleMultiSelect
+  toggleMultiSelect,
+  renderExpenses
 } from "../UI/render";
 
 import { state } from "../core/state";
@@ -25,6 +28,7 @@ export const handleAddExpense = function () {
 
 export const handleSubmitForm = function (e) {
   e.preventDefault();
+  e.stopPropagation();
 
   const formData = new FormData(e.target);
 
@@ -196,4 +200,49 @@ export const handleMultiSelectedExpensesDelete = function (e) {
   //uncheck select all -> remove display of total selected items, display add expenses btn
   toggleMultiSelect(0);
 };
+
+let order = "asc";
+
+export const handleSortingDate = function () {
+  let expenses = state.expenses;
+
+  if (order === "asc") {
+    // expenses = expenses.sort((a, b) => a.date - b.date);
+    expenses.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+
+    //update order variable
+    order = "dsc";
+
+    //style the button -> asc order to reflect which order being displayed
+    sortAsc.classList.add("text-blue-500");
+    sortDsc.classList.remove("text-blue-500");
+  } else {
+    expenses.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+
+    order = "asc";
+
+    sortAsc.classList.remove("text-blue-500");
+    sortDsc.classList.add("text-blue-500");
+  }
+
+  //render the list
+  renderExpenses(expenses);
+};
+
+/*
+sorting date and amount
+filter by category
+search bar for keywords (highlight matches)
+
+light/dark mode toggling
+pagination
+
+
+
+
+*/
 

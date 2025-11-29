@@ -14,7 +14,8 @@ export function renderExpenses(expenses) {
     })
     .join("");
 
-  // expensesContainer.innerHTML = "";
+  //empty the container
+  expensesContainer.innerHTML = "";
   expensesContainer.insertAdjacentHTML("beforeend", list);
 }
 
@@ -52,6 +53,8 @@ export function updateSavedExpense(rowId, inputData) {
   const amountInputEl = row?.querySelector(".amount_value");
   const paymentInputEl = row?.querySelector(".payment_value");
 
+  console.log(inputData, "updateSavedExpenses");
+
   //update DOM
   dateInputEL.innerHTML = formatDate(inputData.date);
   categoryInputEl.innerHTML = inputData.category;
@@ -73,7 +76,7 @@ export function renumberRows() {
     const rowSerial = row.querySelector(".rowNum");
 
     if (rowSerial && rowSerial.textContent !== i + 1) {
-      rowSerial.textContent = i ;
+      rowSerial.textContent = i;
     }
   });
 }

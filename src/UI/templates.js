@@ -1,6 +1,8 @@
 import { formatDate } from "../utils/format";
 
 export function expenseTemplate(item, rowNum) {
+  // console.log(item, rowNum);
+
   const row = `<tr class="item-${
     item.id
   } not-last:border-b-2 border-gray-200  group static" data-id="${item.id}" >

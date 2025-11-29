@@ -3,7 +3,8 @@ import {
   expenseForm,
   expensesContainer,
   selectAllCheckbox,
-  deleteExpensesBtn
+  deleteExpensesBtn,
+  btnSortDate
 } from "../UI/elements";
 
 export function registerEvents({
@@ -15,7 +16,8 @@ export function registerEvents({
   onDeleteExpense,
   onSelectExpenses,
   onSelectAll,
-  onMultiDelete
+  onMultiDelete,
+  onDateSort
 }) {
   addExpenseBtn.addEventListener("click", onAddExpense);
 
@@ -34,5 +36,7 @@ export function registerEvents({
   selectAllCheckbox.addEventListener("click", onSelectAll);
 
   deleteExpensesBtn.addEventListener("click", onMultiDelete);
+
+  btnSortDate.addEventListener("click", onDateSort);
 }
 
