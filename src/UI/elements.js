@@ -9,6 +9,7 @@ const selectAllCheckbox = document.querySelector(".select-all");
 const btnSortDate = document.querySelector(".btn-sort-date");
 const sortAsc = document.querySelector(".sort-asc");
 const sortDsc = document.querySelector(".sort-dsc");
+const btnClearDateSort = document.querySelector(".btn-clear-date");
 
 export {
   addExpenseBtn,
@@ -21,6 +22,7 @@ export {
   selectAllCheckbox,
   btnSortDate,
   sortAsc,
-  sortDsc
+  sortDsc,
+  btnClearDateSort
 };
 

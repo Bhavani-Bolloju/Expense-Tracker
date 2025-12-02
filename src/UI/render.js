@@ -70,13 +70,13 @@ export function updateSavedExpense(rowId, inputData) {
 }
 
 export function renumberRows() {
-  const rows = expensesContainer.querySelectorAll("tr");
+  const rows = expensesContainer.querySelectorAll(".expense-item");
 
   rows.forEach((row, i) => {
     const rowSerial = row.querySelector(".rowNum");
 
     if (rowSerial && rowSerial.textContent !== i + 1) {
-      rowSerial.textContent = i;
+      rowSerial.textContent = i + 1;
     }
   });
 }

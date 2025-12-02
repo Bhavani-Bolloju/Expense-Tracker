@@ -1,9 +1,10 @@
 import {
-  expenseFormRow,
   expensesContainer,
   selectAllCheckbox,
   sortAsc,
-  sortDsc
+  sortDsc,
+  btnClearDateSort,
+  addExpenseBtn
 } from "../UI/elements";
 import { nanoid } from "nanoid";
 import {
@@ -22,14 +23,29 @@ import {
   renumberRows
 } from "../UI/render";
 
-export const handleAddExpense = function () {
-  expenseFormRow.classList.toggle("hidden");
+import { storage } from "../services/storage";
+import { addNewExpenseFormTemplate } from "../UI/templates";
+
+export const handleAddExpense = function (e) {
+  expensesContainer.insertAdjacentHTML(
+    "afterbegin",
+    addNewExpenseFormTemplate()
+  );
+
+  const formRow = expensesContainer
+    .querySelector(".fill-expenses-row")
+    .querySelector(".input_date");
+
+  formRow.focus();
+
+  addExpenseBtn.disabled = true;
 };
 
 export const handleSubmitForm = function (e) {
   e.preventDefault();
-  e.stopPropagation();
+  // e.stopPropagation();
 
+  // console.log(e);
   const formData = new FormData(e.target);
 
   const inputData = Object.fromEntries(formData.entries());
@@ -41,11 +57,27 @@ export const handleSubmitForm = function (e) {
   //update state
   state.updateExpenses(newExpense);
 
-  //reset form
-  e.target.reset();
+  //remove form
+  const formRow = expensesContainer.querySelector(".fill-expenses-row");
+  formRow.remove();
 
-  //hide form
-  handleAddExpense();
+  //enable add expense btn
+  addExpenseBtn.disabled = false;
+};
+
+export const handleCancelAddExpense = function (e) {
+  // console.log(e.target);
+  e.stopPropagation();
+
+  const btnCancel = e.target.classList.contains("cancel_addExpense");
+  if (!btnCancel) return;
+
+  //remove form
+  const formRow = expensesContainer.querySelector(".fill-expenses-row");
+  formRow.remove();
+
+  //enable add expense btn
+  addExpenseBtn.disabled = false;
 };
 
 export const handleEditExpense = function (e) {
@@ -115,7 +147,7 @@ export const handleDeleteExpense = function (e) {
 
 export const handleSelectAllExpenses = function (e) {
   const isChecked = e.target.checked;
-  const rows = expensesContainer.querySelectorAll("tr");
+  const rows = expensesContainer.querySelectorAll(".expense-item");
 
   rows.forEach((row) => {
     const inputCheckbox = row.querySelector("input[type='checkbox']");
@@ -132,7 +164,7 @@ export const handleSelectAllExpenses = function (e) {
   });
 
   if (isChecked) {
-    toggleMultiSelect(rows.length - 1);
+    toggleMultiSelect(rows.length);
   } else {
     toggleMultiSelect(0);
   }
@@ -144,16 +176,17 @@ export const handleMultiSelectExpenses = function (e) {
 
   if (e.target.tagName !== "INPUT") return;
 
-  const rows = this.querySelectorAll("tr");
-  count = rows.length - 1;
+  const rows = this.querySelectorAll(".expense-item");
+
+  count = 0;
 
   rows.forEach((item) => {
     const checkBox = item.querySelector('input[type="checkbox"]');
     if (checkBox) {
       if (!checkBox.checked) {
-        count--;
         item.classList.remove("bg-gray-100");
       } else {
+        count++;
         item.classList.add("bg-gray-100");
       }
     }
@@ -167,7 +200,7 @@ export const handleMultiSelectExpenses = function (e) {
     toggleMultiSelect(count);
   }
 
-  if (count === rows.length - 1) {
+  if (count === rows.length) {
     selectAllCheckbox.checked = true;
   } else {
     selectAllCheckbox.checked = false;
@@ -228,13 +261,28 @@ export const handleSortingDate = function () {
     sortAsc.classList.remove("text-blue-500");
     sortDsc.classList.add("text-blue-500");
   }
-
   //render the list
+  btnClearDateSort.classList.remove("hidden");
   renderExpenses(expenses);
+};
+
+export const handleClearSortedDate = function () {
+  //clear the sorting order
+  state.expenses = storage.loadExpenses();
+
+  renderExpenses(state.expenses);
+
+  btnClearDateSort.classList.add("hidden");
+  sortAsc.classList.remove("text-blue-500");
+  sortDsc.classList.remove("text-blue-500");
 };
 
 /*
 sorting date and amount
+
+clear date sorting feature
+implement sort by amount
+
 filter by category
 search bar for keywords (highlight matches)
 

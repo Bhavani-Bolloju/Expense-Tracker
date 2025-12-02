@@ -3,7 +3,7 @@ import { formatDate } from "../utils/format";
 export function expenseTemplate(item, rowNum) {
   // console.log(item, rowNum);
 
-  const row = `<tr class="item-${
+  const row = `<tr class="expense-item item-${
     item.id
   } not-last:border-b-2 border-gray-200  group static" data-id="${item.id}" >
                 <td class="px-2.5 py-3">
@@ -121,5 +121,80 @@ export function expenseTemplate(item, rowNum) {
   return row;
 
   // document.querySelector(".expenses_list").insertAdjacentHTML("beforeend", row);
+}
+
+export function addNewExpenseFormTemplate() {
+  return `
+          <tr class="fill-expenses-row border-b-2 border-gray-200">
+            <td class="px-2.5 py-3"></td>
+            <td class="px-2.5 py-3 min-w-5"></td>
+            <td class="px-2.5 py-3">
+              <input
+                type="date"
+                class="border border-gray-400 px-2 input_date"
+                name="date"
+                form="expenseForm"
+                required
+              />
+            </td>
+            <td class="px-5 py-3">
+              <input
+                type="text"
+                placeholder="enter category"
+                class="border border-gray-400 px-2 input_category"
+                name="category"
+                form="expenseForm"
+                required
+              />
+            </td>
+
+            <td class="px-2.5 py-3 text-start">
+              <input
+                type="text"
+                placeholder="Enter description"
+                class="border border-gray-400 px-2 input_description"
+                name="description"
+                form="expenseForm"
+                required
+              />
+            </td>
+            <td class="px-2.5 py-3 text-center">
+              <input
+                type="number"
+                placeholder="Enter Amount"
+                class="border border-gray-400 px-2 input_amount"
+                name="amount"
+                form="expenseForm"
+                required
+              />
+            </td>
+            <td class="px-2.5 py-3 text-center">
+              <select
+                name="payment"
+                class="border border-gray-400 px-2 input_payment"
+                form="expenseForm"
+                required
+              >
+                <option value="cash">Cash</option>
+                <option value="debit">Debit</option>
+                <option value="credit">Credit</option>
+              </select>
+            </td>
+            <td class="px-2.5 py-3 text-center">
+              <button
+                type="submit"
+                form="expenseForm"
+                class="confirm hover:cursor-pointer"
+              >
+                Confirm
+              </button>
+              <span>/</span>
+              
+              <button class="cancel_addExpense hover:cursor-pointer" form="expenseForm" type="button"> 
+                Cancel
+              </button>
+            </td>
+          </tr>
+      `;
 }
 

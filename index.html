@@ -17,7 +17,9 @@
         <!-- <div>filter</div> -->
         <div>search</div>
         <p class="ml-2 bg-amber-300 items-selected"></p>
-        <button class="ml-auto border-2 px-5 hover:cursor-pointer add-expense">
+        <button
+          class="ml-auto border-2 px-5 hover:cursor-pointer add-expense disabled:cursor-not-allowed"
+        >
           Add Expenses
         </button>
 
@@ -29,6 +31,7 @@
       </div>
 
       <!-- <form class="edit_form" id="edit_form"></form> -->
+      <form class="expenseForm" id="expenseForm"></form>
       <table class="w-full">
         <thead>
           <tr class="bg-[#F4F7FC]">
@@ -80,7 +83,9 @@
                     />
                   </svg>
                 </button>
-                <button class="btn-clear-date hidden">
+                <button
+                  class="btn-clear-date hidden cursor-pointer hover:text-blue-400"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -154,74 +159,7 @@
             </th>
           </tr>
         </thead>
-        <tbody class="expenses_list group">
-          <form class="expenseForm" id="expenseForm"></form>
-          <tr class="fill-expenses-row hidden">
-            <td class="px-2.5 py-3"></td>
-            <td class="px-2.5 py-3 min-w-5"></td>
-            <td class="px-2.5 py-3">
-              <input
-                type="date"
-                class="border border-gray-400 px-2 input_date"
-                name="date"
-                form="expenseForm"
-                required
-              />
-            </td>
-            <td class="px-5 py-3">
-              <input
-                type="text"
-                placeholder="enter category"
-                class="border border-gray-400 px-2 input_catergory"
-                name="category"
-                form="expenseForm"
-                required
-              />
-            </td>
-
-            <td class="px-2.5 py-3 text-start">
-              <input
-                type="text"
-                placeholder="Enter description"
-                class="border border-gray-400 px-2 input_description"
-                name="description"
-                form="expenseForm"
-                required
-              />
-            </td>
-            <td class="px-2.5 py-3 text-center">
-              <input
-                type="number"
-                placeholder="Enter Amount"
-                class="border border-gray-400 px-2 input_amount"
-                name="amount"
-                form="expenseForm"
-                required
-              />
-            </td>
-            <td class="px-2.5 py-3 text-center">
-              <select
-                name="payment"
-                class="border border-gray-400 px-2 input_payment"
-                form="expenseForm"
-                required
-              >
-                <option value="cash">Cash</option>
-                <option value="debit">Debit</option>
-                <option value="credit">Credit</option>
-              </select>
-            </td>
-            <td class="px-2.5 py-3 text-center">
-              <button
-                type="submit"
-                form="expenseForm"
-                class="confirm cursor-pointer"
-              >
-                Confirm
-              </button>
-            </td>
-          </tr>
-        </tbody>
+        <tbody class="expenses_list group"></tbody>
       </table>
     </div>
     <script type="module" src="/src/main.js"></script>

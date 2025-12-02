@@ -13,14 +13,22 @@ import {
   handleMultiSelectExpenses,
   handleSelectAllExpenses,
   handleMultiSelectedExpensesDelete,
-  handleSortingDate
+  handleSortingDate,
+  handleClearSortedDate,
+  handleCancelAddExpense
 } from "./features/expenses";
 
 import { registerEvents } from "./core/events";
 
 //load & render initial expenses to the DOM
-const saved = storage.loadExpenses("expenses");
-state.expenses = saved ? saved : dummyData;
+const saved = storage.loadExpenses();
+
+if (!saved) {
+  storage.addExpenses(dummyData);
+}
+
+state.expenses = storage.loadExpenses();
+
 renderExpenses(state.expenses);
 
 //add new expense
@@ -34,6 +42,8 @@ registerEvents({
   onSelectExpenses: handleMultiSelectExpenses,
   onSelectAll: handleSelectAllExpenses,
   onMultiDelete: handleMultiSelectedExpensesDelete,
-  onDateSort: handleSortingDate
+  onDateSort: handleSortingDate,
+  onClearDateSort: handleClearSortedDate,
+  onCancelAddExpense: handleCancelAddExpense
 });
 
