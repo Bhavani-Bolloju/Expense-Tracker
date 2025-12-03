@@ -7,9 +7,11 @@ const deleteExpensesBtn = document.querySelector(".delete-expenses");
 const selectedItemsCount = document.querySelector(".items-selected");
 const selectAllCheckbox = document.querySelector(".select-all");
 const btnSortDate = document.querySelector(".btn-sort-date");
-const sortAsc = document.querySelector(".sort-asc");
-const sortDsc = document.querySelector(".sort-dsc");
+const btnSortAmount = document.querySelector(".btn-sort-amount");
+
 const btnClearDateSort = document.querySelector(".btn-clear-date");
+
+const btnClearAmountSort = document.querySelector(".btn-clear-amount");
 
 export {
   addExpenseBtn,
@@ -21,8 +23,8 @@ export {
   selectedItemsCount,
   selectAllCheckbox,
   btnSortDate,
-  sortAsc,
-  sortDsc,
-  btnClearDateSort
+  btnSortAmount,
+  btnClearDateSort,
+  btnClearAmountSort
 };
 

@@ -2,14 +2,17 @@ import {
   expensesContainer,
   selectAllCheckbox,
   btnClearDateSort,
-  addExpenseBtn
+  addExpenseBtn,
+  btnClearAmountSort
 } from "../UI/elements";
 import { nanoid } from "nanoid";
 import {
   removeNewFormElement,
   renderNewExpense,
   toggleMultiSelect,
-  renderExpenses
+  renderExpenses,
+  clearAmountSortingIndicators,
+  clearDateSortingIndicators
 } from "../UI/render";
 
 import { state } from "../core/state";
@@ -235,6 +238,8 @@ export const handleMultiSelectedExpensesDelete = function (e) {
 let orderDate = "asc";
 
 export const handleSortingDate = function (e) {
+  clearAmountSortingIndicators();
+
   const btnSortDate = e.target.closest(".btn-sort-date");
 
   const sortAsc = btnSortDate.querySelector(".sort-asc");
@@ -270,7 +275,7 @@ export const handleSortingDate = function (e) {
 };
 
 export const handleClearSorting = function (e) {
-  const row = e.target.closest(".col-date");
+  const row = e.target.closest("th");
   const sortAsc = row.querySelector(".sort-asc");
   const sortDsc = row.querySelector(".sort-dsc");
 
@@ -279,16 +284,52 @@ export const handleClearSorting = function (e) {
 
   renderExpenses(state.expenses);
 
-  btnClearDateSort.classList.add("hidden");
+  // btnClearDateSort.classList.add("hidden");
+
+  row.querySelector(".clear-sort").classList.add("hidden");
   sortAsc.classList.remove("text-blue-500");
   sortDsc.classList.remove("text-blue-500");
 };
 
-/*
-sorting date and amount
+let amountOrder = "asc";
 
-clear date sorting feature
-implement sort by amount
+export const handleSortingAmount = function (e) {
+  clearDateSortingIndicators();
+
+  const btnSortAmount = e.target.closest(".btn-sort-amount");
+
+  const sortAsc = btnSortAmount.querySelector(".sort-asc");
+  const sortDsc = btnSortAmount.querySelector(".sort-dsc");
+
+  let expenses = state.expenses;
+
+  if (amountOrder === "asc") {
+    // expenses = expenses.sort((a, b) => a.date - b.date);
+    expenses.sort((a, b) => +a.amount - +b.amount);
+
+    //update orderDate variable
+    amountOrder = "dsc";
+
+    //style the button -> asc order to reflect which order being displayed
+    sortAsc.classList.add("text-blue-500");
+    sortDsc.classList.remove("text-blue-500");
+  } else {
+    expenses.sort((a, b) => +b.amount - +a.amount);
+
+    amountOrder = "asc";
+
+    sortAsc.classList.remove("text-blue-500");
+    sortDsc.classList.add("text-blue-500");
+  }
+
+  //render the list
+  btnClearAmountSort.classList.remove("hidden");
+  renderExpenses(expenses);
+};
+
+//btn-clear-amount
+
+/*
 
 filter by category
 search bar for keywords (highlight matches)

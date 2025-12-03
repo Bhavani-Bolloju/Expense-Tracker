@@ -5,7 +5,9 @@ import {
   selectAllCheckbox,
   deleteExpensesBtn,
   btnSortDate,
-  btnClearDateSort
+  btnSortAmount,
+  btnClearDateSort,
+  btnClearAmountSort
 } from "../UI/elements";
 
 export function registerEvents({
@@ -19,7 +21,8 @@ export function registerEvents({
   onSelectAll,
   onMultiDelete,
   onDateSort,
-  onClearDateSort,
+  onAmountSort,
+  onClearSorting,
   onCancelAddExpense
 }) {
   addExpenseBtn.addEventListener("click", onAddExpense);
@@ -41,7 +44,10 @@ export function registerEvents({
   deleteExpensesBtn.addEventListener("click", onMultiDelete);
 
   btnSortDate.addEventListener("click", onDateSort);
+  btnSortAmount.addEventListener("click", onAmountSort);
 
-  btnClearDateSort.addEventListener("click", onClearDateSort);
+  btnClearDateSort.addEventListener("click", onClearSorting);
+
+  btnClearAmountSort.addEventListener("click", onClearSorting);
 }
 

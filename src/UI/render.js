@@ -3,7 +3,9 @@ import {
   expensesContainer,
   addExpenseBtn,
   deleteExpensesBtn,
-  selectedItemsCount
+  selectedItemsCount,
+  btnClearAmountSort,
+  btnClearDateSort
 } from "./elements";
 import { formatDate } from "../utils/format";
 
@@ -89,5 +91,28 @@ export function toggleMultiSelect(count) {
     deleteExpensesBtn.classList.add("hidden");
     selectedItemsCount.innerHTML = "";
   }
+}
+
+export function clearDateSortingIndicators() {
+  const btnSortDate = document.querySelector(".btn-sort-date");
+
+  const sortAsc = btnSortDate.querySelector(".sort-asc");
+  const sortDsc = btnSortDate.querySelector(".sort-dsc");
+
+  sortAsc.classList.remove("text-blue-500");
+  sortDsc.classList.remove("text-blue-500");
+
+  btnClearDateSort.classList.add("hidden");
+}
+export function clearAmountSortingIndicators() {
+  const btnSortAmount = document.querySelector(".btn-sort-amount");
+
+  const sortAsc = btnSortAmount.querySelector(".sort-asc");
+  const sortDsc = btnSortAmount.querySelector(".sort-dsc");
+
+  sortAsc.classList.remove("text-blue-500");
+  sortDsc.classList.remove("text-blue-500");
+
+  btnClearAmountSort.classList.add("hidden");
 }
 
