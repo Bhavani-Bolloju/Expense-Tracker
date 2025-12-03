@@ -1,8 +1,6 @@
 import {
   expensesContainer,
   selectAllCheckbox,
-  sortAsc,
-  sortDsc,
   btnClearDateSort,
   addExpenseBtn
 } from "../UI/elements";
@@ -234,19 +232,24 @@ export const handleMultiSelectedExpensesDelete = function (e) {
   toggleMultiSelect(0);
 };
 
-let order = "asc";
+let orderDate = "asc";
 
-export const handleSortingDate = function () {
+export const handleSortingDate = function (e) {
+  const btnSortDate = e.target.closest(".btn-sort-date");
+
+  const sortAsc = btnSortDate.querySelector(".sort-asc");
+  const sortDsc = btnSortDate.querySelector(".sort-dsc");
+
   let expenses = state.expenses;
 
-  if (order === "asc") {
+  if (orderDate === "asc") {
     // expenses = expenses.sort((a, b) => a.date - b.date);
     expenses.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
 
-    //update order variable
-    order = "dsc";
+    //update orderDate variable
+    orderDate = "dsc";
 
     //style the button -> asc order to reflect which order being displayed
     sortAsc.classList.add("text-blue-500");
@@ -256,7 +259,7 @@ export const handleSortingDate = function () {
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 
-    order = "asc";
+    orderDate = "asc";
 
     sortAsc.classList.remove("text-blue-500");
     sortDsc.classList.add("text-blue-500");
@@ -266,7 +269,11 @@ export const handleSortingDate = function () {
   renderExpenses(expenses);
 };
 
-export const handleClearSortedDate = function () {
+export const handleClearSorting = function (e) {
+  const row = e.target.closest(".col-date");
+  const sortAsc = row.querySelector(".sort-asc");
+  const sortDsc = row.querySelector(".sort-dsc");
+
   //clear the sorting order
   state.expenses = storage.loadExpenses();
 

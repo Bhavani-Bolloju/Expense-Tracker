@@ -53,8 +53,6 @@ export function updateSavedExpense(rowId, inputData) {
   const amountInputEl = row?.querySelector(".amount_value");
   const paymentInputEl = row?.querySelector(".payment_value");
 
-  console.log(inputData, "updateSavedExpenses");
-
   //update DOM
   dateInputEL.innerHTML = formatDate(inputData.date);
   categoryInputEl.innerHTML = inputData.category;

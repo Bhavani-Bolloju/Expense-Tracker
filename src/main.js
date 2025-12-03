@@ -14,7 +14,7 @@ import {
   handleSelectAllExpenses,
   handleMultiSelectedExpensesDelete,
   handleSortingDate,
-  handleClearSortedDate,
+  handleClearSorting,
   handleCancelAddExpense
 } from "./features/expenses";
 
@@ -43,7 +43,7 @@ registerEvents({
   onSelectAll: handleSelectAllExpenses,
   onMultiDelete: handleMultiSelectedExpensesDelete,
   onDateSort: handleSortingDate,
-  onClearDateSort: handleClearSortedDate,
+  onClearDateSort: handleClearSorting,
   onCancelAddExpense: handleCancelAddExpense
 });
 
