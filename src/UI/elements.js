@@ -13,6 +13,8 @@ const btnClearDateSort = document.querySelector(".btn-clear-date");
 
 const btnClearAmountSort = document.querySelector(".btn-clear-amount");
 
+const selectFilterCategory = document.querySelector(".filter-category");
+
 export {
   addExpenseBtn,
   expenseForm,
@@ -25,6 +27,7 @@ export {
   btnSortDate,
   btnSortAmount,
   btnClearDateSort,
-  btnClearAmountSort
+  btnClearAmountSort,
+  selectFilterCategory
 };
 

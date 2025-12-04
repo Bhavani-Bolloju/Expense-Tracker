@@ -1,4 +1,5 @@
 import { formatDate } from "../utils/format";
+import { state } from "../core/state";
 
 export function expenseTemplate(item, rowNum) {
   // console.log(item, rowNum);
@@ -41,6 +42,8 @@ export function expenseTemplate(item, rowNum) {
                      form="edit_form-${item.id}"
                       required
                     />
+                    
+               
                   </span>
                 </td>
 
@@ -119,11 +122,16 @@ export function expenseTemplate(item, rowNum) {
    `;
 
   return row;
-
   // document.querySelector(".expenses_list").insertAdjacentHTML("beforeend", row);
 }
 
 export function addNewExpenseFormTemplate() {
+  const filterTypes = state.expenses
+    .filter((item) => item.category)
+    .map((item) => item.category);
+
+  const uniqueTypes = new Set(filterTypes);
+
   return `
           <tr class="fill-expenses-row border-b-2 border-gray-200">
             <td class="px-2.5 py-3"></td>
@@ -139,13 +147,21 @@ export function addNewExpenseFormTemplate() {
             </td>
             <td class="px-5 py-3">
               <input
-                type="text"
                 placeholder="enter category"
                 class="border border-gray-400 px-2 input_category"
                 name="category"
+                list = "category"
                 form="expenseForm"
                 required
               />
+              
+               <datalist id="category">
+                  ${[...uniqueTypes]
+                    .map((type) => {
+                      return `<option value="${type}"></option>`;
+                    })
+                    .join("")}
+                </datalist>
             </td>
 
             <td class="px-2.5 py-3 text-start">

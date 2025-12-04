@@ -1,7 +1,7 @@
 import { storage } from "./services/storage";
 import { state } from "./core/state";
 import { dummyData } from "./core/state";
-import { renderExpenses } from "./UI/render";
+import { renderExpenses, displayFilterCategoryOptions } from "./UI/render";
 
 import {
   handleAddExpense,
@@ -16,7 +16,8 @@ import {
   handleSortingDate,
   handleClearSorting,
   handleCancelAddExpense,
-  handleSortingAmount
+  handleSortingAmount,
+  handleFilterCategory
 } from "./features/expenses";
 
 import { registerEvents } from "./core/events";
@@ -32,6 +33,8 @@ state.expenses = storage.loadExpenses();
 
 renderExpenses(state.expenses);
 
+displayFilterCategoryOptions(state.expenses);
+
 //add new expense
 registerEvents({
   onAddExpense: handleAddExpense,
@@ -46,6 +49,7 @@ registerEvents({
   onDateSort: handleSortingDate,
   onAmountSort: handleSortingAmount,
   onClearSorting: handleClearSorting,
-  onCancelAddExpense: handleCancelAddExpense
+  onCancelAddExpense: handleCancelAddExpense,
+  onFilterCategory: handleFilterCategory
 });
 

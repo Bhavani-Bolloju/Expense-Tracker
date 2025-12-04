@@ -5,7 +5,8 @@ import {
   deleteExpensesBtn,
   selectedItemsCount,
   btnClearAmountSort,
-  btnClearDateSort
+  btnClearDateSort,
+  selectFilterCategory
 } from "./elements";
 import { formatDate } from "../utils/format";
 
@@ -23,7 +24,7 @@ export function renderExpenses(expenses) {
 
 export function renderNewExpense(expense, rowId) {
   const row = expenseTemplate(expense, rowId);
-  expensesContainer.insertAdjacentHTML("beforeend", row);
+  expensesContainer.insertAdjacentHTML("afterbegin", row);
 }
 
 export function toggleEditExpense(rowId) {
@@ -114,5 +115,20 @@ export function clearAmountSortingIndicators() {
   sortDsc.classList.remove("text-blue-500");
 
   btnClearAmountSort.classList.add("hidden");
+}
+
+export function displayFilterCategoryOptions(expenses) {
+  const filterTypes = expenses
+    .filter((item) => item.category)
+    .map((item) => item.category);
+
+  const uniqueTypes = new Set(filterTypes);
+
+  [...uniqueTypes].forEach((category) => {
+    const optionEl = document.createElement("option");
+    optionEl.value = category;
+    optionEl.textContent = category;
+    selectFilterCategory.appendChild(optionEl);
+  });
 }
 

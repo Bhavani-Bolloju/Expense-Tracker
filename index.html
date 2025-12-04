@@ -16,6 +16,16 @@
       <div class="flex bg-[#F4F7FC] p-2 w-full">
         <!-- <div>filter</div> -->
         <div>search</div>
+        <div class="ml-2 flex items-center gap-3">
+          <label for="Category">Category Filter:</label>
+          <select
+            name="Category"
+            id="Category"
+            class="filter-category border border-gray-300 px-4 py-1 text-sm"
+          >
+            <option value="All">All</option>
+          </select>
+        </div>
         <p class="ml-2 bg-amber-300 items-selected"></p>
         <button
           class="ml-auto border-2 px-5 hover:cursor-pointer add-expense disabled:cursor-not-allowed"

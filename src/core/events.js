@@ -7,7 +7,8 @@ import {
   btnSortDate,
   btnSortAmount,
   btnClearDateSort,
-  btnClearAmountSort
+  btnClearAmountSort,
+  selectFilterCategory
 } from "../UI/elements";
 
 export function registerEvents({
@@ -23,7 +24,8 @@ export function registerEvents({
   onDateSort,
   onAmountSort,
   onClearSorting,
-  onCancelAddExpense
+  onCancelAddExpense,
+  onFilterCategory
 }) {
   addExpenseBtn.addEventListener("click", onAddExpense);
   expenseForm.addEventListener("submit", onSubmitForm);
@@ -49,5 +51,7 @@ export function registerEvents({
   btnClearDateSort.addEventListener("click", onClearSorting);
 
   btnClearAmountSort.addEventListener("click", onClearSorting);
+
+  selectFilterCategory.addEventListener("change", onFilterCategory);
 }
 

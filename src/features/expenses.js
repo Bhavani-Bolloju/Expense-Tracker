@@ -58,6 +58,8 @@ export const handleSubmitForm = function (e) {
   //update state
   state.updateExpenses(newExpense);
 
+  renumberRows();
+
   //remove form
   const formRow = expensesContainer.querySelector(".fill-expenses-row");
   formRow.remove();
@@ -327,12 +329,27 @@ export const handleSortingAmount = function (e) {
   renderExpenses(expenses);
 };
 
+export const handleFilterCategory = function (e) {
+  // console.log(e.target.value, 'selected category');
+  const selectedType = e.target.value;
+
+  let filteredExpenses = state.expenses;
+
+  if (selectedType !== "All") {
+    filteredExpenses = state.expenses.filter(
+      (item) => item.category === selectedType
+    );
+  }
+
+  renderExpenses(filteredExpenses);
+};
+
 //btn-clear-amount
 
 /*
 
 filter by category
-search bar for keywords (highlight matches)
+search bar for keywords (highlight matches) 
 
 light/dark mode toggling
 pagination
