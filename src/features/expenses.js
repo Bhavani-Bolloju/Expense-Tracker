@@ -247,7 +247,7 @@ export const handleSortingDate = function (e) {
   const sortAsc = btnSortDate.querySelector(".sort-asc");
   const sortDsc = btnSortDate.querySelector(".sort-dsc");
 
-  let expenses = state.expenses;
+  let expenses = [...state.expenses];
 
   if (orderDate === "asc") {
     // expenses = expenses.sort((a, b) => a.date - b.date);
@@ -282,7 +282,7 @@ export const handleClearSorting = function (e) {
   const sortDsc = row.querySelector(".sort-dsc");
 
   //clear the sorting order
-  state.expenses = storage.loadExpenses();
+  // state.expenses = storage.loadExpenses();
 
   renderExpenses(state.expenses);
 
@@ -333,15 +333,19 @@ export const handleFilterCategory = function (e) {
   // console.log(e.target.value, 'selected category');
   const selectedType = e.target.value;
 
-  let filteredExpenses = state.expenses;
+  let filteredExpenses = storage.loadExpenses();
 
   if (selectedType !== "All") {
-    filteredExpenses = state.expenses.filter(
+    filteredExpenses = filteredExpenses.filter(
       (item) => item.category === selectedType
     );
   }
 
   renderExpenses(filteredExpenses);
+  clearAmountSortingIndicators();
+  clearDateSortingIndicators();
+
+  state.expenses = filteredExpenses;
 };
 
 //btn-clear-amount

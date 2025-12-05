@@ -118,9 +118,7 @@ export function clearAmountSortingIndicators() {
 }
 
 export function displayFilterCategoryOptions(expenses) {
-  const filterTypes = expenses
-    .filter((item) => item.category)
-    .map((item) => item.category);
+  const filterTypes = expenses.map((item) => item.category);
 
   const uniqueTypes = new Set(filterTypes);
 
