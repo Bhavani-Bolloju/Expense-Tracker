@@ -6,7 +6,9 @@ import {
   selectedItemsCount,
   btnClearAmountSort,
   btnClearDateSort,
-  selectFilterCategory
+  selectFilterCategory,
+  totalPagesEl,
+  currPageEl
 } from "./elements";
 import { formatDate } from "../utils/format";
 
@@ -130,3 +132,10 @@ export function displayFilterCategoryOptions(expenses) {
   });
 }
 
+export function updateTotalPages(count) {
+  totalPagesEl.textContent = count;
+}
+
+export function updateCurrentPage(count) {
+  currPageEl.textContent = count;
+}

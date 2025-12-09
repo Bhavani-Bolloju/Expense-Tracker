@@ -1,7 +1,12 @@
 import { storage } from "./services/storage";
 import { state } from "./core/state";
 import { dummyData } from "./core/state";
-import { renderExpenses, displayFilterCategoryOptions } from "./UI/render";
+import {
+  renderExpenses,
+  displayFilterCategoryOptions,
+  updateTotalPages
+} from "./UI/render";
+import { pagination } from "./services/pagination";
 
 import {
   handleAddExpense,
@@ -17,7 +22,10 @@ import {
   handleClearSorting,
   handleCancelAddExpense,
   handleSortingAmount,
-  handleFilterCategory
+  handleFilterCategory,
+  handleSearchWithKeywords,
+  handleNextPage,
+  handlePrevPage
 } from "./features/expenses";
 
 import { registerEvents } from "./core/events";
@@ -29,11 +37,17 @@ if (!saved) {
   storage.addExpenses(dummyData);
 }
 
-state.expenses = storage.loadExpenses();
+const currPageItems = pagination.getPageItems();
+
+state.expenses = currPageItems;
 
 renderExpenses(state.expenses);
 
 displayFilterCategoryOptions(state.expenses);
+
+const totalPages = pagination.totalPageCount;
+
+updateTotalPages(totalPages);
 
 //add new expense
 registerEvents({
@@ -50,6 +64,9 @@ registerEvents({
   onAmountSort: handleSortingAmount,
   onClearSorting: handleClearSorting,
   onCancelAddExpense: handleCancelAddExpense,
-  onFilterCategory: handleFilterCategory
+  onFilterCategory: handleFilterCategory,
+  onSearchWithKeywords: handleSearchWithKeywords,
+  onNextPage: handleNextPage,
+  onPrevPage: handlePrevPage
 });
 

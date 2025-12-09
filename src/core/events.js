@@ -8,7 +8,10 @@ import {
   btnSortAmount,
   btnClearDateSort,
   btnClearAmountSort,
-  selectFilterCategory
+  selectFilterCategory,
+  inputSearchEl,
+  btnNextEl,
+  btnPrevEl
 } from "../UI/elements";
 
 export function registerEvents({
@@ -25,7 +28,10 @@ export function registerEvents({
   onAmountSort,
   onClearSorting,
   onCancelAddExpense,
-  onFilterCategory
+  onFilterCategory,
+  onSearchWithKeywords,
+  onNextPage,
+  onPrevPage
 }) {
   addExpenseBtn.addEventListener("click", onAddExpense);
   expenseForm.addEventListener("submit", onSubmitForm);
@@ -53,5 +59,10 @@ export function registerEvents({
   btnClearAmountSort.addEventListener("click", onClearSorting);
 
   selectFilterCategory.addEventListener("change", onFilterCategory);
+
+  inputSearchEl.addEventListener("input", onSearchWithKeywords);
+
+  btnNextEl.addEventListener("click", onNextPage);
+  btnPrevEl.addEventListener("click", onPrevPage);
 }
 

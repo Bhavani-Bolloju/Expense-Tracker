@@ -13,9 +13,20 @@
     <div
       class="w-[1300px] m-auto border-2 border-gray-300 rounded-s-md overflow-hidden my-8"
     >
-      <div class="flex bg-[#F4F7FC] p-2 w-full">
+      <div class="flex items-center bg-[#F4F7FC] p-2 w-full">
         <!-- <div>filter</div> -->
-        <div>search</div>
+        <div class="flex items-center search-container">
+          <input
+            id="search_keyword"
+            type="search"
+            class="border-2 border-gray-200 input_search"
+          />
+          <label
+            for="search_keyword"
+            class="border-2 border-gray-300 bg-gray-100 px-2"
+            >Search</label
+          >
+        </div>
         <div class="ml-2 flex items-center gap-3">
           <label for="Category">Category Filter:</label>
           <select
@@ -186,6 +197,22 @@
         </thead>
         <tbody class="expenses_list group"></tbody>
       </table>
+    </div>
+    <div class="w-[1300px] m-auto rounded-s-md overflow-hidden my-8">
+      <div></div>
+      <div class="flex">
+        <div class="mr-5">
+          <span class="currPage_num">1</span>
+          of
+          <span class="total_pages">10</span>
+        </div>
+        <button class="btn_prev capitalize border px-2 cursor-pointer">
+          prev
+        </button>
+        <button class="btn_next capitalize border px-2 cursor-pointer">
+          next
+        </button>
+      </div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>

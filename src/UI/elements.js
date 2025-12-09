@@ -15,6 +15,14 @@ const btnClearAmountSort = document.querySelector(".btn-clear-amount");
 
 const selectFilterCategory = document.querySelector(".filter-category");
 
+const inputSearchEl = document.querySelector(".input_search");
+
+const btnNextEl = document.querySelector(".btn_next");
+const btnPrevEl = document.querySelector(".btn_prev");
+
+const currPageEl = document.querySelector(".currPage_num");
+const totalPagesEl = document.querySelector(".total_pages");
+
 export {
   addExpenseBtn,
   expenseForm,
@@ -28,6 +36,11 @@ export {
   btnSortAmount,
   btnClearDateSort,
   btnClearAmountSort,
-  selectFilterCategory
+  selectFilterCategory,
+  inputSearchEl,
+  btnNextEl,
+  btnPrevEl,
+  currPageEl,
+  totalPagesEl
 };
 

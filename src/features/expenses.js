@@ -17,11 +17,15 @@ import {
 
 import { state } from "../core/state";
 
+import { pagination } from "../services/pagination";
+
 import {
   toggleEditExpense,
   createNewFormElement,
   updateSavedExpense,
-  renumberRows
+  renumberRows,
+  updateTotalPages,
+  updateCurrentPage
 } from "../UI/render";
 
 import { storage } from "../services/storage";
@@ -44,7 +48,6 @@ export const handleAddExpense = function (e) {
 
 export const handleSubmitForm = function (e) {
   e.preventDefault();
-  // e.stopPropagation();
 
   // console.log(e);
   const formData = new FormData(e.target);
@@ -348,6 +351,41 @@ export const handleFilterCategory = function (e) {
   state.expenses = filteredExpenses;
 };
 
+export const handleSearchWithKeywords = function (e) {
+  const keyword = e.target.value;
+
+  const filterItemsByKeywords = state.expenses.filter(
+    (item) =>
+      item.category.includes(keyword) ||
+      item.description.includes(keyword) ||
+      item.payment.includes(keyword)
+  );
+
+  renderExpenses(filterItemsByKeywords);
+};
+
+export const handleNextPage = function () {
+  pagination.nextPage();
+
+  const totalItems = pagination.getPageItems();
+
+  renderExpenses(totalItems);
+
+  updateTotalPages(pagination.totalPageCount);
+  updateCurrentPage(pagination.currentPage);
+};
+
+export const handlePrevPage = function () {
+  pagination.prevPage();
+
+  const totalItems = pagination.getPageItems();
+
+  renderExpenses(totalItems);
+
+  updateTotalPages(pagination.totalPageCount);
+  updateCurrentPage(pagination.currentPage);
+};
+
 //btn-clear-amount
 
 /*
@@ -357,6 +395,20 @@ search bar for keywords (highlight matches)
 
 light/dark mode toggling
 pagination
+
+
+
+
+
+*/
+
+/*
+  
+- rest API
+- logic form - accessibility
+
+basic react
+- refer to the libraries
 
 
 
