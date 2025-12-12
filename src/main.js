@@ -6,6 +6,7 @@ import {
   displayFilterCategoryOptions,
   updateTotalPages
 } from "./UI/render";
+
 import { pagination } from "./services/pagination";
 
 import {
@@ -31,23 +32,27 @@ import {
 import { registerEvents } from "./core/events";
 
 //load & render initial expenses to the DOM
-const saved = storage.loadExpenses();
+let saved = storage.loadExpenses();
 
 if (!saved) {
   storage.addExpenses(dummyData);
+  // state.expenses = dummyData;
+  saved = storage.loadExpenses();
 }
 
-const currPageItems = pagination.getPageItems();
+state.expenses = saved;
 
-state.expenses = currPageItems;
+//set total expenses count
+pagination.setTotalItems(state.expenses.length);
 
-renderExpenses(state.expenses);
+//get items for the current page
+const currPageItems = pagination.getPageItems(state.expenses);
+
+// console.log(currPageItems, "curr");
+renderExpenses(currPageItems);
 
 displayFilterCategoryOptions(state.expenses);
-
-const totalPages = pagination.totalPageCount;
-
-updateTotalPages(totalPages);
+updateTotalPages(pagination.totalPageCount);
 
 //add new expense
 registerEvents({

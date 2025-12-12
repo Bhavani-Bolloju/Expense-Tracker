@@ -17,8 +17,6 @@ import {
 
 import { state } from "../core/state";
 
-import { pagination } from "../services/pagination";
-
 import {
   toggleEditExpense,
   createNewFormElement,
@@ -30,6 +28,8 @@ import {
 
 import { storage } from "../services/storage";
 import { addNewExpenseFormTemplate } from "../UI/templates";
+
+import { pagination } from "../services/pagination";
 
 export const handleAddExpense = function (e) {
   expensesContainer.insertAdjacentHTML(
@@ -141,7 +141,9 @@ export const handleDeleteExpense = function (e) {
   if (!isBtnDelete) return;
 
   const row = e.target.closest("tr");
-  row.remove();
+  // row.remove();
+
+  // console.log(row, "row");
 
   //update expenses
   state.removeExpense(row.dataset.id);
@@ -149,6 +151,10 @@ export const handleDeleteExpense = function (e) {
   //update row serial number
   const rowNum = row.querySelector(".rowNum");
   renumberRows(rowNum);
+
+  const items = pagination.getPageItems();
+  // state.expenses = items;
+  renderExpenses(items);
 };
 
 export const handleSelectAllExpenses = function (e) {
@@ -250,7 +256,9 @@ export const handleSortingDate = function (e) {
   const sortAsc = btnSortDate.querySelector(".sort-asc");
   const sortDsc = btnSortDate.querySelector(".sort-dsc");
 
-  let expenses = [...state.expenses];
+  const getExpense = pagination.getPageItems(state.expenses);
+
+  let expenses = [...getExpense];
 
   if (orderDate === "asc") {
     // expenses = expenses.sort((a, b) => a.date - b.date);
@@ -277,23 +285,8 @@ export const handleSortingDate = function (e) {
   //render the list
   btnClearDateSort.classList.remove("hidden");
   renderExpenses(expenses);
-};
 
-export const handleClearSorting = function (e) {
-  const row = e.target.closest("th");
-  const sortAsc = row.querySelector(".sort-asc");
-  const sortDsc = row.querySelector(".sort-dsc");
-
-  //clear the sorting order
-  // state.expenses = storage.loadExpenses();
-
-  renderExpenses(state.expenses);
-
-  // btnClearDateSort.classList.add("hidden");
-
-  row.querySelector(".clear-sort").classList.add("hidden");
-  sortAsc.classList.remove("text-blue-500");
-  sortDsc.classList.remove("text-blue-500");
+  renumberRows();
 };
 
 let amountOrder = "asc";
@@ -306,7 +299,9 @@ export const handleSortingAmount = function (e) {
   const sortAsc = btnSortAmount.querySelector(".sort-asc");
   const sortDsc = btnSortAmount.querySelector(".sort-dsc");
 
-  let expenses = state.expenses;
+  const getExpenses = pagination.getPageItems(state.expenses);
+
+  let expenses = [...getExpenses];
 
   if (amountOrder === "asc") {
     // expenses = expenses.sort((a, b) => a.date - b.date);
@@ -330,6 +325,26 @@ export const handleSortingAmount = function (e) {
   //render the list
   btnClearAmountSort.classList.remove("hidden");
   renderExpenses(expenses);
+};
+
+export const handleClearSorting = function (e) {
+  const row = e.target.closest("th");
+  const sortAsc = row.querySelector(".sort-asc");
+  const sortDsc = row.querySelector(".sort-dsc");
+
+  //clear the sorting order
+  // state.expenses = storage.loadExpenses();
+
+  const getExpenses = pagination.getPageItems(state.expenses);
+  renderExpenses(getExpenses);
+
+  renumberRows();
+
+  // btnClearDateSort.classList.add("hidden");
+
+  row.querySelector(".clear-sort").classList.add("hidden");
+  sortAsc.classList.remove("text-blue-500");
+  sortDsc.classList.remove("text-blue-500");
 };
 
 export const handleFilterCategory = function (e) {
@@ -367,23 +382,35 @@ export const handleSearchWithKeywords = function (e) {
 export const handleNextPage = function () {
   pagination.nextPage();
 
-  const totalItems = pagination.getPageItems();
-
-  renderExpenses(totalItems);
+  const totalItems = pagination.getPageItems(state.expenses);
 
   updateTotalPages(pagination.totalPageCount);
   updateCurrentPage(pagination.currentPage);
+
+  clearAmountSortingIndicators();
+  clearDateSortingIndicators();
+  orderDate = "asc";
+  amountOrder = "asc";
+
+  renderExpenses(totalItems);
+  renumberRows();
 };
 
 export const handlePrevPage = function () {
   pagination.prevPage();
 
-  const totalItems = pagination.getPageItems();
-
-  renderExpenses(totalItems);
+  const totalItems = pagination.getPageItems(state.expenses);
 
   updateTotalPages(pagination.totalPageCount);
   updateCurrentPage(pagination.currentPage);
+
+  clearAmountSortingIndicators();
+  clearDateSortingIndicators();
+  orderDate = "asc";
+  amountOrder = "asc";
+
+  renderExpenses(totalItems);
+  renumberRows();
 };
 
 //btn-clear-amount

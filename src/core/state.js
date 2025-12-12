@@ -53,7 +53,7 @@ import { storage } from "../services/storage";
 export const dummyData = [
   {
     id: "1aer",
-    date: "2025-10-04",
+    date: "2025-02-04",
     category: "shopping",
     description: "family festival shopping",
     amount: 150,
@@ -69,7 +69,7 @@ export const dummyData = [
   },
   {
     id: "3kpl",
-    date: "2025-10-08",
+    date: "2025-04-08",
     category: "transport",
     description: "cab to office",
     amount: 18,
@@ -77,7 +77,7 @@ export const dummyData = [
   },
   {
     id: "4msq",
-    date: "2025-10-09",
+    date: "2025-08-09",
     category: "food",
     description: "lunch at restaurant",
     amount: 26,
@@ -85,7 +85,7 @@ export const dummyData = [
   },
   {
     id: "5ztu",
-    date: "2025-10-10",
+    date: "2025-05-10",
     category: "entertainment",
     description: "movie tickets",
     amount: 32,
@@ -93,7 +93,7 @@ export const dummyData = [
   },
   {
     id: "6wen",
-    date: "2025-10-11",
+    date: "2025-09-11",
     category: "health",
     description: "pharmacy purchase",
     amount: 14,
@@ -101,7 +101,7 @@ export const dummyData = [
   },
   {
     id: "7qaz",
-    date: "2025-10-12",
+    date: "2025-10-08",
     category: "utilities",
     description: "electricity bill payment",
     amount: 90,
@@ -109,7 +109,7 @@ export const dummyData = [
   },
   {
     id: "8nmk",
-    date: "2025-10-12",
+    date: "2025-11-12",
     category: "subscriptions",
     description: "netflix monthly",
     amount: 15,
@@ -117,7 +117,7 @@ export const dummyData = [
   },
   {
     id: "9poc",
-    date: "2025-10-13",
+    date: "2025-12-01",
     category: "fuel",
     description: "car fuel refill",
     amount: 55,
@@ -125,7 +125,7 @@ export const dummyData = [
   },
   {
     id: "10rty",
-    date: "2025-10-15",
+    date: "2025-11-15",
     category: "food",
     description: "coffee and snacks",
     amount: 12,
@@ -149,7 +149,7 @@ export const dummyData = [
   },
   {
     id: "13asw",
-    date: "2025-10-18",
+    date: "2025-02-18",
     category: "transport",
     description: "metro card top-up",
     amount: 25,
@@ -157,7 +157,7 @@ export const dummyData = [
   },
   {
     id: "14ujm",
-    date: "2025-10-19",
+    date: "2025-12-10",
     category: "fitness",
     description: "gym membership renewal",
     amount: 60,
@@ -165,7 +165,7 @@ export const dummyData = [
   },
   {
     id: "15cxz",
-    date: "2025-10-20",
+    date: "2025-06-20",
     category: "entertainment",
     description: "game purchase",
     amount: 45,
@@ -181,7 +181,7 @@ export const dummyData = [
   },
   {
     id: "17ghj",
-    date: "2025-10-22",
+    date: "2025-12-22",
     category: "subscriptions",
     description: "spotify premium",
     amount: 10,
@@ -197,7 +197,7 @@ export const dummyData = [
   },
   {
     id: "19edc",
-    date: "2025-10-24",
+    date: "2025-06-24",
     category: "food",
     description: "dinner with friends",
     amount: 48,
@@ -213,7 +213,7 @@ export const dummyData = [
   },
   {
     id: "21mju",
-    date: "2025-10-26",
+    date: "2025-03-26",
     category: "groceries",
     description: "monthly groceries",
     amount: 135,
@@ -237,7 +237,7 @@ export const dummyData = [
   },
   {
     id: "24zxc",
-    date: "2025-10-28",
+    date: "2025-05-28",
     category: "gifts",
     description: "birthday gift for friend",
     amount: 52,
@@ -245,7 +245,7 @@ export const dummyData = [
   },
   {
     id: "25tgb",
-    date: "2025-10-29",
+    date: "2025-01-29",
     category: "maintenance",
     description: "home cleaning service",
     amount: 85,
@@ -271,7 +271,7 @@ export const state = {
 
   removeExpense: function (id) {
     this.expenses = this.expenses.filter((item) => item.id !== id);
-    storage.addExpenses(this.expenses);
+    // storage.addExpenses(this.expenses);
   },
 
   removeMultipleExpenses: function (ids) {

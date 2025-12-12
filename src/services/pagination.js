@@ -1,21 +1,22 @@
-import { storage } from "./storage";
-
-class Pagination {
+export class Pagination {
   constructor(itemsPerPage = 10) {
-    this.itemsPerPage = itemsPerPage;
     this.currentPage = 1;
-    this.allExpenses = storage.loadExpenses();
+    this.itemsPerPage = itemsPerPage;
+    this._totalItems = 0;
   }
 
-  getPageItems() {
+  setTotalItems(totalCount) {
+    this._totalItems = totalCount;
+  }
+
+  getPageItems(items) {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    const currentPageExpenses = this.allExpenses.slice(start, end);
-    return currentPageExpenses;
+    return items.slice(start, end);
   }
 
   get totalPageCount() {
-    return Math.ceil(this.allExpenses.length / this.itemsPerPage);
+    return Math.ceil(this._totalItems / this.itemsPerPage);
   }
 
   get currentPageNum() {
@@ -26,7 +27,6 @@ class Pagination {
     if (this.currentPage < this.totalPageCount) {
       this.currentPage += 1;
     }
-
     return this.currentPage;
   }
 
@@ -34,7 +34,6 @@ class Pagination {
     if (this.currentPage > 1) {
       this.currentPage -= 1;
     }
-
     return this.currentPage;
   }
 }

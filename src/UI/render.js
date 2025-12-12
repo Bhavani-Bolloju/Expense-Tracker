@@ -12,6 +12,8 @@ import {
 } from "./elements";
 import { formatDate } from "../utils/format";
 
+import { pagination } from "../services/pagination";
+
 export function renderExpenses(expenses) {
   const list = expenses
     ?.map((item, index) => {
@@ -74,12 +76,16 @@ export function updateSavedExpense(rowId, inputData) {
 
 export function renumberRows() {
   const rows = expensesContainer.querySelectorAll(".expense-item");
+  const currentPage = pagination.currentPageNum;
+  const itemsPerPage = pagination.itemsPerPage;
 
   rows.forEach((row, i) => {
+    const newIndex = (currentPage - 1) * itemsPerPage + i + 1;
+
     const rowSerial = row.querySelector(".rowNum");
 
-    if (rowSerial && rowSerial.textContent !== i + 1) {
-      rowSerial.textContent = i + 1;
+    if (rowSerial && rowSerial.textContent !== newIndex) {
+      rowSerial.textContent = newIndex;
     }
   });
 }
@@ -139,3 +145,4 @@ export function updateTotalPages(count) {
 export function updateCurrentPage(count) {
   currPageEl.textContent = count;
 }
+
