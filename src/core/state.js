@@ -271,7 +271,7 @@ export const state = {
 
   removeExpense: function (id) {
     this.expenses = this.expenses.filter((item) => item.id !== id);
-    // storage.addExpenses(this.expenses);
+    storage.addExpenses(this.expenses);
   },
 
   removeMultipleExpenses: function (ids) {

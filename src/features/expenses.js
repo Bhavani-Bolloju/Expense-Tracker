@@ -26,10 +26,11 @@ import {
   updateCurrentPage
 } from "../UI/render";
 
-import { storage } from "../services/storage";
 import { addNewExpenseFormTemplate } from "../UI/templates";
 
 import { pagination } from "../services/pagination";
+
+import { expensesItems } from "../core/expensesItems";
 
 export const handleAddExpense = function (e) {
   expensesContainer.insertAdjacentHTML(
@@ -148,11 +149,9 @@ export const handleDeleteExpense = function (e) {
   //update expenses
   state.removeExpense(row.dataset.id);
 
-  //update row serial number
-  const rowNum = row.querySelector(".rowNum");
-  renumberRows(rowNum);
+  renumberRows();
 
-  const items = pagination.getPageItems();
+  const items = pagination.getPageItems(state.expenses);
   // state.expenses = items;
   renderExpenses(items);
 };
@@ -246,85 +245,57 @@ export const handleMultiSelectedExpensesDelete = function (e) {
   toggleMultiSelect(0);
 };
 
-let orderDate = "asc";
-
 export const handleSortingDate = function (e) {
+  //clear amount sorting
   clearAmountSortingIndicators();
+  expensesItems.setAmountSort(false, "asc");
 
   const btnSortDate = e.target.closest(".btn-sort-date");
-
   const sortAsc = btnSortDate.querySelector(".sort-asc");
   const sortDsc = btnSortDate.querySelector(".sort-dsc");
 
-  const getExpense = pagination.getPageItems(state.expenses);
-
-  let expenses = [...getExpense];
-
-  if (orderDate === "asc") {
-    // expenses = expenses.sort((a, b) => a.date - b.date);
-    expenses.sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-    );
-
-    //update orderDate variable
-    orderDate = "dsc";
-
-    //style the button -> asc order to reflect which order being displayed
+  //update Date sorting
+  if (expensesItems.dateSortOrder === "asc") {
+    expensesItems.setDateSort(true, "asc");
     sortAsc.classList.add("text-blue-500");
     sortDsc.classList.remove("text-blue-500");
   } else {
-    expenses.sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
-
-    orderDate = "asc";
-
+    expensesItems.setDateSort(true, "dsc");
     sortAsc.classList.remove("text-blue-500");
     sortDsc.classList.add("text-blue-500");
   }
-  //render the list
-  btnClearDateSort.classList.remove("hidden");
-  renderExpenses(expenses);
 
+  btnClearDateSort.classList.remove("hidden");
+
+  const items = expensesItems.getArrangedItems();
+  renderExpenses(items);
   renumberRows();
 };
 
-let amountOrder = "asc";
-
 export const handleSortingAmount = function (e) {
   clearDateSortingIndicators();
+  expensesItems.setDateSort(false, "asc");
 
   const btnSortAmount = e.target.closest(".btn-sort-amount");
 
   const sortAsc = btnSortAmount.querySelector(".sort-asc");
   const sortDsc = btnSortAmount.querySelector(".sort-dsc");
 
-  const getExpenses = pagination.getPageItems(state.expenses);
-
-  let expenses = [...getExpenses];
-
-  if (amountOrder === "asc") {
-    // expenses = expenses.sort((a, b) => a.date - b.date);
-    expenses.sort((a, b) => +a.amount - +b.amount);
-
-    //update orderDate variable
-    amountOrder = "dsc";
-
-    //style the button -> asc order to reflect which order being displayed
+  if (expensesItems.amountSortOrder === "asc") {
+    expensesItems.setAmountSort(true, "asc");
     sortAsc.classList.add("text-blue-500");
     sortDsc.classList.remove("text-blue-500");
   } else {
-    expenses.sort((a, b) => +b.amount - +a.amount);
-
-    amountOrder = "asc";
-
+    expensesItems.setAmountSort(true, "dsc");
     sortAsc.classList.remove("text-blue-500");
     sortDsc.classList.add("text-blue-500");
   }
 
+  const items = expensesItems.getArrangedItems();
   //render the list
   btnClearAmountSort.classList.remove("hidden");
-  renderExpenses(expenses);
+  renderExpenses(items);
+  renumberRows();
 };
 
 export const handleClearSorting = function (e) {
@@ -351,7 +322,7 @@ export const handleFilterCategory = function (e) {
   // console.log(e.target.value, 'selected category');
   const selectedType = e.target.value;
 
-  let filteredExpenses = storage.loadExpenses();
+  let filteredExpenses = pagination.getPageItems(state.expenses);
 
   if (selectedType !== "All") {
     filteredExpenses = filteredExpenses.filter(
@@ -369,7 +340,9 @@ export const handleFilterCategory = function (e) {
 export const handleSearchWithKeywords = function (e) {
   const keyword = e.target.value;
 
-  const filterItemsByKeywords = state.expenses.filter(
+  const expensesItems = pagination.getPageItems(state.expenses);
+
+  const filterItemsByKeywords = expensesItems.filter(
     (item) =>
       item.category.includes(keyword) ||
       item.description.includes(keyword) ||
@@ -423,22 +396,14 @@ search bar for keywords (highlight matches)
 light/dark mode toggling
 pagination
 
-
-
-
-
 */
 
 /*
-  
 - rest API
 - logic form - accessibility
 
 basic react
 - refer to the libraries
-
-
-
 
 */
 
