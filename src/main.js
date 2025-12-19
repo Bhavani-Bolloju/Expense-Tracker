@@ -54,7 +54,11 @@ renderExpenses(currPageItems);
 
 displayFilterCategoryOptions(state.expenses);
 updateTotalPages(pagination.totalPageCount);
+
+// console.log(currPageItems, "curr page");
 expensesItems.updateItems(currPageItems);
+
+// console.log(expensesItems.getArrangedItems());
 
 //add new expense
 registerEvents({

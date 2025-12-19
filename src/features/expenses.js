@@ -3,7 +3,9 @@ import {
   selectAllCheckbox,
   btnClearDateSort,
   addExpenseBtn,
-  btnClearAmountSort
+  btnClearAmountSort,
+  selectFilterCategory,
+  inputSearchEl
 } from "../UI/elements";
 import { nanoid } from "nanoid";
 import {
@@ -268,6 +270,7 @@ export const handleSortingDate = function (e) {
   btnClearDateSort.classList.remove("hidden");
 
   const items = expensesItems.getArrangedItems();
+
   renderExpenses(items);
   renumberRows();
 };
@@ -303,53 +306,46 @@ export const handleClearSorting = function (e) {
   const sortAsc = row.querySelector(".sort-asc");
   const sortDsc = row.querySelector(".sort-dsc");
 
-  //clear the sorting order
-  // state.expenses = storage.loadExpenses();
-
-  const getExpenses = pagination.getPageItems(state.expenses);
-  renderExpenses(getExpenses);
-
-  renumberRows();
-
-  // btnClearDateSort.classList.add("hidden");
-
   row.querySelector(".clear-sort").classList.add("hidden");
   sortAsc.classList.remove("text-blue-500");
   sortDsc.classList.remove("text-blue-500");
+
+  // const getExpenses = pagination.getPageItems(state.expenses);
+  // renderExpenses(getExpenses);
+
+  const items = expensesItems.getArrangedItems();
+  renderExpenses(items);
+
+  renumberRows();
 };
 
 export const handleFilterCategory = function (e) {
   // console.log(e.target.value, 'selected category');
   const selectedType = e.target.value;
 
-  let filteredExpenses = pagination.getPageItems(state.expenses);
+  const pageItems = pagination.getPageItems(state.expenses);
 
-  if (selectedType !== "All") {
-    filteredExpenses = filteredExpenses.filter(
-      (item) => item.category === selectedType
-    );
-  }
+  expensesItems.setFilterCategory(selectedType, pageItems);
 
-  renderExpenses(filteredExpenses);
+  const items = expensesItems.getArrangedItems();
+
+  renderExpenses(items);
   clearAmountSortingIndicators();
   clearDateSortingIndicators();
-
-  state.expenses = filteredExpenses;
 };
 
 export const handleSearchWithKeywords = function (e) {
   const keyword = e.target.value;
 
-  const expensesItems = pagination.getPageItems(state.expenses);
+  const pageItems = pagination.getPageItems(state.expenses);
 
-  const filterItemsByKeywords = expensesItems.filter(
-    (item) =>
-      item.category.includes(keyword) ||
-      item.description.includes(keyword) ||
-      item.payment.includes(keyword)
-  );
+  expensesItems.setSearchKeyword(keyword, pageItems);
 
-  renderExpenses(filterItemsByKeywords);
+  const items = expensesItems.getArrangedItems();
+
+  console.log(items);
+
+  renderExpenses(items);
 };
 
 export const handleNextPage = function () {
@@ -362,8 +358,16 @@ export const handleNextPage = function () {
 
   clearAmountSortingIndicators();
   clearDateSortingIndicators();
-  orderDate = "asc";
-  amountOrder = "asc";
+
+  expensesItems.setAmountSort(false, "asc");
+  expensesItems.setDateSort(false, "asc");
+  expensesItems.setFilterCategory("all", totalItems);
+  expensesItems.setSearchKeyword("", totalItems);
+
+  expensesItems.updateItems(totalItems);
+
+  selectFilterCategory.value = "all";
+  inputSearchEl.value = "";
 
   renderExpenses(totalItems);
   renumberRows();
@@ -379,8 +383,15 @@ export const handlePrevPage = function () {
 
   clearAmountSortingIndicators();
   clearDateSortingIndicators();
-  orderDate = "asc";
-  amountOrder = "asc";
+
+  expensesItems.setAmountSort(false, "asc");
+  expensesItems.setDateSort(false, "asc");
+  expensesItems.updateItems(totalItems);
+  expensesItems.setSearchKeyword("", totalItems);
+  expensesItems.updateItems(totalItems);
+
+  selectFilterCategory.value = "All";
+  inputSearchEl.value = "";
 
   renderExpenses(totalItems);
   renumberRows();
