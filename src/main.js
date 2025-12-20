@@ -30,7 +30,7 @@ import {
 } from "./features/expenses";
 
 import { registerEvents } from "./core/events";
-import { expensesItems } from "./core/expensesItems";
+// import { expensesItems } from "./core/expensesItems";
 
 //load & render initial expenses to the DOM
 let saved = storage.loadExpenses();
@@ -46,19 +46,15 @@ state.expenses = saved;
 //set total expenses count
 pagination.setTotalItems(state.expenses.length);
 
-//get items for the current page
 const currPageItems = pagination.getPageItems(state.expenses);
 
-// console.log(currPageItems, "curr");
 renderExpenses(currPageItems);
 
 displayFilterCategoryOptions(state.expenses);
 updateTotalPages(pagination.totalPageCount);
 
 // console.log(currPageItems, "curr page");
-expensesItems.updateItems(currPageItems);
-
-// console.log(expensesItems.getArrangedItems());
+// expensesItems.updateItems(currPageItems);
 
 //add new expense
 registerEvents({
