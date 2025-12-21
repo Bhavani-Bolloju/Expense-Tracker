@@ -7,6 +7,7 @@ class TableStateManager {
   }
 
   setDateSort(direction) {
+
     this.dateSort = direction;
     this.amountSort = "none";
   }

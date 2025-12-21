@@ -150,15 +150,18 @@ export const handleDeleteExpense = function (e) {
   //update expenses
   state.removeExpense(row.dataset.id);
 
-  renumberRows();
+  const expenses = pagination.getPageItems(state.expenses);
 
-  const pageItems = pagination.getPageItems(state.expenses);
+  if (tableStateManager.amountSort !== "none") {
+  }
 
-  // expensesItems.updateItems(pageItems);
+  if (tableStateManager.dateSort !== "none") {
+  }
 
-  // const items = expensesItems.deleteItemUpdate(expensesItems.items);
-  // state.expenses = items;
+  const items = tableStateManager.getProcessedItems(expenses);
+
   renderExpenses(items);
+  renumberRows();
 };
 
 export const handleSelectAllExpenses = function (e) {
@@ -259,26 +262,25 @@ export const handleSortingDate = function (e) {
   const sortDsc = btnSortDate.querySelector(".sort-dsc");
 
   if (tableStateManager.dateSort === "none") {
-    tableStateManager.setDateSort("asc");
+    tableStateManager.setDateSort("dsc");
   }
-
-  const expenses = pagination.getPageItems(state.expenses);
-
-  const items = tableStateManager.getProcessedItems(expenses);
 
   if (tableStateManager.dateSort === "asc") {
-    sortAsc.classList.add("text-blue-500");
-    sortDsc.classList.remove("text-blue-500");
-    tableStateManager.setDateSort("dsc");
-  } else {
     sortAsc.classList.remove("text-blue-500");
     sortDsc.classList.add("text-blue-500");
+    tableStateManager.setDateSort("dsc");
+  } else {
+    sortAsc.classList.add("text-blue-500");
+    sortDsc.classList.remove("text-blue-500");
     tableStateManager.setDateSort("asc");
   }
+
+  const items = tableStateManager.getProcessedItems(state.expenses);
+  const expenses = pagination.getPageItems(items);
 
   btnClearDateSort.classList.remove("hidden");
 
-  renderExpenses(items);
+  renderExpenses(expenses);
   renumberRows();
 };
 
@@ -291,25 +293,25 @@ export const handleSortingAmount = function (e) {
   const sortDsc = btnSortAmount.querySelector(".sort-dsc");
 
   if (tableStateManager.amountSort === "none") {
-    tableStateManager.setAmountSort("asc");
+    tableStateManager.setAmountSort("dsc");
   }
-
-  const expenses = pagination.getPageItems(state.expenses);
-  const items = tableStateManager.getProcessedItems(expenses);
 
   if (tableStateManager.amountSort === "asc") {
-    sortAsc.classList.add("text-blue-500");
-    sortDsc.classList.remove("text-blue-500");
-    tableStateManager.setAmountSort("dsc");
-  } else {
     sortAsc.classList.remove("text-blue-500");
     sortDsc.classList.add("text-blue-500");
+    tableStateManager.setAmountSort("dsc");
+  } else {
+    sortAsc.classList.add("text-blue-500");
+    sortDsc.classList.remove("text-blue-500");
     tableStateManager.setAmountSort("asc");
   }
+
+  const items = tableStateManager.getProcessedItems(state.expenses);
+  const expenses = pagination.getPageItems(items);
 
   btnClearAmountSort.classList.remove("hidden");
 
-  renderExpenses(items);
+  renderExpenses(expenses);
   renumberRows();
 };
 
@@ -322,14 +324,13 @@ export const handleClearSorting = function (e) {
   sortAsc.classList.remove("text-blue-500");
   sortDsc.classList.remove("text-blue-500");
 
-  const expenses = pagination.getPageItems(state.expenses);
-
   tableStateManager.setDateSort("none");
   tableStateManager.setAmountSort("none");
 
-  const items = tableStateManager.getProcessedItems(expenses);
+  const items = tableStateManager.getProcessedItems(state.expenses);
+  const expenses = pagination.getPageItems(items);
 
-  renderExpenses(items);
+  renderExpenses(expenses);
 
   renumberRows();
 };
@@ -338,41 +339,34 @@ export const handleFilterCategory = function (e) {
   // console.log(e.target.value, 'selected category');
   const selectedType = e.target.value;
 
-  const expenses = pagination.getPageItems(state.expenses);
-
   tableStateManager.setCategoryFilter(selectedType);
 
-  const items = tableStateManager.getProcessedItems(expenses);
+  const items = tableStateManager.getProcessedItems(state.expenses);
+  const expenses = pagination.getPageItems(items);
 
-  renderExpenses(items);
-  clearAmountSortingIndicators();
-  clearDateSortingIndicators();
+  renderExpenses(expenses);
+  // clearAmountSortingIndicators();
+  // clearDateSortingIndicators();
 };
 
 export const handleSearchWithKeywords = function (e) {
   const keyword = e.target.value;
 
-  const expenses = pagination.getPageItems(state.expenses);
-
   tableStateManager.setSearchKeyword(keyword);
+  const items = tableStateManager.getProcessedItems(state.expenses);
+  const expenses = pagination.getPageItems(items);
 
-  const items = tableStateManager.getProcessedItems(expenses);
-
-  renderExpenses(items);
+  renderExpenses(expenses);
 };
 
 export const handleNextPage = function () {
   pagination.nextPage();
 
-  const expenseItems = pagination.getPageItems(state.expenses);
+  const items = tableStateManager.getProcessedItems(state.expenses);
+  const expenseItems = pagination.getPageItems(items);
 
   updateTotalPages(pagination.totalPageCount);
   updateCurrentPage(pagination.currentPage);
-
-  clearAmountSortingIndicators();
-  clearDateSortingIndicators();
-
-  tableStateManager.clearFilters();
 
   renderExpenses(expenseItems);
   renumberRows();
@@ -381,16 +375,11 @@ export const handleNextPage = function () {
 export const handlePrevPage = function () {
   pagination.prevPage();
 
-  const expenseItems = pagination.getPageItems(state.expenses);
+  const items = tableStateManager.getProcessedItems(state.expenses);
+  const expenseItems = pagination.getPageItems(items);
 
   updateTotalPages(pagination.totalPageCount);
   updateCurrentPage(pagination.currentPage);
-
-  clearAmountSortingIndicators();
-  clearDateSortingIndicators();
-
-  tableStateManager.clearFilters();
-
   renderExpenses(expenseItems);
   renumberRows();
 };

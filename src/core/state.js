@@ -255,6 +255,7 @@ export const dummyData = [
 
 export const state = {
   expenses: null,
+
   updateExpenses: function (expense) {
     this.expenses.unshift(expense);
     storage.removeExpenses("expenses");
