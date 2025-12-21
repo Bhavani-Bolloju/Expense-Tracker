@@ -54,19 +54,21 @@ export const handleAddExpense = function (e) {
 export const handleSubmitForm = function (e) {
   e.preventDefault();
 
-  // console.log(e);
   const formData = new FormData(e.target);
 
   const inputData = Object.fromEntries(formData.entries());
   const newExpense = { ...inputData, id: nanoid(4) };
 
   //update UI
-  renderNewExpense(newExpense, state.expenses.length + 1);
+  // renderNewExpense(newExpense, state.expenses.length + 1);
 
   //update state
   state.updateExpenses(newExpense);
 
-  renumberRows();
+  const expenses = tableStateManager.getProcessedItems(state.expenses);
+  const items = pagination.getPageItems(expenses);
+
+  renderExpenses(items);
 
   //remove form
   const formRow = expensesContainer.querySelector(".fill-expenses-row");
@@ -150,17 +152,10 @@ export const handleDeleteExpense = function (e) {
   //update expenses
   state.removeExpense(row.dataset.id);
 
-  const expenses = pagination.getPageItems(state.expenses);
+  const items = tableStateManager.getProcessedItems(state.expenses);
+  const expenses = pagination.getPageItems(items);
 
-  if (tableStateManager.amountSort !== "none") {
-  }
-
-  if (tableStateManager.dateSort !== "none") {
-  }
-
-  const items = tableStateManager.getProcessedItems(expenses);
-
-  renderExpenses(items);
+  renderExpenses(expenses);
   renumberRows();
 };
 
@@ -345,8 +340,6 @@ export const handleFilterCategory = function (e) {
   const expenses = pagination.getPageItems(items);
 
   renderExpenses(expenses);
-  // clearAmountSortingIndicators();
-  // clearDateSortingIndicators();
 };
 
 export const handleSearchWithKeywords = function (e) {
