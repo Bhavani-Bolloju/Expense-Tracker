@@ -3,11 +3,7 @@ import {
   selectAllCheckbox,
   btnClearDateSort,
   addExpenseBtn,
-  btnClearAmountSort,
-  selectFilterCategory,
-  inputSearchEl,
-  totalPagesEl,
-  currPageEl
+  btnClearAmountSort
 } from "../UI/elements";
 import { nanoid } from "nanoid";
 import {
@@ -23,19 +19,14 @@ import { state } from "../core/state";
 import {
   toggleEditExpense,
   createNewFormElement,
-  updateSavedExpense,
   renumberRows,
   updateTotalPages,
   updateCurrentPage
 } from "../UI/render";
 
 import { addNewExpenseFormTemplate } from "../UI/templates";
-
 import { pagination } from "../services/pagination";
-
 import { tableStateManager } from "../services/tableStateManager";
-
-// import { expensesItems } from "../core/expensesItems";
 
 export const handleAddExpense = function (e) {
   expensesContainer.insertAdjacentHTML(
@@ -66,8 +57,13 @@ export const handleSubmitForm = function (e) {
   const expenses = tableStateManager.getProcessedItems(state.expenses);
   const items = pagination.getPageItems(expenses);
 
-  renderExpenses(items);
+  const totalPages = pagination.totalPageCount;
+  const currPage = pagination.currentPageNum;
 
+  updateTotalPages(totalPages);
+  updateCurrentPage(currPage);
+
+  renderExpenses(items);
   //remove form
   const formRow = expensesContainer.querySelector(".fill-expenses-row");
   formRow.remove();
@@ -121,11 +117,16 @@ export const handleSubmitEditExpense = function (e) {
   const formData = new FormData(form);
   const inputData = Object.fromEntries(formData.entries());
 
-  //update UI
-  updateSavedExpense(formId, inputData);
-
   //update storage
   state.updateEditedExpense(formId, inputData);
+
+  const expenses = tableStateManager.getProcessedItems(state.expenses);
+
+  const items = pagination.getPageItems(expenses);
+
+  renderExpenses(items);
+
+  renumberRows();
 };
 
 export const handleCancelEdit = function (e) {
@@ -151,7 +152,16 @@ export const handleDeleteExpense = function (e) {
   state.removeExpense(row.dataset.id);
 
   const items = tableStateManager.getProcessedItems(state.expenses);
+
+  pagination.setTotalItems(items.length);
+
   const expenses = pagination.getPageItems(items);
+
+  const totalPages = pagination.totalPageCount;
+  const currPage = pagination.currentPageNum;
+
+  updateTotalPages(totalPages);
+  updateCurrentPage(currPage);
 
   renderExpenses(expenses);
   renumberRows();
@@ -230,17 +240,33 @@ export const handleMultiSelectedExpensesDelete = function (e) {
 
     if (checkbox && checkbox.checked) {
       const id = checkbox.dataset.check;
-      row.remove();
+      // row.remove();
       deleteIds.add(id);
     }
   });
 
   //remove all the items from the state
   state.removeMultipleExpenses(deleteIds);
-  selectAllCheckbox.checked = false;
 
+  //update UI
+
+  const expenses = tableStateManager.getProcessedItems(state.expenses);
+
+  pagination.setTotalItems(expenses.length);
+
+  const items = pagination.getPageItems(expenses);
+
+  const totalPages = pagination.totalPageCount;
+  const currPage = pagination.currentPageNum;
+
+  updateTotalPages(totalPages);
+  updateCurrentPage(currPage);
+
+  renderExpenses(items);
   //fix the row numbers
   renumberRows();
+
+  selectAllCheckbox.checked = false;
 
   //uncheck select all -> remove display of total selected items, display add expenses btn
   toggleMultiSelect(0);
