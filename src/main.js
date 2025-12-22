@@ -47,7 +47,6 @@ state.expenses = saved;
 pagination.setTotalItems(state.expenses.length);
 
 const currPageItems = pagination.getPageItems(state.expenses);
-
 renderExpenses(currPageItems);
 
 displayFilterCategoryOptions(state.expenses);

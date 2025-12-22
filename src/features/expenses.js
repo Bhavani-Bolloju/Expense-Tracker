@@ -5,12 +5,13 @@ import {
   addExpenseBtn,
   btnClearAmountSort,
   selectFilterCategory,
-  inputSearchEl
+  inputSearchEl,
+  totalPagesEl,
+  currPageEl
 } from "../UI/elements";
 import { nanoid } from "nanoid";
 import {
   removeNewFormElement,
-  renderNewExpense,
   toggleMultiSelect,
   renderExpenses,
   clearAmountSortingIndicators,
@@ -58,9 +59,6 @@ export const handleSubmitForm = function (e) {
 
   const inputData = Object.fromEntries(formData.entries());
   const newExpense = { ...inputData, id: nanoid(4) };
-
-  //update UI
-  // renderNewExpense(newExpense, state.expenses.length + 1);
 
   //update state
   state.updateExpenses(newExpense);
@@ -337,17 +335,32 @@ export const handleFilterCategory = function (e) {
   tableStateManager.setCategoryFilter(selectedType);
 
   const items = tableStateManager.getProcessedItems(state.expenses);
+
+  pagination.setTotalItems(items.length);
   const expenses = pagination.getPageItems(items);
+
+  const totalPages = pagination.totalPageCount;
+  const currPage = pagination.currentPageNum;
+
+  updateTotalPages(totalPages);
+  updateCurrentPage(currPage);
 
   renderExpenses(expenses);
 };
 
 export const handleSearchWithKeywords = function (e) {
   const keyword = e.target.value;
-
   tableStateManager.setSearchKeyword(keyword);
   const items = tableStateManager.getProcessedItems(state.expenses);
+
+  pagination.setTotalItems(items.length);
   const expenses = pagination.getPageItems(items);
+
+  const totalPages = pagination.totalPageCount;
+  const currPage = pagination.currentPageNum;
+
+  updateTotalPages(totalPages);
+  updateCurrentPage(currPage);
 
   renderExpenses(expenses);
 };

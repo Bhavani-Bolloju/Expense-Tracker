@@ -20,6 +20,10 @@ export class Pagination {
   }
 
   get currentPageNum() {
+    this.currentPage =
+      this.currentPage > this.totalPageCount
+        ? this.totalPageCount
+        : this.currentPage;
     return this.currentPage;
   }
 
