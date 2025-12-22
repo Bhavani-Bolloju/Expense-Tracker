@@ -1,6 +1,17 @@
 import { formatDate } from "../utils/format";
 import { state } from "../core/state";
 
+const paymentTypes = function () {
+  const allPaymentTypes = state.expenses.map((item) => item.payment);
+
+  const uniquePaymentTypes = new Set(allPaymentTypes);
+  uniquePaymentTypes.add("cash");
+  uniquePaymentTypes.add("credit");
+  uniquePaymentTypes.add("debit");
+
+  return [...uniquePaymentTypes];
+};
+
 export function expenseTemplate(item, rowNum) {
   // console.log(item, rowNum);
 
@@ -42,8 +53,6 @@ export function expenseTemplate(item, rowNum) {
                      form="edit_form-${item.id}"
                       required
                     />
-                    
-               
                   </span>
                 </td>
 
@@ -93,15 +102,14 @@ export function expenseTemplate(item, rowNum) {
                       form="edit_form-${item.id}"
                       required
                     >
-                      <option value="cash" ${
-                        item.payment === "cash" ? "selected" : ""
-                      } >Cash</option>
-                      <option value="debit" ${
-                        item.payment === "debit" ? "selected" : ""
-                      }>Debit</option>
-                      <option value="credit" ${
-                        item.payment === "credit" ? "selected" : ""
-                      }>Credit</option>
+                      ${paymentTypes()
+                        .map(
+                          (payment, i) =>
+                            `  <option class="capitalize" value="${payment.toLowerCase()}" key="${i}">
+                            ${payment.toLowerCase()}
+                          </option>`
+                        )
+                        .join("")}
                     </select>
                   </span>
                 </td>
@@ -191,9 +199,10 @@ export function addNewExpenseFormTemplate() {
                 form="expenseForm"
                 required
               >
-                <option value="cash">Cash</option>
-                <option value="debit">Debit</option>
-                <option value="credit">Credit</option>
+                ${paymentTypes().map(
+                  (payment, i) =>
+                    ` <option value="${payment}" key="${i}">${payment}</option>`
+                )}
               </select>
             </td>
             <td class="px-2.5 py-3 text-center">
