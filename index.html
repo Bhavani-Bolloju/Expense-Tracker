@@ -4,77 +4,61 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
     <link href="/src/style.css" rel="stylesheet" />
     <title>Data table</title>
   </head>
-  <body>
-    <h1 class="text-3xl">Personal Expense Tracker</h1>
+  <body class="font-['Inter'] py-5">
+    <h1 class="">Expenses Tracker</h1>
 
-    <div
-      class="w-[1300px] m-auto border-2 border-gray-300 rounded-s-md overflow-hidden my-8"
-    >
-      <div class="flex items-center bg-[#F4F7FC] p-2 w-full">
-        <!-- <div>filter</div> -->
-        <div class="flex items-center search-container">
+    <div class="">
+      <div class="flex mb-3 gap-3">
+        <div class="search-container">
           <input
             id="search_keyword"
             type="search"
             class="border-2 border-gray-200 input_search"
+            placeholder="Search here"
           />
-          <label
-            for="search_keyword"
-            class="border-2 border-gray-300 bg-gray-100 px-2"
-            >Search</label
-          >
         </div>
-        <div class="ml-2 flex items-center gap-3">
+        <div class="">
           <label for="Category">Category Filter:</label>
           <select
             name="Category"
             id="Category"
-            class="filter-category border border-gray-300 px-4 py-1 text-sm"
+            class="filter-category text-text"
           >
             <option value="all">All</option>
           </select>
         </div>
-        <p class="ml-2 bg-amber-300 items-selected"></p>
+        <p class="ml-2 items-selected"></p>
         <button
-          class="ml-auto border-2 px-5 hover:cursor-pointer add-expense disabled:cursor-not-allowed"
+          class="add-expense disabled:cursor-not-allowed ml-auto btn btn-primary"
         >
           Add Expenses
         </button>
 
-        <button
-          class="ml-auto border-2 px-5 hover:cursor-pointer delete-expenses hidden"
-        >
-          delete
-        </button>
+        <button class="delete-expenses hidden">delete</button>
       </div>
 
       <!-- <form class="edit_form" id="edit_form"></form> -->
       <form class="expenseForm" id="expenseForm"></form>
-      <table class="w-full">
-        <thead>
-          <tr class="bg-[#F4F7FC]">
-            <th
-              class="border-b border-solid border-gray-300 px-2.5 py-5 text-start text-gray-700"
-              scope="col"
-            >
-              <label for="select-all" class="flex gap-2 items-center">
+      <table class="">
+        <thead class="table-head">
+          <tr class="">
+            <th class="" scope="col">
+              <label for="select-all" class="">
                 <input type="checkbox" id="select-all" class="select-all" />
-                <span>select all</span>
               </label>
             </th>
-            <th
-              class="border-b border-solid border-gray-400 px-2.5 py-5 text-start"
-              scope="col"
-            >
-              #
-            </th>
-            <th
-              class="border-b border-solid border-gray-400 px-2.5 py-5 text-start font-semibold col-date"
-              scope="col"
-            >
+            <th class="" scope="col">#</th>
+            <th class="col-date" scope="col">
               <div class="flex items-center">
                 <span>Date </span>
                 <button class="cursor-pointer flex btn-sort-date">
@@ -120,22 +104,9 @@
                 </button>
               </div>
             </th>
-            <th
-              class="border-b border-solid border-gray-400 px-2.5 py-5 text-start"
-              scope="col"
-            >
-              Category
-            </th>
-            <th
-              class="border-b border-solid border-gray-400 px-2.5 py-5"
-              scope="col"
-            >
-              Description
-            </th>
-            <th
-              class="border-b border-solid border-gray-400 px-2.5 py-5 col-amount"
-              scope="col"
-            >
+            <th class="" scope="col">Category</th>
+            <th class="" scope="col">Description</th>
+            <th class="col-amount" scope="col">
               <div class="flex items-center">
                 <span>Amount</span>
                 <button class="cursor-pointer flex btn-sort-amount">
@@ -181,24 +152,14 @@
                 </button>
               </div>
             </th>
-            <th
-              class="border-b border-solid border-gray-400 px-2.5 py-5"
-              scope="col"
-            >
-              Payment
-            </th>
-            <th
-              class="border-b border-solid border-gray-400 px-2.5 py-5"
-              scope="col"
-            >
-              Actions
-            </th>
+            <th class="" scope="col">Payment</th>
+            <th class="" scope="col">Actions</th>
           </tr>
         </thead>
         <tbody class="expenses_list group"></tbody>
       </table>
     </div>
-    <div class="w-[1300px] m-auto rounded-s-md overflow-hidden my-8">
+    <div class="mb-5">
       <div></div>
       <div class="flex">
         <div class="mr-5">
@@ -206,12 +167,8 @@
           of
           <span class="total_pages">10</span>
         </div>
-        <button class="btn_prev capitalize border px-2 cursor-pointer">
-          prev
-        </button>
-        <button class="btn_next capitalize border px-2 cursor-pointer">
-          next
-        </button>
+        <button class="btn btn-ghost btn_prev">prev</button>
+        <button class="btn btn-ghost btn_next">next</button>
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>

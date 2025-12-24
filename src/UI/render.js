@@ -146,5 +146,3 @@ export function updateCurrentPage(count) {
   currPageEl.textContent = count;
 }
 
-// export function updatePageBtns() {}
-
