@@ -11,7 +11,8 @@
   --color-muted: oklch(55.1% 0.027 264.364);
   --color-primary: oklch(54.6% 0.245 262.881);
   --color-primaryHover: oklch(48.8% 0.243 264.376);
-  --color-danger: oklch(57.7% 0.245 27.325);
+  --color-danger: oklch(63.7% 0.237 25.331);
+  --color-dangerHover: oklch(57.7% 0.245 27.325);
   --color-rowHover: oklch(96.7% 0.003 264.542);
   --color-rowSelected: oklch(97% 0.014 254.604);
 }
@@ -36,7 +37,7 @@
   }
 
   th {
-    @apply text-left font-medium text-muted  border-b px-3 py-3 bg-surface border-border;
+    @apply text-left text-muted  border-b px-3 py-3 bg-surface border-border font-medium;
   }
 
   td {
@@ -58,26 +59,30 @@
 /* Component Tokens (@layer components) */
 
 @layer components {
-  .btn {
-    @apply inline-flex items-center justify-center
-           px-3 py-1.5 rounded-md
-           text-sm font-medium
-           border border-border hover:cursor-pointer capitalize;
+  .btn-add {
+    @apply bg-primary text-white hover:bg-primaryHover px-6 py-2 rounded-lg font-semibold text-sm shadow-lg cursor-pointer disabled:bg-primary/70 capitalize;
   }
 
-  .btn-primary {
-    @apply bg-primary text-white border-primary
-           hover:bg-primaryHover;
+  .btn_edit {
+    @apply bg-primary/10 text-primary hover:bg-primary/20 border border-primary/30 px-4 py-1 rounded-md text-sm font-medium cursor-pointer capitalize;
   }
 
-  .btn-danger {
-    @apply bg-danger text-white border-danger
-           hover:opacity-90 px-2 py-1;
+  .btn_delete {
+    @apply bg-danger text-white hover:bg-dangerHover px-4 py-1 rounded-md text-sm font-medium  shadow-sm cursor-pointer capitalize;
   }
 
-  .btn-ghost {
-    @apply text-muted bg-surface
-           hover:text-text;
+  .btn_save,
+  .btn_confirm {
+    @apply bg-primary text-white hover:bg-primaryHover px-4 py-1 rounded-md text-sm font-medium  shadow-sm cursor-pointer capitalize;
+  }
+
+  .btn_cancel,
+  .btn_pagination {
+    @apply bg-transparent text-muted hover:bg-muted/10 border border-muted/30 hover:border-muted px-4 py-1 rounded-md text-sm font-medium cursor-pointer capitalize;
+  }
+
+  .selection-bar {
+    @apply text-base text-green-400 flex items-center;
   }
 }
 

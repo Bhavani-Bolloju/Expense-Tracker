@@ -294,6 +294,12 @@ export const handleSortingDate = function (e) {
     tableStateManager.setDateSort("asc");
   }
 
+  const sortValue =
+    tableStateManager.dateSort === "asc" ? "ascending" : "descending";
+
+  btnSortDate.setAttribute("aria-sort", sortValue);
+  btnSortDate.setAttribute("aria-label", "sort by date " + sortValue);
+
   const items = tableStateManager.getProcessedItems(state.expenses);
   const expenses = pagination.getPageItems(items);
 
@@ -325,6 +331,13 @@ export const handleSortingAmount = function (e) {
     tableStateManager.setAmountSort("asc");
   }
 
+  const sortValue =
+    tableStateManager.amountSort === "asc" ? "ascending" : "descending";
+
+  btnSortAmount.setAttribute("aria-sort", sortValue);
+
+  btnSortAmount.setAttribute("aria-label", "sort by amount " + sortValue);
+
   const items = tableStateManager.getProcessedItems(state.expenses);
   const expenses = pagination.getPageItems(items);
 
@@ -338,6 +351,8 @@ export const handleClearSorting = function (e) {
   const row = e.target.closest("th");
   const sortAsc = row.querySelector(".sort-asc");
   const sortDsc = row.querySelector(".sort-dsc");
+  const button = sortAsc.closest("button");
+  const id = button.dataset.id;
 
   row.querySelector(".clear-sort").classList.add("hidden");
   sortAsc.classList.remove("text-blue-500");
@@ -348,6 +363,9 @@ export const handleClearSorting = function (e) {
 
   const items = tableStateManager.getProcessedItems(state.expenses);
   const expenses = pagination.getPageItems(items);
+
+  button.setAttribute("aria-sort", "none");
+  button.setAttribute("aria-label", `sort by ${id} none`);
 
   renderExpenses(expenses);
 
@@ -377,9 +395,11 @@ export const handleFilterCategory = function (e) {
 export const handleSearchWithKeywords = function (e) {
   const keyword = e.target.value;
   tableStateManager.setSearchKeyword(keyword);
+
   const items = tableStateManager.getProcessedItems(state.expenses);
 
   pagination.setTotalItems(items.length);
+
   const expenses = pagination.getPageItems(items);
 
   const totalPages = pagination.totalPageCount;

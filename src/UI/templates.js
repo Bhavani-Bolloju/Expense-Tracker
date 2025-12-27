@@ -113,17 +113,18 @@ export function expenseTemplate(item, rowNum) {
                     </select>
                   </span>
                 </td>
-                <td class="td">
-                  <button type="button" class="btn btn-ghost btn_edit group-[.edit]:hidden ">Edit</button>
+                <td class="td flex gap-2 flex-nowrap">
+                  <button type="button" class="btn_edit group-[.edit]:hidden " aria-label="edit expense">Edit</button>
                   
-                  <button type="submit" form="edit_form-${
-                    item.id
-                  }" class="btn btn-primary px-2 py-1 btn_save btn_save-${
+                  
+          <button type="submit" form="edit_form-${
+            item.id
+          }" class="px-2 py-1 btn_save btn_save-${
     item.id
-  } group-[.static]:hidden">save</button>
+  } group-[.static]:hidden" aria-label="save edit expense">save</button>
                   <span>/</span>
-                  <button type="button" class="btn btn-danger btn_delete group-[.edit]:hidden">Delete</button>
-                  <button type="button" class="btn btn-ghost btn_cancel group-[.static]:hidden">Cancel</button>
+                  <button type="button" aria-label="delete expense" class="btn_delete group-[.edit]:hidden">Delete</button>
+                  <button type="button" aria-label="cancel edit expense" class="btn_cancel group-[.static]:hidden">Cancel</button>
                 </td>
               
             </tr>
@@ -205,17 +206,18 @@ export function addNewExpenseFormTemplate() {
                 )}
               </select>
             </td>
-            <td class="px-2.5 py-3 text-center">
+            <td class="px-2.5 py-3 text-center whitespace-nowrap">
               <button
                 type="submit"
                 form="expenseForm"
-                class="confirm btn btn-primary"
+                class="confirm btn_confirm"
+                aria-label="Confirm"
               >
                 Confirm
               </button>
               <span>/</span>
               
-              <button class="cancel_addExpense btn btn-ghost" form="expenseForm" type="button"> 
+              <button class="cancel_addExpense btn_cancel" form="expenseForm" type="button" aria-label="cancel add"> 
                 Cancel
               </button>
             </td>

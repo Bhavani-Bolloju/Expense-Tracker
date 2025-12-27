@@ -33,14 +33,12 @@ class TableStateManager {
   getProcessedItems(expenses) {
     let items = [...expenses];
 
-    if (this.searchKeyword) {
-      items = items.filter(
-        (item) =>
-          item.category.toLowerCase().includes(this.searchKeyword) ||
-          item.payment.toLowerCase().includes(this.searchKeyword) ||
-          item.description.toLowerCase().includes(this.searchKeyword)
-      );
-    }
+    items = items.filter(
+      (item) =>
+        item.category.toLowerCase().includes(this.searchKeyword) ||
+        item.payment.toLowerCase().includes(this.searchKeyword) ||
+        item.description.toLowerCase().includes(this.searchKeyword)
+    );
 
     if (this.categoryFilter !== "all") {
       items = items.filter((item) => item.category === this.categoryFilter);

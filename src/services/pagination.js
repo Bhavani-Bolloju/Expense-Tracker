@@ -6,7 +6,8 @@ export class Pagination {
   }
 
   setTotalItems(totalCount) {
-    this._totalItems = totalCount;
+    this._totalItems =
+      totalCount >= this.itemsPerPage ? totalCount : this.itemsPerPage;
   }
 
   getPageItems(items) {

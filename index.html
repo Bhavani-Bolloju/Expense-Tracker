@@ -7,14 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
 
     <link href="/src/style.css" rel="stylesheet" />
     <title>Data table</title>
   </head>
-  <body class="font-['Inter'] py-5">
+  <body class="font-['Roboto'] py-5">
     <h1 class="">Expenses Tracker</h1>
 
     <div class="">
@@ -37,14 +37,20 @@
             <option value="all">All</option>
           </select>
         </div>
-        <p class="ml-2 items-selected"></p>
+        <p class="ml-2 items-selected selection-bar"></p>
         <button
-          class="add-expense disabled:cursor-not-allowed ml-auto btn btn-primary"
+          class="add-expense disabled:cursor-not-allowed ml-auto btn-add"
+          aria-label="add new expense"
         >
           Add Expenses
         </button>
 
-        <button class="delete-expenses hidden">delete</button>
+        <button
+          class="delete-expenses hidden ml-auto btn_delete"
+          aria-label="delete selected expenses"
+        >
+          delete all
+        </button>
       </div>
 
       <!-- <form class="edit_form" id="edit_form"></form> -->
@@ -61,7 +67,12 @@
             <th class="col-date" scope="col">
               <div class="flex items-center">
                 <span>Date </span>
-                <button class="cursor-pointer flex btn-sort-date">
+                <button
+                  class="cursor-pointer flex btn-sort-date"
+                  aria-sort="none"
+                  aria-label="sort by date none"
+                  data-id="date"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -109,7 +120,12 @@
             <th class="col-amount" scope="col">
               <div class="flex items-center">
                 <span>Amount</span>
-                <button class="cursor-pointer flex btn-sort-amount">
+                <button
+                  class="cursor-pointer flex btn-sort-amount"
+                  aria-sort="none"
+                  aria-label="sort by amount none"
+                  data-id="amount"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -138,6 +154,7 @@
                 </button>
                 <button
                   class="btn-clear-amount clear-sort hidden cursor-pointer hover:text-blue-400"
+                  aria-sort="none"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -167,8 +184,18 @@
           of
           <span class="total_pages">10</span>
         </div>
-        <button class="btn btn-ghost btn_prev">prev</button>
-        <button class="btn btn-ghost btn_next">next</button>
+        <button
+          class="btn btn-ghost btn_prev btn_pagination"
+          aria-label="go to previous page"
+        >
+          prev
+        </button>
+        <button
+          class="btn btn-ghost btn_next btn_pagination"
+          aria-label="go to next page"
+        >
+          next
+        </button>
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>
