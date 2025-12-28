@@ -178,12 +178,9 @@ export const handleSelectAllExpenses = function (e) {
 
     if (inputCheckbox) {
       inputCheckbox.checked = isChecked;
-    }
-
-    if (inputCheckbox) {
       isChecked
-        ? row.classList.add("bg-gray-50")
-        : row.classList.remove("bg-gray-50");
+        ? row.classList.add("expense-selected")
+        : row.classList.remove("expense-selected");
     }
   });
 
@@ -192,6 +189,7 @@ export const handleSelectAllExpenses = function (e) {
   } else {
     toggleMultiSelect(0);
   }
+  e.target.indeterminate = false;
 };
 
 let count = 0;
@@ -208,26 +206,26 @@ export const handleMultiSelectExpenses = function (e) {
     const checkBox = item.querySelector('input[type="checkbox"]');
     if (checkBox) {
       if (!checkBox.checked) {
-        item.classList.remove("bg-gray-100");
+        item.classList.remove("expense-selected");
       } else {
         count++;
-        item.classList.add("bg-gray-100");
+        item.classList.add("expense-selected");
       }
     }
   });
 
-  // if (count >= 1) {
-  //   //hide add expense and display delete
-  //   toggleMultiSelect(count);
-  // } else {
-  //   //hide add expense and display delete
-  // }
   toggleMultiSelect(count);
 
   if (count === rows.length) {
     selectAllCheckbox.checked = true;
   } else {
     selectAllCheckbox.checked = false;
+  }
+
+  if (count === 0 || count === rows.length) {
+    selectAllCheckbox.indeterminate = false;
+  } else {
+    selectAllCheckbox.indeterminate = true;
   }
 };
 

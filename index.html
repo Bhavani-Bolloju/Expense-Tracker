@@ -47,7 +47,6 @@
         ></p>
         <button
           class="add-expense disabled:cursor-not-allowed ml-auto btn-add"
-          aria-label="add new expense"
           aria-controls="add-expense-form"
           aria-expanded="false"
         >
@@ -56,7 +55,6 @@
 
         <button
           class="delete-expenses hidden ml-auto btn_delete"
-          aria-label="delete selected expenses"
           aria-disabled="true"
         >
           delete all
@@ -69,14 +67,12 @@
         <thead class="table-head">
           <tr class="">
             <th class="" scope="col">
-              <label for="select-all" class="">
-                <input
-                  type="checkbox"
-                  id="select-all"
-                  class="select-all"
-                  aria-label="Select all expenses"
-                />
-              </label>
+              <input
+                type="checkbox"
+                id="select-all"
+                class="select-all"
+                aria-label="Select all expenses"
+              />
             </th>
             <th class="" scope="col">#</th>
             <th class="col-date" scope="col">

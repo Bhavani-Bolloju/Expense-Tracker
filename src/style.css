@@ -84,5 +84,9 @@
   .selection-bar {
     @apply text-base text-green-400 flex items-center;
   }
+
+  .expense-selected {
+    @apply bg-rowSelected;
+  }
 }
 
