@@ -36,6 +36,7 @@ export function expenseTemplate(item, rowNum) {
                       value="${item.date}"
                       form="edit_form-${item.id}"
                       required
+                      aria-label="Expense date"
                     />
                   </span>
                 </td>
@@ -52,6 +53,7 @@ export function expenseTemplate(item, rowNum) {
                       value="${item.category}"
                      form="edit_form-${item.id}"
                       required
+                      aria-label="Expense category"
                     />
                   </span>
                 </td>
@@ -68,6 +70,7 @@ export function expenseTemplate(item, rowNum) {
                       name="description"
                       value="${item.description}"
                       form="edit_form-${item.id}"
+                      aria-label="Expense description"
                       required
                     />
                   </span>
@@ -87,6 +90,7 @@ export function expenseTemplate(item, rowNum) {
                       name="amount"
                       value="${item.amount}"
                       form="edit_form-${item.id}"
+                      aria-label="Expense amount"
                       required
                     />
                   </span>
@@ -101,6 +105,7 @@ export function expenseTemplate(item, rowNum) {
                       class="input_payment"
                       form="edit_form-${item.id}"
                       required
+                      aria-label="Payment method"
                     >
                       ${paymentTypes()
                         .map(
@@ -113,7 +118,7 @@ export function expenseTemplate(item, rowNum) {
                     </select>
                   </span>
                 </td>
-                <td class="td flex gap-2 flex-nowrap">
+                <td class="td flex gap-2 flex-nowrap" aria-label="Form edit actions">
                   <button type="button" class="btn_edit group-[.edit]:hidden " aria-label="edit expense">Edit</button>
                   
                   
@@ -152,6 +157,7 @@ export function addNewExpenseFormTemplate() {
                 name="date"
                 form="expenseForm"
                 required
+                aria-label="Expense date"
               />
             </td>
             <td class="px-5 py-3">
@@ -161,6 +167,7 @@ export function addNewExpenseFormTemplate() {
                 name="category"
                 list = "category"
                 form="expenseForm"
+                aria-label="Expense category type"
                 required
               />
               
@@ -180,6 +187,7 @@ export function addNewExpenseFormTemplate() {
                 class="input_description"
                 name="description"
                 form="expenseForm"
+                aria-label="Expense description"
                 required
               />
             </td>
@@ -190,6 +198,7 @@ export function addNewExpenseFormTemplate() {
                 class="input_amount"
                 name="amount"
                 form="expenseForm"
+                aria-label="Expense amount"
                 required
               />
             </td>
@@ -198,6 +207,7 @@ export function addNewExpenseFormTemplate() {
                 name="payment"
                 class="input_payment"
                 form="expenseForm"
+                aria-label="Payment method"
                 required
               >
                 ${paymentTypes().map(
@@ -206,18 +216,18 @@ export function addNewExpenseFormTemplate() {
                 )}
               </select>
             </td>
-            <td class="px-2.5 py-3 text-center whitespace-nowrap">
+            <td class="px-2.5 py-3 text-center whitespace-nowrap" aria-label="Form actions">
               <button
                 type="submit"
                 form="expenseForm"
                 class="confirm btn_confirm"
-                aria-label="Confirm"
+
               >
                 Confirm
               </button>
               <span>/</span>
               
-              <button class="cancel_addExpense btn_cancel" form="expenseForm" type="button" aria-label="cancel add"> 
+              <button class="cancel_addExpense btn_cancel" form="expenseForm" type="button" aria-label="cancel add expense"> 
                 Cancel
               </button>
             </td>
