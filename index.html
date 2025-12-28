@@ -38,7 +38,13 @@
             <option value="all">All</option>
           </select>
         </div>
-        <p class="ml-2 items-selected selection-bar"></p>
+        <p
+          class="ml-2 items-selected selection-bar"
+          aria-live="polite"
+          aria-atomic="true"
+          aria-hidden="true"
+          role="status"
+        ></p>
         <button
           class="add-expense disabled:cursor-not-allowed ml-auto btn-add"
           aria-label="add new expense"
@@ -186,25 +192,26 @@
       </table>
     </div>
     <div class="mb-5">
-      <div></div>
       <div class="flex">
-        <div class="mr-5">
+        <div class="mr-5" role="status" aria-live="polite" aria-atomic="true">
           <span class="currPage_num">1</span>
           of
           <span class="total_pages">10</span>
         </div>
-        <button
-          class="btn btn-ghost btn_prev btn_pagination"
-          aria-label="go to previous page"
-        >
-          prev
-        </button>
-        <button
-          class="btn btn-ghost btn_next btn_pagination"
-          aria-label="go to next page"
-        >
-          next
-        </button>
+        <nav aria-label="Pagination">
+          <button
+            class="btn btn-ghost btn_prev btn_pagination"
+            aria-label="go to previous page"
+          >
+            prev
+          </button>
+          <button
+            class="btn btn-ghost btn_next btn_pagination"
+            aria-label="go to next page"
+          >
+            next
+          </button>
+        </nav>
       </div>
     </div>
     <script type="module" src="/src/main.js"></script>

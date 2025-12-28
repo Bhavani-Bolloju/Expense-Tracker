@@ -216,13 +216,13 @@ export const handleMultiSelectExpenses = function (e) {
     }
   });
 
-  if (count >= 1) {
-    //hide add expense and display delete
-    toggleMultiSelect(count);
-  } else {
-    //hide add expense and display delete
-    toggleMultiSelect(count);
-  }
+  // if (count >= 1) {
+  //   //hide add expense and display delete
+  //   toggleMultiSelect(count);
+  // } else {
+  //   //hide add expense and display delete
+  // }
+  toggleMultiSelect(count);
 
   if (count === rows.length) {
     selectAllCheckbox.checked = true;

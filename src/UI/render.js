@@ -97,12 +97,14 @@ export function toggleMultiSelect(count) {
     selectedItemsCount.innerHTML = `${count} items selected`;
     addExpenseBtn.setAttribute("aria-disabled", true);
     deleteExpensesBtn.setAttribute("aria-disabled", false);
+    selectedItemsCount.removeAttribute("aria-hidden");
   } else {
     addExpenseBtn.classList.remove("hidden");
     deleteExpensesBtn.classList.add("hidden");
     addExpenseBtn.setAttribute("aria-disabled", false);
     deleteExpensesBtn.setAttribute("aria-disabled", true);
     selectedItemsCount.innerHTML = "";
+    selectedItemsCount.setAttribute("aria-hidden", true);
   }
 }
 
