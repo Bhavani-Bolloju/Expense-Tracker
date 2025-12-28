@@ -142,7 +142,7 @@ export function addNewExpenseFormTemplate() {
   const uniqueTypes = new Set(filterTypes);
 
   return `
-          <tr class="fill-expenses-row ">
+          <tr class="fill-expenses-row" id="add-expense-form">
             <td class=""></td>
             <td class=""></td>
             <td class="">

@@ -20,6 +20,7 @@
     <div class="">
       <div class="flex mb-3 gap-3">
         <div class="search-container">
+          <label for="search_keyword" class="sr-only"> Search expenses </label>
           <input
             id="search_keyword"
             type="search"
@@ -41,6 +42,8 @@
         <button
           class="add-expense disabled:cursor-not-allowed ml-auto btn-add"
           aria-label="add new expense"
+          aria-controls="add-expense-form"
+          aria-expanded="false"
         >
           Add Expenses
         </button>
@@ -48,6 +51,7 @@
         <button
           class="delete-expenses hidden ml-auto btn_delete"
           aria-label="delete selected expenses"
+          aria-disabled="true"
         >
           delete all
         </button>
@@ -60,7 +64,12 @@
           <tr class="">
             <th class="" scope="col">
               <label for="select-all" class="">
-                <input type="checkbox" id="select-all" class="select-all" />
+                <input
+                  type="checkbox"
+                  id="select-all"
+                  class="select-all"
+                  aria-label="Select all expenses"
+                />
               </label>
             </th>
             <th class="" scope="col">#</th>

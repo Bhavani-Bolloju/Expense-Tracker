@@ -39,6 +39,7 @@ export const handleAddExpense = function (e) {
     .querySelector(".input_date");
 
   formRow.focus();
+  addExpenseBtn.setAttribute("aria-expanded", true);
 
   addExpenseBtn.disabled = true;
 };
@@ -70,6 +71,7 @@ export const handleSubmitForm = function (e) {
 
   //enable add expense btn
   addExpenseBtn.disabled = false;
+  addExpenseBtn.setAttribute("aria-expanded", false);
 };
 
 export const handleCancelAddExpense = function (e) {
