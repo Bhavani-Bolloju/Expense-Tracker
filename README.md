@@ -64,7 +64,9 @@ Adding/removing expenses or navigating pages messed up row order numbers.
 
 
 #### Perfectionism trap:
-Wanted page-specific state, but delete feature broke everything. Switched to app-wide state—10x simpler.
+**Initial (Broken):** Get page items → Apply filter/sort/search per page → Delete → Fetch/reprocess new page items → Render. Chaos on deletes/navigates.  
+
+**Fixed:** Global state → Filter/sort/search ALL items → Get current page → Render. Deletes auto-shift next items in. 10x simpler. 
 
 ### 💡 Key Learnings
 - Form attribute associates inputs with form element anywhere (not just children!)
