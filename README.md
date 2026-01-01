@@ -47,8 +47,38 @@ npm run dev
 - Global state → Filter/Sort/Search → Paginate → Render
 
 ### 🧠 Challenges Solved
+#### Dynamic forms in tables:
+
+HTML tables do not allow `<form>` inside `<tr>`
+<br/>
+**Solution** - External form element + form attribute on inputs/buttons. Edit mode uses the same pattern. 
+
+#### State sync issue:
+
+Initial: Paginate → Filter/Sort per page = chaos on delete/navigate.
+**Fixed**: Global state → Apply Filter/Sort/Search → Paginate. Clean flow.
+
+#### Row numbers across pages:
+Adding/removing expenses or navigating pages messed up row order numbers.  
+**Fixed:** `Pagination class` properties + dedicated calc function.  
 
 
+#### Perfectionism trap:
+Wanted page-specific state, but delete feature broke everything. Switched to app-wide state—10x simpler.
+
+### 💡 Key Learnings
+- Form attribute associates inputs with form element anywhere (not just children!)
+- Form attribute associated buttons bypass event delegation (DOM order wins)
+- Event delegation = perfect for dynamic lists (delete/edit/sort)
+
+### 🤝 Contributing
+
+1. Fork → Clone → npm install
+2. Add feature → raise PR
+3. Issues? Open one!
+
+### 📄 License
+MIT © [Your Name] 2025
 
 
 
