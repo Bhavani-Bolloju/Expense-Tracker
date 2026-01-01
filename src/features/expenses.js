@@ -11,7 +11,8 @@ import {
   toggleMultiSelect,
   renderExpenses,
   clearAmountSortingIndicators,
-  clearDateSortingIndicators
+  clearDateSortingIndicators,
+  resetSelects
 } from "../UI/render";
 
 import { state } from "../core/state";
@@ -186,13 +187,15 @@ export const handleSelectAllExpenses = function (e) {
 
   if (isChecked) {
     toggleMultiSelect(rows.length);
+    tableStateManager.setSelectCount(rows.length);
   } else {
     toggleMultiSelect(0);
+    tableStateManager.setSelectCount(0);
   }
   e.target.indeterminate = false;
 };
 
-let count = 0;
+// let count = 0;
 export const handleMultiSelectExpenses = function (e) {
   // const isCheckbox =
 
@@ -200,7 +203,8 @@ export const handleMultiSelectExpenses = function (e) {
 
   const rows = this.querySelectorAll(".expense-item");
 
-  count = 0;
+  // count = 0;
+  tableStateManager.setSelectCount(0);
 
   rows.forEach((item) => {
     const checkBox = item.querySelector('input[type="checkbox"]');
@@ -208,25 +212,32 @@ export const handleMultiSelectExpenses = function (e) {
       if (!checkBox.checked) {
         item.classList.remove("expense-selected");
       } else {
-        count++;
+        // count++;
+        const count = tableStateManager.selectCount;
+        tableStateManager.setSelectCount(count + 1);
         item.classList.add("expense-selected");
       }
     }
   });
 
-  toggleMultiSelect(count);
+  toggleMultiSelect(tableStateManager.selectCount);
 
-  if (count === rows.length) {
+  if (tableStateManager.selectCount === rows.length) {
     selectAllCheckbox.checked = true;
   } else {
     selectAllCheckbox.checked = false;
   }
 
-  if (count === 0 || count === rows.length) {
+  if (
+    tableStateManager.selectCount === 0 ||
+    tableStateManager.selectCount === rows.length
+  ) {
     selectAllCheckbox.indeterminate = false;
   } else {
     selectAllCheckbox.indeterminate = true;
   }
+
+  // console.log(tableStateManager.selectCount, "count");
 };
 
 export const handleMultiSelectedExpensesDelete = function (e) {
@@ -276,6 +287,10 @@ export const handleSortingDate = function (e) {
   //clear amount sorting
   clearAmountSortingIndicators();
 
+  if (selectAllCheckbox.checked || selectAllCheckbox.indeterminate) {
+    resetSelects();
+  }
+
   const btnSortDate = e.target.closest(".btn-sort-date");
   const sortAsc = btnSortDate.querySelector(".sort-asc");
   const sortDsc = btnSortDate.querySelector(".sort-dsc");
@@ -311,6 +326,10 @@ export const handleSortingDate = function (e) {
 
 export const handleSortingAmount = function (e) {
   clearDateSortingIndicators();
+
+  if (selectAllCheckbox.checked || selectAllCheckbox.indeterminate) {
+    resetSelects();
+  }
 
   const btnSortAmount = e.target.closest(".btn-sort-amount");
 
@@ -363,6 +382,10 @@ export const handleClearSorting = function (e) {
 
   const items = tableStateManager.getProcessedItems(state.expenses);
   const expenses = pagination.getPageItems(items);
+
+  if (selectAllCheckbox.checked || selectAllCheckbox.indeterminate) {
+    resetSelects();
+  }
 
   button.setAttribute("aria-sort", "none");
   button.setAttribute("aria-label", `sort by ${id} none`);
@@ -422,6 +445,7 @@ export const handleNextPage = function () {
 
   renderExpenses(expenseItems);
   renumberRows();
+  resetSelects();
 };
 
 export const handlePrevPage = function () {
@@ -434,6 +458,7 @@ export const handlePrevPage = function () {
   updateCurrentPage(pagination.currentPage);
   renderExpenses(expenseItems);
   renumberRows();
+  resetSelects();
 };
 
 //btn-clear-amount

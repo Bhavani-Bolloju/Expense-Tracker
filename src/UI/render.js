@@ -8,7 +8,8 @@ import {
   btnClearDateSort,
   selectFilterCategory,
   totalPagesEl,
-  currPageEl
+  currPageEl,
+  selectAllCheckbox
 } from "./elements";
 import { formatDate } from "../utils/format";
 
@@ -21,7 +22,12 @@ export function renderExpenses(expenses) {
     })
     .join("");
 
+  if (addExpenseBtn.disabled) {
+    addExpenseBtn.disabled = false;
+  }
+
   //empty the container
+
   expensesContainer.innerHTML = "";
   expensesContainer.insertAdjacentHTML("beforeend", list);
 }
@@ -150,5 +156,19 @@ export function updateTotalPages(count) {
 
 export function updateCurrentPage(count) {
   currPageEl.textContent = count;
+}
+
+export function resetSelects() {
+  addExpenseBtn.classList.remove("hidden");
+  addExpenseBtn.setAttribute("aria-disabled", false);
+
+  deleteExpensesBtn.classList.add("hidden");
+  deleteExpensesBtn.setAttribute("aria-disabled", true);
+
+  selectedItemsCount.innerHTML = "";
+  selectedItemsCount.setAttribute("aria-hidden", true);
+
+  selectAllCheckbox.checked = false;
+  selectAllCheckbox.indeterminate = false;
 }
 

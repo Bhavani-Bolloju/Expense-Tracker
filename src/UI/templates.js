@@ -17,7 +17,7 @@ export function expenseTemplate(item, rowNum) {
 
   const row = `<tr class="expense-item item-${
     item.id
-  }  group static" data-id="${item.id}" >
+  }  group static-text" data-id="${item.id}" >
                 <td class="td">
                   <input type="checkbox" class="check_${item.id}" data-check="${
     item.id
@@ -28,7 +28,7 @@ export function expenseTemplate(item, rowNum) {
                   <span class="date_value group-[.edit]:hidden">
                       ${formatDate(item.date)}
                   </span>
-                  <span class="group-[.static]:hidden">
+                  <span class="group-[.static-text]:hidden">
                     <input
                       type="date"
                       class="input_date"
@@ -44,7 +44,7 @@ export function expenseTemplate(item, rowNum) {
                   <span class="category_value group-[.edit]:hidden">${
                     item.category
                   }</span>
-                  <span class="group-[.static]:hidden">
+                  <span class="group-[.static-text]:hidden">
                       <input
                       type="text"
                       placeholder="enter category"
@@ -62,7 +62,7 @@ export function expenseTemplate(item, rowNum) {
                   <span class="description_value group-[.edit]:hidden">${
                     item.description
                   }</span>
-                  <span class="group-[.static]:hidden">
+                  <span class="group-[.static-text]:hidden">
                     <input
                       type="text"
                       placeholder="Enter description"
@@ -82,7 +82,7 @@ export function expenseTemplate(item, rowNum) {
                     ${Number(item.amount).toFixed(2)}
                     </span>
                   </span>
-                  <span class="group-[.static]:hidden">
+                  <span class="group-[.static-text]:hidden">
                     <input
                       type="number"
                       placeholder="Enter Amount"
@@ -99,7 +99,7 @@ export function expenseTemplate(item, rowNum) {
                   <span class="payment_value group-[.edit]:hidden">${
                     item.payment
                   }</span>
-                  <span class="group-[.static]:hidden">
+                  <span class="group-[.static-text]:hidden">
                     <select
                       name="payment"
                       class="input_payment"
@@ -126,17 +126,16 @@ export function expenseTemplate(item, rowNum) {
             item.id
           }" class="px-2 py-1 btn_save btn_save-${
     item.id
-  } group-[.static]:hidden" aria-label="save edit expense">save</button>
+  } group-[.static-text]:hidden" aria-label="save edit expense">save</button>
                   <span>/</span>
                   <button type="button" aria-label="delete expense" class="btn_delete group-[.edit]:hidden">Delete</button>
-                  <button type="button" aria-label="cancel edit expense" class="btn_cancel group-[.static]:hidden">Cancel</button>
+                  <button type="button" aria-label="cancel edit expense" class="btn_cancel group-[.static-text]:hidden">Cancel</button>
                 </td>
               
             </tr>
    `;
 
   return row;
-  // document.querySelector(".expenses_list").insertAdjacentHTML("beforeend", row);
 }
 
 export function addNewExpenseFormTemplate() {

@@ -33,7 +33,7 @@
   }
 
   table {
-    @apply w-full border-collapse mb-5;
+    @apply w-full border-collapse mb-5 relative;
   }
 
   th {
@@ -87,6 +87,10 @@
 
   .expense-selected {
     @apply bg-rowSelected;
+  }
+
+  .add-overlay {
+    @apply absolute top-0 left-0 w-full h-16 z-10;
   }
 }
 

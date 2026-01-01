@@ -30,7 +30,6 @@ import {
 } from "./features/expenses";
 
 import { registerEvents } from "./core/events";
-// import { expensesItems } from "./core/expensesItems";
 
 //load & render initial expenses to the DOM
 let saved = storage.loadExpenses();
@@ -51,7 +50,6 @@ renderExpenses(currPageItems);
 
 displayFilterCategoryOptions(state.expenses);
 updateTotalPages(pagination.totalPageCount);
-
 
 registerEvents({
   onAddExpense: handleAddExpense,

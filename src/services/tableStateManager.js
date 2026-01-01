@@ -4,13 +4,18 @@ class TableStateManager {
     this.amountSort = "none";
     this.categoryFilter = "all";
     this.searchKeyword = "";
+    this.selectCount = 0;
+  }
+
+  setSelectCount(count) {
+    this.selectCount = count;
   }
 
   setDateSort(direction) {
     this.dateSort = direction;
     this.amountSort = "none";
   }
-  setAmountSort(direction) {
+  setAmountSort(direction) {  
     this.amountSort = direction;
     this.dateSort = "none";
   }
