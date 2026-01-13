@@ -28,7 +28,7 @@ npm run dev
 
 ✅ Relative table serial numbers across pages
 
-✅ Keyboard-navigable (Tab/Escape/Ctrl+A)
+✅ Keyboard-navigable 
 
 ### 🛠 Tech Stack & Architecture
 
