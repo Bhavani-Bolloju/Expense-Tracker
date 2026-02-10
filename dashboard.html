@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/budget.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="/src/style.css" rel="stylesheet" />
+    <title>Expense Tracker</title>
+  </head>
+  <body class="font-['Roboto'] py-5">
+    <h1 class="">Expense Tracker</h1>
+
+    <div class="">
+      <div class="flex mb-3 gap-3">
+        <div class="search-container">
+          <label for="search_keyword" class="sr-only"> Search expenses </label>
+          <input
+            id="search_keyword"
+            type="search"
+            class="border-2 border-gray-200 input_search"
+            placeholder="Search here"
+          />
+        </div>
+        <div class="">
+          <label for="Category">Category Filter:</label>
+          <select
+            name="Category"
+            id="Category"
+            class="filter-category text-text"
+          >
+            <option value="all">All</option>
+          </select>
+        </div>
+        <p
+          class="ml-2 items-selected selection-bar"
+          aria-live="polite"
+          aria-atomic="true"
+          aria-hidden="true"
+          role="status"
+        ></p>
+        <button
+          class="add-expense disabled:cursor-not-allowed ml-auto btn-add"
+          aria-controls="add-expense-form"
+          aria-expanded="false"
+        >
+          Add Expenses
+        </button>
+
+        <button
+          class="delete-expenses hidden ml-auto btn_delete"
+          aria-disabled="true"
+        >
+          delete all
+        </button>
+      </div>
+
+      <!-- <form class="edit_form" id="edit_form"></form> -->
+      <form class="expenseForm" id="expenseForm"></form>
+      <table class="">
+        <thead class="table-head">
+          <tr class="">
+            <th class="" scope="col">
+              <input
+                type="checkbox"
+                id="select-all"
+                class="select-all"
+                aria-label="Select all expenses"
+              />
+            </th>
+            <th class="" scope="col">#</th>
+            <th class="col-date" scope="col">
+              <div class="flex items-center">
+                <span>Date </span>
+                <button
+                  class="cursor-pointer flex btn-sort-date"
+                  aria-sort="none"
+                  aria-label="sort by date none"
+                  data-id="date"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-4 h-4 sort-asc"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a.75.75 0 0 1-.75-.75V4.66L7.3 6.76a.75.75 0 0 1-1.1-1.02l3.25-3.5a.75.75 0 0 1 1.1 0l3.25 3.5a.75.75 0 1 1-1.1 1.02l-1.95-2.1v12.59A.75.75 0 0 1 10 18Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-4 h-4 -ml-2 sort-dsc"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 2a.75.75 0 0 1 .75.75v12.59l1.95-2.1a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 1 1 1.1-1.02l1.95 2.1V2.75A.75.75 0 0 1 10 2Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <button
+                  class="btn-clear-date clear-sort hidden cursor-pointer hover:text-blue-400"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="size-5"
+                  >
+                    <path
+                      d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th class="" scope="col">Category</th>
+            <th class="" scope="col">Description</th>
+            <th class="col-amount" scope="col">
+              <div class="flex items-center">
+                <span>Amount</span>
+                <button
+                  class="cursor-pointer flex btn-sort-amount"
+                  aria-sort="none"
+                  aria-label="sort by amount none"
+                  data-id="amount"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-4 h-4 sort-asc"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a.75.75 0 0 1-.75-.75V4.66L7.3 6.76a.75.75 0 0 1-1.1-1.02l3.25-3.5a.75.75 0 0 1 1.1 0l3.25 3.5a.75.75 0 1 1-1.1 1.02l-1.95-2.1v12.59A.75.75 0 0 1 10 18Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-4 h-4 -ml-2 sort-dsc"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 2a.75.75 0 0 1 .75.75v12.59l1.95-2.1a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 1 1 1.1-1.02l1.95 2.1V2.75A.75.75 0 0 1 10 2Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <button
+                  class="btn-clear-amount clear-sort hidden cursor-pointer hover:text-blue-400"
+                  aria-sort="none"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="size-5"
+                  >
+                    <path
+                      d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </th>
+            <th class="" scope="col">Payment</th>
+            <th class="" scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="expenses_list group"></tbody>
+      </table>
+    </div>
+    <div class="mb-5">
+      <div class="flex">
+        <div class="mr-5" role="status" aria-live="polite" aria-atomic="true">
+          <span class="currPage_num">1</span>
+          of
+          <span class="total_pages">10</span>
+        </div>
+        <nav aria-label="Pagination">
+          <button
+            class="btn btn-ghost btn_prev btn_pagination"
+            aria-label="go to previous page"
+          >
+            prev
+          </button>
+          <button
+            class="btn btn-ghost btn_next btn_pagination"
+            aria-label="go to next page"
+          >
+            next
+          </button>
+        </nav>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
