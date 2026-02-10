@@ -20,15 +20,15 @@ npm run dev
 
 ✅ Add/Edit/Delete expenses with form validation
 
-✅ Multi-select + bulk delete (Cmd/Ctrl + click)
+✅ Multi-select + bulk delete
 
 ✅ Search by keyword, filter by category
 
 ✅ Sort by date/amount, pagination (50/page)
 
-✅ Responsive table with serial numbers across pages
+✅ Relative table serial numbers across pages
 
-✅ Keyboard-navigable (Tab/Escape/Ctrl+A)
+✅ Keyboard-navigable 
 
 ### 🛠 Tech Stack & Architecture
 
