@@ -17,6 +17,14 @@
   <body class="font-['Roboto'] py-5">
     <h1>Loading...</h1>
   </body>
-  <!-- <script type="module"></script> -->
+  <script type="module">
+    const token = localStorage.getItem("accessToken");
+
+    if (token) {
+      window.location.href = "./dashboard.html";
+    } else {
+      window.location.href = "./signin.html";
+    }
+  </script>
 </html>
 

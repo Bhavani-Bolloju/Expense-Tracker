@@ -1,5 +1,10 @@
 const signInForm = document.querySelector(".form-signIn");
 
+const token = localStorage.getItem("accessToken");
+if (token) {
+  window.location.href = "../dashboard.html";
+}
+
 signInForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -21,13 +26,13 @@ signInForm.addEventListener("submit", async (e) => {
     if (!response.ok) {
       throw new Error(data.error);
     }
-    //clear form
 
-    // window.location.href = "/dashboard.html";
-    console.log(data, "logged in user");
-    //save to the local stage
+    //store token and the user details to the local storage
+    localStorage.setItem("accessToken", data.accessToken);
+    localStorage.setItem("user", JSON.stringify(data.user));
 
     //navigate to the dashboard
+    window.location.href = "/dashboard.html";
   } catch (error) {
     console.log(error, "error in catch");
   }

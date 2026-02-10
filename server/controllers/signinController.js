@@ -21,8 +21,6 @@ const authHandler = async (req, res) => {
   //verify password
   const validPassword = await bcrypt.compare(password, foundUser.password);
 
-  // console.log(validPassword, "is valid");
-
   if (!validPassword) {
     return res.status(401).json({ error: "invalid password" });
   }
@@ -53,7 +51,14 @@ const authHandler = async (req, res) => {
       sameSite: "None"
     });
 
-    return res.json({ accessToken });
+    return res.json({
+      accessToken,
+      user: {
+        id: foundUser._id,
+        email: foundUser.email,
+        username: foundUser.username
+      }
+    });
   } catch (error) {
     res.status(500).json({ error: "Server Error" });
   }

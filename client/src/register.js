@@ -1,5 +1,11 @@
 const registerForm = document.querySelector(".form-register");
 
+const token = localStorage.getItem("accessToken");
+
+if (token) {
+  window.location.href = "../dashboard.html";
+}
+
 registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   // console.log("register form");
@@ -20,10 +26,8 @@ registerForm.addEventListener("submit", async (e) => {
     if (!response.ok) {
       throw new Error(data.error);
     }
-    
+
     window.location.href = "/signin.html";
-
-
   } catch (error) {
     console.log(error, "error in catch");
   }

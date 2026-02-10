@@ -31,6 +31,13 @@ import {
 
 import { registerEvents } from "./core/events";
 
+const token = localStorage.getItem("accessToken");
+
+if (!token) {
+  window.location.href = "../signin.html";
+
+}
+
 //load & render initial expenses to the DOM
 let saved = storage.loadExpenses();
 
