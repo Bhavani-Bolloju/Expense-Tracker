@@ -10,7 +10,9 @@ const verifyJWT = (req, res, next) => {
   jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) return res.sendStatus(403);
 
-    req.user = decoded.userInfo.username;
+    req.user = decoded.userInfo;
+
+    console.log("➖ userInfo during verifyJWT ➖", decoded.userInfo);
 
     next();
   });

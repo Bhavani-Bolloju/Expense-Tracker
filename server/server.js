@@ -38,6 +38,8 @@ app.use("/logout", require("./routes/logout"));
 
 app.use(verifyJWT);
 
+app.use("/api/expenses", require("./routes/api/expenses"));
+
 mongoose.connection.once("open", () => {
   console.log("connected to the mongoDB");
   app.listen(PORT, () => console.log(`server running on port ${PORT}`));
