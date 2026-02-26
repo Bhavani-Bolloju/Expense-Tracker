@@ -5,20 +5,38 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const corsOptions = require("./config/corsOptions");
+const { corsOptions } = require("./config/corsOptions");
 const connectDB = require("./config/dbConn");
+
+const cookieParser = require("cookie-parser");
+
+const verifyJWT = require("./middleware/verifyJWT");
+
+const PORT = process.env.PORT || 3000;
 
 connectDB();
 
-const PORT = process.env.PORT || 3000;
+// console.log("Environment", process.env.NODE_ENV);
+
+// app.use(credentials);
+
+// console.log(corsOptions, "corsoptions");
 
 app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.use("/register", require("./routers/register"));
+app.use(cookieParser());
 
-app.use("/signin", require("./routers/signin"));
+app.use("/register", require("./routes/register"));
+
+app.use("/signin", require("./routes/signin"));
+
+app.use("/refresh", require("./routes/refresh"));
+
+app.use("/logout", require("./routes/logout"));
+
+app.use(verifyJWT);
 
 mongoose.connection.once("open", () => {
   console.log("connected to the mongoDB");

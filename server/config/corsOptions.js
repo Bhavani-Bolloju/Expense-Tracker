@@ -5,13 +5,15 @@ const corsOptions = {
     if (!origin) return callback(null, true);
 
     if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
+      callback(null, true);
     } else {
-      return callback(new Error("Not allowed by CORS"));
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  optionsSuccessStatus: true
+  credentials: true,
+  optionsSuccessStatus: 200
 };
 
 module.exports = { corsOptions };
 
+ 

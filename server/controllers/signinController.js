@@ -10,9 +10,7 @@ const authHandler = async (req, res) => {
     return res.status(400).json({ error: "Email and password are required" });
   }
 
-  const foundUser = await User.findOne({ email });
-
-  console.log(foundUser, "found user");
+  const foundUser = await User.findOne({ email }).exec();
 
   if (!foundUser) {
     return res.status(401).json({ error: `No user exist` });
@@ -46,9 +44,13 @@ const authHandler = async (req, res) => {
     foundUser.refreshToken = refreshToken;
     await foundUser.save();
 
+    // console.log(accessToken, refreshToken, 'tokens server');
+
     res.cookie("jwt", refreshToken, {
-      maxAge: 24 * 60 * 60 * 1000,
-      sameSite: "None"
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // false in dev, true in prod
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // 'Lax' in dev, 'None' in prod
+      maxAge: 24 * 60 * 60 * 1000
     });
 
     return res.json({
