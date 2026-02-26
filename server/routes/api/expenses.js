@@ -6,3 +6,5 @@ const { getAllExpenses } = require("../../controllers/expensesController");
 
 router.route("/").get(getAllExpenses);
 
+module.exports = router;
+
