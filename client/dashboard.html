@@ -12,13 +12,37 @@
     />
 
     <link href="/src/style.css" rel="stylesheet" />
+    <script>
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        window.location.href = "../signin.html";
+      }
+    </script>
     <script type="module" src="/src/main.js"></script>
     <title>Expense Tracker</title>
   </head>
   <body class="font-['Roboto'] py-5">
-    <h1 class="">Expense Tracker</h1>
+    <header
+      class="flex justify-between items-stretch border-b-2 border-border h-fit"
+    >
+      <h1 class="m-0 py-5 text-text font-medium">Expense Tracker</h1>
+      <nav class="flex gap-5 items-center">
+        <button
+          class="btn_logout px-5 py-2 border bg-green-500/80 text-white capitalize font-semibold hover:cursor-pointer rounded-lg hover:bg-green-500"
+        >
+          logout
+        </button>
+        <div>
+          <div
+            class="profile h-10 w-10 border rounded-full flex items-center justify-center font-bold bg-teal-400"
+          >
+            P
+          </div>
+        </div>
+      </nav>
+    </header>
 
-    <div class="">
+    <div class="mt-10">
       <div class="flex mb-3 gap-3">
         <div class="search-container">
           <label for="search_keyword" class="sr-only"> Search expenses </label>

@@ -1,10 +1,5 @@
 const signInForm = document.querySelector(".form-signIn");
 
-const token = localStorage.getItem("accessToken");
-if (token) {
-  window.location.href = "../dashboard.html";
-}
-
 signInForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -18,7 +13,8 @@ signInForm.addEventListener("submit", async (e) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(inputData)
+      body: JSON.stringify(inputData),
+      credentials: "include"
     });
 
     const data = await response.json();
@@ -26,6 +22,8 @@ signInForm.addEventListener("submit", async (e) => {
     if (!response.ok) {
       throw new Error(data.error);
     }
+
+    console.log(data, "after login user client");
 
     //store token and the user details to the local storage
     localStorage.setItem("accessToken", data.accessToken);
@@ -37,4 +35,3 @@ signInForm.addEventListener("submit", async (e) => {
     console.log(error, "error in catch");
   }
 });
-

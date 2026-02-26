@@ -23,6 +23,8 @@ const btnPrevEl = document.querySelector(".btn_prev");
 const currPageEl = document.querySelector(".currPage_num");
 const totalPagesEl = document.querySelector(".total_pages");
 
+const btnLogout = document.querySelector(".btn_logout");
+
 export {
   addExpenseBtn,
   expenseForm,
@@ -41,6 +43,7 @@ export {
   btnNextEl,
   btnPrevEl,
   currPageEl,
-  totalPagesEl
+  totalPagesEl,
+  btnLogout
 };
 

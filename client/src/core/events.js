@@ -11,7 +11,8 @@ import {
   selectFilterCategory,
   inputSearchEl,
   btnNextEl,
-  btnPrevEl
+  btnPrevEl,
+  btnLogout
 } from "../UI/elements";
 
 export function registerEvents({
@@ -31,7 +32,8 @@ export function registerEvents({
   onFilterCategory,
   onSearchWithKeywords,
   onNextPage,
-  onPrevPage
+  onPrevPage,
+  onLogout
 }) {
   addExpenseBtn.addEventListener("click", onAddExpense);
   expenseForm.addEventListener("submit", onSubmitForm);
@@ -64,5 +66,7 @@ export function registerEvents({
 
   btnNextEl.addEventListener("click", onNextPage);
   btnPrevEl.addEventListener("click", onPrevPage);
+
+  btnLogout.addEventListener("click", onLogout);
 }
 

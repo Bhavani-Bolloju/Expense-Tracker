@@ -12,6 +12,12 @@
     />
 
     <link href="/src/style.css" rel="stylesheet" />
+    <script type="module">
+      const token = localStorage.getItem("accessToken");
+      if (token) {
+        window.location.href = "../dashboard.html";
+      }
+    </script>
     <script type="module" src="./src/register.js"></script>
     <title>Expense Tracker | Register</title>
   </head>

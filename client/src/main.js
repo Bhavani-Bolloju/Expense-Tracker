@@ -26,24 +26,19 @@ import {
   handleFilterCategory,
   handleSearchWithKeywords,
   handleNextPage,
-  handlePrevPage
+  handlePrevPage,
+  handleLogout
 } from "./features/expenses";
 
 import { registerEvents } from "./core/events";
 
-const token = localStorage.getItem("accessToken");
 
-if (!token) {
-  window.location.href = "../signin.html";
-
-}
 
 //load & render initial expenses to the DOM
 let saved = storage.loadExpenses();
 
 if (!saved) {
   storage.addExpenses(dummyData);
-  // state.expenses = dummyData;
   saved = storage.loadExpenses();
 }
 
@@ -75,6 +70,7 @@ registerEvents({
   onFilterCategory: handleFilterCategory,
   onSearchWithKeywords: handleSearchWithKeywords,
   onNextPage: handleNextPage,
-  onPrevPage: handlePrevPage
+  onPrevPage: handlePrevPage, 
+  onLogout: handleLogout
 });
 
