@@ -1,3 +1,4 @@
+import { signup } from "./api/auth";
 const registerForm = document.querySelector(".form-register");
 
 registerForm.addEventListener("submit", async (e) => {
@@ -7,19 +8,7 @@ registerForm.addEventListener("submit", async (e) => {
   const inputData = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch(`http://localhost:3000/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(inputData)
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error);
-    }
+    const data = await signup(inputData);
 
     window.location.href = "/signin.html";
   } catch (error) {

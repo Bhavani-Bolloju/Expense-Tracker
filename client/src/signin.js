@@ -1,3 +1,5 @@
+import { signin } from "./api/auth";
+
 const signInForm = document.querySelector(".form-signIn");
 
 signInForm.addEventListener("submit", async (e) => {
@@ -8,22 +10,7 @@ signInForm.addEventListener("submit", async (e) => {
   const inputData = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch("http://localhost:3000/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(inputData),
-      credentials: "include"
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error);
-    }
-
-    console.log(data, "after login user client");
+    const data = await signin(inputData);
 
     //store token and the user details to the local storage
     localStorage.setItem("accessToken", data.accessToken);
@@ -35,3 +22,4 @@ signInForm.addEventListener("submit", async (e) => {
     console.log(error, "error in catch");
   }
 });
+

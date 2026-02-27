@@ -461,23 +461,6 @@ export const handlePrevPage = function () {
   resetSelects();
 };
 
-export const handleLogout = async function (e) {
-  try {
-    const req = await fetch(`http://localhost:3000/logout`, {
-      method: "POST",
-      credentials: "include"
-    });
-
-    if (req.ok) {
-      localStorage.clear();
-      window.location.href = "/signin.html";
-    } else {
-      console.error("logout failed");
-    }
-  } catch (error) {
-    console.log(error, "logout error");
-  }
-};
 
 //btn-clear-amount
 

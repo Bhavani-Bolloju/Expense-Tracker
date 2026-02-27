@@ -26,13 +26,12 @@ import {
   handleFilterCategory,
   handleSearchWithKeywords,
   handleNextPage,
-  handlePrevPage,
-  handleLogout
+  handlePrevPage
 } from "./features/expenses";
 
+import { handleLogout } from "./api/auth";
+
 import { registerEvents } from "./core/events";
-
-
 
 //load & render initial expenses to the DOM
 let saved = storage.loadExpenses();
@@ -70,7 +69,7 @@ registerEvents({
   onFilterCategory: handleFilterCategory,
   onSearchWithKeywords: handleSearchWithKeywords,
   onNextPage: handleNextPage,
-  onPrevPage: handlePrevPage, 
+  onPrevPage: handlePrevPage,
   onLogout: handleLogout
 });
 
