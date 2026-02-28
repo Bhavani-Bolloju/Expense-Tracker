@@ -12,7 +12,6 @@ signInForm.addEventListener("submit", async (e) => {
   try {
     const data = await signin(inputData);
 
-    //store token and the user details to the local storage
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("user", JSON.stringify(data.user));
 

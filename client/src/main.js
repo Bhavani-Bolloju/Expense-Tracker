@@ -33,6 +33,8 @@ import { handleLogout } from "./api/auth";
 
 import { registerEvents } from "./core/events";
 
+import { getAllExpenses } from "./api/expenses";
+
 //load & render initial expenses to the DOM
 let saved = storage.loadExpenses();
 
@@ -72,4 +74,12 @@ registerEvents({
   onPrevPage: handlePrevPage,
   onLogout: handleLogout
 });
+
+async function getExpenses() {
+  const res = await getAllExpenses();
+
+  console.log(res, "all expenses loaded from mongoDB");
+}
+
+getExpenses();
 
