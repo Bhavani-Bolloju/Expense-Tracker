@@ -32,7 +32,7 @@ const handleRegister = async function (req, res) {
     console.log(user, "new user created and add to mongoDB");
 
     //send back the res
-    return res.status(201).json({ success: `${username} account is created` });
+    return res.status(200).json({ success: `${username} account is created` });
   } catch (error) {
     // const hash_pwd = await bcrypt.hash(password, 10);
     return res.status(500).json({ error: "Server error" });
