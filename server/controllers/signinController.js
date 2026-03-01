@@ -28,7 +28,7 @@ const authHandler = async (req, res) => {
       { userInfo: { username: foundUser.username, userId: foundUser.id } },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "100s"
+        expiresIn: "3600s"
       }
     );
 
