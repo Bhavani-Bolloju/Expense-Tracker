@@ -7,6 +7,8 @@ const refreshAccessToken = async function () {
       credentials: "include"
     });
 
+    console.log(response, "refresh token client");
+
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem("accessToken", data.accessToken);
@@ -39,11 +41,15 @@ const apiClient = async function (endpoint, options = {}) {
     credentials: "include"
   });
 
+  console.log(response.status, "status");
+
   //handling error during JWT verification
   if (response.status === 401) {
-    console.log("token expired, refreshing.........");
+    // console.log("token expired, refreshing.........");
 
     const refreshed = await refreshAccessToken();
+
+    console.log(refreshed, "refresh token res on 401");
 
     if (refreshed) {
       //make api call again with new token
