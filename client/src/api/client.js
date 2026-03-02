@@ -31,7 +31,9 @@ const apiClient = async function (endpoint, options = {}) {
     throw new Error("no access token");
   }
 
-  let response = await fetch(`${API_BASE}${endpoint}`, {
+  console.log("api client", endpoint, options);
+
+  const headerOptions = {
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -39,17 +41,17 @@ const apiClient = async function (endpoint, options = {}) {
       ...options.headers
     },
     credentials: "include"
-  });
+  };
+  
+  let response = await fetch(`${API_BASE}${endpoint}`, headerOptions);
 
-  console.log(response.status, "status");
+  // console.log(response.status, "status");
 
   //handling error during JWT verification
   if (response.status === 401) {
     // console.log("token expired, refreshing.........");
 
     const refreshed = await refreshAccessToken();
-
-    console.log(refreshed, "refresh token res on 401");
 
     if (refreshed) {
       //make api call again with new token

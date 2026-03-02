@@ -29,6 +29,8 @@ import { addNewExpenseFormTemplate } from "../UI/templates";
 import { pagination } from "../services/pagination";
 import { tableStateManager } from "../services/tableStateManager";
 
+import { addNewExpense } from "../api/expenses";
+
 export const handleAddExpense = function (e) {
   expensesContainer.insertAdjacentHTML(
     "afterbegin",
@@ -45,7 +47,7 @@ export const handleAddExpense = function (e) {
   addExpenseBtn.disabled = true;
 };
 
-export const handleSubmitForm = function (e) {
+export const handleSubmitForm = async function (e) {
   e.preventDefault();
 
   const formData = new FormData(e.target);
@@ -56,19 +58,28 @@ export const handleSubmitForm = function (e) {
   //update state
   state.updateExpenses(newExpense);
 
-  const expenses = tableStateManager.getProcessedItems(state.expenses);
-  const items = pagination.getPageItems(expenses);
+  const res = await addNewExpense({
+    description: newExpense.description,
+    category: newExpense.category,
+    amount: newExpense.amount,
+    payment: newExpense.payment
+  });
 
-  const totalPages = pagination.totalPageCount;
-  const currPage = pagination.currentPageNum;
+  console.log(res, "res after adding new expense");
 
-  updateTotalPages(totalPages);
-  updateCurrentPage(currPage);
+  // const expenses = tableStateManager.getProcessedItems(state.expenses);
+  // const items = pagination.getPageItems(expenses);
 
-  renderExpenses(items);
-  //remove form
-  const formRow = expensesContainer.querySelector(".fill-expenses-row");
-  formRow.remove();
+  // const totalPages = pagination.totalPageCount;
+  // const currPage = pagination.currentPageNum;
+
+  // updateTotalPages(totalPages);
+  // updateCurrentPage(currPage);
+
+  // renderExpenses(items);
+  // //remove form
+  // const formRow = expensesContainer.querySelector(".fill-expenses-row");
+  // formRow.remove();
 
   //enable add expense btn
   addExpenseBtn.disabled = false;
@@ -460,7 +471,6 @@ export const handlePrevPage = function () {
   renumberRows();
   resetSelects();
 };
-
 
 //btn-clear-amount
 
