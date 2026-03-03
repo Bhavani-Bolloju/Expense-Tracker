@@ -42,7 +42,7 @@ function init(expenses) {
   updateTotalPages(pagination.totalPageCount);
 }
 
-async function getExpenses() {
+export async function getExpenses() {
   const res = await getAllExpenses();
   init(res);
 }

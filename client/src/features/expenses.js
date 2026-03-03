@@ -29,7 +29,9 @@ import { addNewExpenseFormTemplate } from "../UI/templates";
 import { pagination } from "../services/pagination";
 import { tableStateManager } from "../services/tableStateManager";
 
-import { addNewExpense } from "../api/expenses";
+import { addNewExpense, deleteExpense } from "../api/expenses";
+
+import { getExpenses } from "../main";
 
 export const handleAddExpense = function (e) {
   expensesContainer.insertAdjacentHTML(
@@ -58,28 +60,29 @@ export const handleSubmitForm = async function (e) {
   //update state
   state.updateExpenses(newExpense);
 
-  const res = await addNewExpense({
+  await addNewExpense({
     description: newExpense.description,
     category: newExpense.category,
     amount: newExpense.amount,
-    payment: newExpense.payment
+    payment: newExpense.payment,
+    date: newExpense.date
   });
 
-  console.log(res, "res after adding new expense");
+  const expenses = tableStateManager.getProcessedItems(state.expenses);
+  const items = pagination.getPageItems(expenses);
 
-  // const expenses = tableStateManager.getProcessedItems(state.expenses);
-  // const items = pagination.getPageItems(expenses);
+  const totalPages = pagination.totalPageCount;
+  const currPage = pagination.currentPageNum;
 
-  // const totalPages = pagination.totalPageCount;
-  // const currPage = pagination.currentPageNum;
+  updateTotalPages(totalPages);
+  updateCurrentPage(currPage);
 
-  // updateTotalPages(totalPages);
-  // updateCurrentPage(currPage);
+  renderExpenses(items);
+  //remove form
+  const formRow = expensesContainer.querySelector(".fill-expenses-row");
 
-  // renderExpenses(items);
-  // //remove form
-  // const formRow = expensesContainer.querySelector(".fill-expenses-row");
-  // formRow.remove();
+  console.log(formRow, "submitting expense");
+  formRow?.remove();
 
   //enable add expense btn
   addExpenseBtn.disabled = false;
@@ -155,30 +158,21 @@ export const handleCancelEdit = function (e) {
   toggleEditExpense(rowId);
 };
 
-export const handleDeleteExpense = function (e) {
+export const handleDeleteExpense = async function (e) {
   const isBtnDelete = e.target.classList.contains("btn_delete");
 
   if (!isBtnDelete) return;
 
   const row = e.target.closest("tr");
 
-  //update expenses
-  state.removeExpense(row.dataset.id);
+  const id = row.dataset.id;
+  console.log(id, "id to be removed");
 
-  const items = tableStateManager.getProcessedItems(state.expenses);
+  const res = await deleteExpense(id);
 
-  pagination.setTotalItems(items.length);
+  console.log(res, "after delete");
 
-  const expenses = pagination.getPageItems(items);
-
-  const totalPages = pagination.totalPageCount;
-  const currPage = pagination.currentPageNum;
-
-  updateTotalPages(totalPages);
-  updateCurrentPage(currPage);
-
-  renderExpenses(expenses);
-  renumberRows();
+  getExpenses();
 };
 
 export const handleSelectAllExpenses = function (e) {

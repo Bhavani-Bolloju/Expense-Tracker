@@ -32,3 +32,17 @@ export const addNewExpense = async (expenseData) => {
   }
 };
 
+export const deleteExpense = async (id) => {
+  try {
+    const req = await apiClient(`/api/expenses/${id}`, {
+      method: "DELETE"
+    });
+
+    const res = await req.json();
+
+    return res;
+  } catch (error) {
+    console.log(error, "client delete expense");
+  }
+};
+

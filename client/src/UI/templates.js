@@ -1,5 +1,4 @@
 import { formatDate } from "../utils/format";
-import { state } from "../core/state";
 
 const paymentTypes = [
   "cash",
@@ -12,11 +11,11 @@ const paymentTypes = [
 
 export function expenseTemplate(item, rowNum) {
   const row = `<tr class="expense-item item-${
-    item.id
-  }  group static-text" data-id="${item.id}" >
+    item._id
+  }  group static-text" data-id="${item._id}" >
                 <td class="td">
-                  <input type="checkbox" class="check_${item.id}" data-check="${
-                    item.id
+                  <input type="checkbox" class="check_${item._id}" data-check="${
+                    item._id
                   }" />
                 </td>
                 <td class="rowNum">${rowNum}</td>
@@ -30,7 +29,7 @@ export function expenseTemplate(item, rowNum) {
                       class="input_date"
                       name="date"
                       value="${new Date(item.date).toISOString().slice(0, 10)}"
-                      form="edit_form-${item.id}"
+                      form="edit_form-${item._id}"
                       required
                       aria-label="Expense date"
                     />
@@ -47,7 +46,7 @@ export function expenseTemplate(item, rowNum) {
                       class="input_category"
                       name="category"
                       value="${item.category}"
-                     form="edit_form-${item.id}"
+                     form="edit_form-${item._id}"
                       required
                       aria-label="Expense category"
                     />
@@ -65,7 +64,7 @@ export function expenseTemplate(item, rowNum) {
                       class="input_description"
                       name="description"
                       value="${item.description}"
-                      form="edit_form-${item.id}"
+                      form="edit_form-${item._id}"
                       aria-label="Expense description"
                       required
                     />
@@ -85,7 +84,7 @@ export function expenseTemplate(item, rowNum) {
                       class="input_amount"
                       name="amount"
                       value="${item.amount}"
-                      form="edit_form-${item.id}"
+                      form="edit_form-${item._id}"
                       aria-label="Expense amount"
                       required
                     />
@@ -99,7 +98,7 @@ export function expenseTemplate(item, rowNum) {
                     <select
                       name="payment"
                       class="input_payment"
-                      form="edit_form-${item.id}"
+                      form="edit_form-${item._id}"
                       required
                       aria-label="Payment method"
                     >
@@ -107,7 +106,7 @@ export function expenseTemplate(item, rowNum) {
                         .map(
                           (payment, i) =>
                             `  <option class="capitalize" value="${payment.toLowerCase()}" key="${i}">
-                            ${payment.toLowerCase()}
+                            ${payment.toLowerCase().split("_")[0]}
                           </option>`
                         )
                         .join("")}
@@ -119,9 +118,9 @@ export function expenseTemplate(item, rowNum) {
                   
                   
           <button type="submit" form="edit_form-${
-            item.id
+            item._id
           }" class="px-2 py-1 btn_save btn_save-${
-            item.id
+            item._id
           } group-[.static-text]:hidden" aria-label="save edit expense">save</button>
                   <span>/</span>
                   <button type="button" aria-label="delete expense" class="btn_delete group-[.edit]:hidden">Delete</button>
@@ -211,7 +210,7 @@ export function addNewExpenseFormTemplate() {
               >
                 ${paymentTypes.map(
                   (payment, i) =>
-                    ` <option value="${payment}" key="${i}">${payment}</option>`
+                    ` <option className="capitalize" value="${payment}" key="${i}">${payment.split("_").join(" ")}</option>`
                 )}
               </select>
             </td>
