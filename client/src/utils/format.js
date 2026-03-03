@@ -1,10 +1,6 @@
-export function formatDate(date) {
-  const customFormatter = new Intl.DateTimeFormat("en-US", {
-    day: "numeric",
-    month: "short",
-    year: "numeric"
-  });
+import { format } from "date-fns";
 
-  return customFormatter.format(new Date(date));
+export function formatDate(date) {
+  return format(date, "PP");
 }
 

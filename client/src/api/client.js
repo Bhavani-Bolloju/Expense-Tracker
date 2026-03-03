@@ -42,7 +42,7 @@ const apiClient = async function (endpoint, options = {}) {
     },
     credentials: "include"
   };
-  
+
   let response = await fetch(`${API_BASE}${endpoint}`, headerOptions);
 
   // console.log(response.status, "status");

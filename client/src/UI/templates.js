@@ -1,39 +1,35 @@
 import { formatDate } from "../utils/format";
 import { state } from "../core/state";
 
-const paymentTypes = function () {
-  const allPaymentTypes = state.expenses.map((item) => item.payment);
-
-  const uniquePaymentTypes = new Set(allPaymentTypes);
-  uniquePaymentTypes.add("cash");
-  uniquePaymentTypes.add("credit");
-  uniquePaymentTypes.add("debit");
-
-  return [...uniquePaymentTypes];
-};
+const paymentTypes = [
+  "cash",
+  "credit_card",
+  "debit_card",
+  "upi",
+  "bank_transfer",
+  "other"
+];
 
 export function expenseTemplate(item, rowNum) {
-  // console.log(item, rowNum);
-
   const row = `<tr class="expense-item item-${
     item.id
   }  group static-text" data-id="${item.id}" >
                 <td class="td">
                   <input type="checkbox" class="check_${item.id}" data-check="${
-    item.id
-  }" />
+                    item.id
+                  }" />
                 </td>
                 <td class="rowNum">${rowNum}</td>
                 <td class="td">
                   <span class="date_value group-[.edit]:hidden">
-                      ${formatDate(item.date)}
+                      ${formatDate(new Date(item.date))}
                   </span>
                   <span class="group-[.static-text]:hidden">
                     <input
-                      type="date"
+                      type="date" 
                       class="input_date"
                       name="date"
-                      value="${item.date}"
+                      value="${new Date(item.date).toISOString().slice(0, 10)}"
                       form="edit_form-${item.id}"
                       required
                       aria-label="Expense date"
@@ -107,7 +103,7 @@ export function expenseTemplate(item, rowNum) {
                       required
                       aria-label="Payment method"
                     >
-                      ${paymentTypes()
+                      ${paymentTypes
                         .map(
                           (payment, i) =>
                             `  <option class="capitalize" value="${payment.toLowerCase()}" key="${i}">
@@ -125,8 +121,8 @@ export function expenseTemplate(item, rowNum) {
           <button type="submit" form="edit_form-${
             item.id
           }" class="px-2 py-1 btn_save btn_save-${
-    item.id
-  } group-[.static-text]:hidden" aria-label="save edit expense">save</button>
+            item.id
+          } group-[.static-text]:hidden" aria-label="save edit expense">save</button>
                   <span>/</span>
                   <button type="button" aria-label="delete expense" class="btn_delete group-[.edit]:hidden">Delete</button>
                   <button type="button" aria-label="cancel edit expense" class="btn_cancel group-[.static-text]:hidden">Cancel</button>
@@ -139,11 +135,15 @@ export function expenseTemplate(item, rowNum) {
 }
 
 export function addNewExpenseFormTemplate() {
-  const filterTypes = state.expenses
-    .filter((item) => item.category)
-    .map((item) => item.category);
-
-  const uniqueTypes = new Set(filterTypes);
+  const categoryType = [
+    "food",
+    "transport",
+    "entertainment",
+    "utilities",
+    "shopping",
+    "health",
+    "other"
+  ];
 
   return `
           <tr class="fill-expenses-row" id="add-expense-form">
@@ -171,7 +171,7 @@ export function addNewExpenseFormTemplate() {
               />
               
                <datalist id="category">
-                  ${[...uniqueTypes]
+                  ${[...categoryType]
                     .map((type) => {
                       return `<option value="${type}"></option>`;
                     })
@@ -209,7 +209,7 @@ export function addNewExpenseFormTemplate() {
                 aria-label="Payment method"
                 required
               >
-                ${paymentTypes().map(
+                ${paymentTypes.map(
                   (payment, i) =>
                     ` <option value="${payment}" key="${i}">${payment}</option>`
                 )}

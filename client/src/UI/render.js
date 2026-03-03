@@ -27,7 +27,6 @@ export function renderExpenses(expenses) {
   }
 
   //empty the container
-
   expensesContainer.innerHTML = "";
   expensesContainer.insertAdjacentHTML("beforeend", list);
 }
@@ -137,18 +136,7 @@ export function clearAmountSortingIndicators() {
   btnClearAmountSort.classList.add("hidden");
 }
 
-export function displayFilterCategoryOptions(expenses) {
-  const filterTypes = expenses.map((item) => item.category);
 
-  const uniqueTypes = new Set(filterTypes);
-
-  [...uniqueTypes].forEach((category) => {
-    const optionEl = document.createElement("option");
-    optionEl.value = category;
-    optionEl.textContent = category;
-    selectFilterCategory.appendChild(optionEl);
-  });
-}
 
 export function updateTotalPages(count) {
   totalPagesEl.textContent = count;

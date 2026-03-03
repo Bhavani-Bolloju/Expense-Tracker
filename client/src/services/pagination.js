@@ -6,6 +6,7 @@ export class Pagination {
   }
 
   setTotalItems(totalCount) {
+    console.log(totalCount, "total count");
     this._totalItems =
       totalCount >= this.itemsPerPage ? totalCount : this.itemsPerPage;
   }
@@ -22,9 +23,9 @@ export class Pagination {
 
   get currentPageNum() {
     this.currentPage =
-      this.currentPage > this.totalPageCount
-        ? this.totalPageCount
-        : this.currentPage;
+      this.currentPage > this.totalPageCount ?
+        this.totalPageCount
+      : this.currentPage;
     return this.currentPage;
   }
 

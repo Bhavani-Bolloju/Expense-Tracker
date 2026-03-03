@@ -1,11 +1,7 @@
 import { storage } from "./services/storage";
 import { state } from "./core/state";
 import { dummyData } from "./core/state";
-import {
-  renderExpenses,
-  displayFilterCategoryOptions,
-  updateTotalPages
-} from "./UI/render";
+import { renderExpenses, updateTotalPages } from "./UI/render";
 
 import { pagination } from "./services/pagination";
 
@@ -38,21 +34,20 @@ import { getAllExpenses } from "./api/expenses";
 //load & render initial expenses to the DOM
 let saved = storage.loadExpenses();
 
-if (!saved) {
-  storage.addExpenses(dummyData);
-  saved = storage.loadExpenses();
+function init(expenses) {
+  state.expenses = expenses;
+  pagination.setTotalItems(state.expenses.length);
+  const currPageItems = pagination.getPageItems(state.expenses);
+  renderExpenses(currPageItems);
+  updateTotalPages(pagination.totalPageCount);
 }
 
-state.expenses = saved;
+async function getExpenses() {
+  const res = await getAllExpenses();
+  init(res);
+}
 
-//set total expenses count
-pagination.setTotalItems(state.expenses.length);
-
-const currPageItems = pagination.getPageItems(state.expenses);
-renderExpenses(currPageItems);
-
-displayFilterCategoryOptions(state.expenses);
-updateTotalPages(pagination.totalPageCount);
+getExpenses();
 
 registerEvents({
   onAddExpense: handleAddExpense,
@@ -74,12 +69,4 @@ registerEvents({
   onPrevPage: handlePrevPage,
   onLogout: handleLogout
 });
-
-async function getExpenses() {
-  const res = await getAllExpenses();
-
-  console.log(res, "all expenses loaded from mongoDB");
-}
-
-getExpenses();
 
