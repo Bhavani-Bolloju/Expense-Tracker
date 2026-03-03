@@ -15,6 +15,7 @@ const verifyJWT = require("./middleware/verifyJWT");
 const PORT = process.env.PORT || 3000;
 
 connectDB();
+app.use(express.json());
 
 // console.log("Environment", process.env.NODE_ENV);
 
@@ -23,8 +24,7 @@ connectDB();
 // console.log(corsOptions, "corsoptions");
 
 app.use(cors(corsOptions));
-
-app.use(express.json());
+  
 
 app.use(cookieParser());
 
