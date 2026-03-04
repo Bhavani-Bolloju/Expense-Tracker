@@ -7,10 +7,14 @@ const verifyJWT = (req, res, next) => {
 
   const accessToken = authHeader.split(" ")[1];
 
+  // console.log(accessToken, 'accessToken')
+
   jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    console.log(err, decoded, "verify jwt callback");
     if (err) return res.sendStatus(401); //unauthorized
     req.username = decoded.userInfo.username;
     req.userId = decoded.userInfo.userId;
+    // console.log("verify JWT passed", req.userId);
     next();
   });
 };
