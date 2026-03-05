@@ -46,3 +46,18 @@ export const deleteExpense = async (id) => {
   }
 };
 
+export const updateExpense = async (id, data) => {
+  try {
+    const req = await apiClient(`/api/expenses/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data)
+    });
+    const res = await req.json();
+    console.log(res, "res after update");
+
+    return res;
+  } catch (error) {
+    console.log(error, "client delete expense");
+  }
+};
+

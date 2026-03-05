@@ -12,7 +12,7 @@ const paymentTypes = [
 export function expenseTemplate(item, rowNum) {
   const row = `<tr class="expense-item item-${
     item._id
-  }  group static-text" data-id="${item._id}" >
+  } group static" data-id="${item._id}" >
                 <td class="td">
                   <input type="checkbox" class="check_${item._id}" data-check="${
                     item._id
@@ -23,7 +23,7 @@ export function expenseTemplate(item, rowNum) {
                   <span class="date_value group-[.edit]:hidden">
                       ${formatDate(new Date(item.date))}
                   </span>
-                  <span class="group-[.static-text]:hidden">
+                  <span class="group-[.static]:hidden">
                     <input
                       type="date" 
                       class="input_date"
@@ -39,7 +39,7 @@ export function expenseTemplate(item, rowNum) {
                   <span class="category_value group-[.edit]:hidden">${
                     item.category
                   }</span>
-                  <span class="group-[.static-text]:hidden">
+                  <span class="group-[.static]:hidden">
                       <input
                       type="text"
                       placeholder="enter category"
@@ -57,7 +57,7 @@ export function expenseTemplate(item, rowNum) {
                   <span class="description_value group-[.edit]:hidden">${
                     item.description
                   }</span>
-                  <span class="group-[.static-text]:hidden">
+                  <span class="group-[.static]:hidden">
                     <input
                       type="text"
                       placeholder="Enter description"
@@ -77,7 +77,7 @@ export function expenseTemplate(item, rowNum) {
                     ${Number(item.amount).toFixed(2)}
                     </span>
                   </span>
-                  <span class="group-[.static-text]:hidden">
+                  <span class="group-[.static]:hidden">
                     <input
                       type="number"
                       placeholder="Enter Amount"
@@ -91,10 +91,11 @@ export function expenseTemplate(item, rowNum) {
                   </span>
                 </td>
                 <td class="td">
-                  <span class="payment_value group-[.edit]:hidden">${
-                    item.payment
-                  }</span>
-                  <span class="group-[.static-text]:hidden">
+                  <span class="payment_value group-[.edit]:hidden">${item.payment
+                    .toLowerCase()
+                    .split("_")
+                    .join(" ")}</span>
+                  <span class="group-[.static]:hidden">
                     <select
                       name="payment"
                       class="input_payment"
@@ -106,7 +107,7 @@ export function expenseTemplate(item, rowNum) {
                         .map(
                           (payment, i) =>
                             `  <option class="capitalize" value="${payment.toLowerCase()}" key="${i}">
-                            ${payment.toLowerCase().split("_")[0]}
+                            ${payment.toLowerCase().split("_").join(" ")}
                           </option>`
                         )
                         .join("")}
@@ -121,10 +122,10 @@ export function expenseTemplate(item, rowNum) {
             item._id
           }" class="px-2 py-1 btn_save btn_save-${
             item._id
-          } group-[.static-text]:hidden" aria-label="save edit expense">save</button>
+          } group-[.static]:hidden" aria-label="save edit expense">save</button>
                   <span>/</span>
                   <button type="button" aria-label="delete expense" class="btn_delete group-[.edit]:hidden">Delete</button>
-                  <button type="button" aria-label="cancel edit expense" class="btn_cancel group-[.static-text]:hidden">Cancel</button>
+                  <button type="button" aria-label="cancel edit expense" class="btn_cancel group-[.static]:hidden">Cancel</button>
                 </td>
               
             </tr>

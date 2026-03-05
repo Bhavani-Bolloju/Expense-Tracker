@@ -29,7 +29,7 @@ import { addNewExpenseFormTemplate } from "../UI/templates";
 import { pagination } from "../services/pagination";
 import { tableStateManager } from "../services/tableStateManager";
 
-import { addNewExpense, deleteExpense } from "../api/expenses";
+import { addNewExpense, deleteExpense, updateExpense } from "../api/expenses";
 
 import { getExpenses } from "../main";
 
@@ -81,8 +81,7 @@ export const handleSubmitForm = async function (e) {
   //remove form
   const formRow = expensesContainer.querySelector(".fill-expenses-row");
 
-  console.log(formRow, "submitting expense");
-  formRow?.remove();
+  // formRow?.remove();
 
   //enable add expense btn
   addExpenseBtn.disabled = false;
@@ -114,14 +113,18 @@ export const handleEditExpense = function (e) {
   const row = e.target.closest("tr");
   const rowId = row.dataset.id;
 
+  // console.log(rowId, "row id to be edited");
+
   //update the UI
   toggleEditExpense(rowId);
+
+  // console.log("toggle edit expenses");
 
   //create newFormEl
   createNewFormElement(rowId);
 };
 
-export const handleSubmitEditExpense = function (e) {
+export const handleSubmitEditExpense = async function (e) {
   if (e.target.tagName !== "FORM") return;
 
   e.preventDefault();
@@ -129,18 +132,19 @@ export const handleSubmitEditExpense = function (e) {
   const form = e.target;
   const formId = form.dataset.formId;
 
-  //get form data
-
   const formData = new FormData(form);
   const inputData = Object.fromEntries(formData.entries());
 
+  const updatedExpense = await updateExpense(formId, inputData);
+
   //update storage
-  state.updateEditedExpense(formId, inputData);
+  state.updateEditedExpense(formId, updatedExpense.newExpense);
 
   const expenses = tableStateManager.getProcessedItems(state.expenses);
 
   const items = pagination.getPageItems(expenses);
 
+  toggleEditExpense(formId);
   renderExpenses(items);
 
   renumberRows();

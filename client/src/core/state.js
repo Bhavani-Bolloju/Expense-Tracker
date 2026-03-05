@@ -1,6 +1,5 @@
 import { storage } from "../services/storage";
 
-
 export const dummyData = [
   {
     id: "1aer",
@@ -213,9 +212,14 @@ export const state = {
     storage.addExpenses(this.expenses);
   },
   updateEditedExpense: function (id, newExpense) {
-    const index = this.expenses.findIndex((item) => item.id === id);
+    const index = this.expenses.findIndex((item) => {
+      return item._id === id;
+    });
     const item = this.expenses[index];
+
+    // console.log(item, "item to be updated", newExpense);
     const updatedExpense = { ...item, ...newExpense };
+
     this.expenses[index] = updatedExpense;
 
     storage.addExpenses(this.expenses);

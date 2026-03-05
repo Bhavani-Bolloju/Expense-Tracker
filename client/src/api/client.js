@@ -7,7 +7,6 @@ const refreshAccessToken = async function () {
       credentials: "include"
     });
 
-    console.log(response, "refresh token client");
 
     if (response.ok) {
       const data = await response.json();
@@ -30,8 +29,6 @@ const apiClient = async function (endpoint, options = {}) {
     //or ask user to login again bc of no credentials
     throw new Error("no access token");
   }
-
-  console.log("api client", endpoint, options);
 
   const headerOptions = {
     ...options,

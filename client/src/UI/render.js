@@ -47,6 +47,7 @@ export function createNewFormElement(rowId) {
   const newForm = document.createElement("form");
   newForm.setAttribute("id", `edit_form-${rowId}`);
   newForm.dataset.formId = rowId;
+
   expensesContainer.prepend(newForm);
 }
 
@@ -135,8 +136,6 @@ export function clearAmountSortingIndicators() {
 
   btnClearAmountSort.classList.add("hidden");
 }
-
-
 
 export function updateTotalPages(count) {
   totalPagesEl.textContent = count;
