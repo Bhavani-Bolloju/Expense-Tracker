@@ -3,7 +3,7 @@ const Expense = require("../model/Expense");
 const getAllExpenses = async (req, res) => {
   try {
     const expenses = await Expense.find({ userId: req.userId }).sort({
-      date: 1
+      createdAt: -1
     });
     res.json(expenses);
   } catch (error) {
@@ -14,25 +14,69 @@ const getAllExpenses = async (req, res) => {
 const createExpense = async (req, res) => {
   try {
     const userId = req.userId;
-    const expense = { ...req.body, userId };
-    await Expense.create(expense);
+    const data = { ...req.body, userId };
+    const expense = await Expense.create(data);
 
-    res.status(200).json({ success: "new expense created" });
+    res.status(201).json(expense);
   } catch (error) {
-    console.log(error, "error during create expense");
+    res.status(500).json({ error: "Failed to create new expense" });
   }
 };
 
 const removeExpense = async (req, res) => {
   try {
     const id = req.params.id;
-    await Expense.findOneAndDelete({ _id: id }).exec();
+    const expense = await Expense.findOneAndDelete({ _id: id }).exec();
 
-    res.json({ message: "expense deleted successfully" });
+    if (!expense) return res.status(404).json({ error: "Not found" });
+
+    res.json({ message: "Deleted" });
   } catch (error) {
-    console.log(error, "error deleting the expense");
+    res.status(500).json({ error: "Failed to delete expense" });
   }
 };
 
-module.exports = { getAllExpenses, createExpense, removeExpense };
+const updateExpense = async (req, res) => {
+  const { category, description, amount, payment, date } = req.body;
+  const id = req.params.id;
+
+  try {
+    const expense = await Expense.findOne({ _id: id }).exec();
+
+    if (!expense) return res.status(404).json({ error: "Not found" });
+
+    expense.category = category;
+    expense.description = description;
+    expense.amount = amount;
+    expense.date = date;
+    expense.payment = payment;
+
+    const newExpense = await expense.save();
+
+    return res.json({ expense: newExpense });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update expense" });
+  }
+};
+
+const deleteMultipleExpenses = async (req, res) => {
+  const ids = req.body;
+  try {
+    const req = await Expense.deleteMany({ _id: { $in: ids } });
+
+    if (!req) return res.status(404).json({ error: "Not found" });
+
+    res.json({ message: `Deleted ${req.deletedCount} expenses` });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update expenses" });
+  }
+};
+
+module.exports = {
+  getAllExpenses,
+  createExpense,
+  removeExpense,
+  updateExpense,
+  deleteMultipleExpenses
+};
 

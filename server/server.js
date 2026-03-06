@@ -24,7 +24,6 @@ app.use(express.json());
 // console.log(corsOptions, "corsoptions");
 
 app.use(cors(corsOptions));
-  
 
 app.use(cookieParser());
 

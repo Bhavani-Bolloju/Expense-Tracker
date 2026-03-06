@@ -9,6 +9,10 @@ const expenseSchema = new Schema({
   },
   date: {
     type: Date,
+    required: true
+  },
+  createdAt: {
+    type: Date,
     default: Date.now
   },
   description: {
