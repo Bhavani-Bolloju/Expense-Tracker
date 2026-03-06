@@ -29,7 +29,12 @@ import { addNewExpenseFormTemplate } from "../UI/templates";
 import { pagination } from "../services/pagination";
 import { tableStateManager } from "../services/tableStateManager";
 
-import { addNewExpense, deleteExpense, updateExpense } from "../api/expenses";
+import {
+  addNewExpense,
+  deleteExpense,
+  updateExpense,
+  multiExpensesDelete
+} from "../api/expenses";
 
 import { getExpenses } from "../main";
 
@@ -205,6 +210,7 @@ export const handleSelectAllExpenses = function (e) {
 };
 
 // let count = 0;
+
 export const handleMultiSelectExpenses = function (e) {
   // const isCheckbox =
 
@@ -249,7 +255,7 @@ export const handleMultiSelectExpenses = function (e) {
   // console.log(tableStateManager.selectCount, "count");
 };
 
-export const handleMultiSelectedExpensesDelete = function (e) {
+export const handleMultiSelectedExpensesDelete = async function (e) {
   //get all the items -> remove those that are have checked on them
   const rows = expensesContainer.querySelectorAll("tr");
 
@@ -265,8 +271,12 @@ export const handleMultiSelectedExpensesDelete = function (e) {
     }
   });
 
+  await multiExpensesDelete([...deleteIds]);
+
   //remove all the items from the state
   state.removeMultipleExpenses(deleteIds);
+
+  console.log(state.expenses, deleteIds);
 
   //update UI
 

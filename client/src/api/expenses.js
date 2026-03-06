@@ -61,3 +61,22 @@ export const updateExpense = async (id, data) => {
   }
 };
 
+export const multiExpensesDelete = async (ids) => {
+  try {
+    const req = await apiClient("/api/expenses/bulk-delete", {
+      method: "DELETE",
+      body: JSON.stringify(ids)
+    });
+
+    const res = await req.json();
+
+    if (req.ok) {
+      return res;
+    }
+
+    // console.log(res, "after delete")
+  } catch (error) {
+    console.log(error, "error deleting multiple ids");
+  }
+};
+

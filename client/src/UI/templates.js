@@ -1,13 +1,6 @@
 import { formatDate } from "../utils/format";
 
-const paymentTypes = [
-  "cash",
-  "credit_card",
-  "debit_card",
-  "upi",
-  "bank_transfer",
-  "other"
-];
+import { paymentTypes, categoryType } from "../core/state";
 
 export function expenseTemplate(item, rowNum) {
   const row = `<tr class="expense-item item-${
@@ -135,16 +128,6 @@ export function expenseTemplate(item, rowNum) {
 }
 
 export function addNewExpenseFormTemplate() {
-  const categoryType = [
-    "food",
-    "transport",
-    "entertainment",
-    "utilities",
-    "shopping",
-    "health",
-    "other"
-  ];
-
   return `
           <tr class="fill-expenses-row" id="add-expense-form">
             <td class=""></td>

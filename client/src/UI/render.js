@@ -159,3 +159,13 @@ export function resetSelects() {
   selectAllCheckbox.indeterminate = false;
 }
 
+export function addFilterCategoryOptions(options) {
+  options.forEach((item) => {
+    const optionEl = document.createElement("option");
+    optionEl.textContent = item;
+    optionEl.setAttribute("value", item);
+
+    selectFilterCategory.insertAdjacentElement("beforeend", optionEl);
+  });
+}
+

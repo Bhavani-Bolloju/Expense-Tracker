@@ -203,6 +203,25 @@ export const dummyData = [
   }
 ];
 
+export const paymentTypes = [
+  "cash",
+  "credit_card",
+  "debit_card",
+  "upi",
+  "bank_transfer",
+  "other"
+];
+
+export const categoryType = [
+  "food",
+  "transport",
+  "entertainment",
+  "utilities",
+  "shopping",
+  "health",
+  "other"
+];
+
 export const state = {
   expenses: null,
 
@@ -231,7 +250,7 @@ export const state = {
   },
 
   removeMultipleExpenses: function (ids) {
-    this.expenses = this.expenses.filter((item) => !ids.has(item.id));
+    this.expenses = this.expenses.filter((item) => !ids.has(item._id));
     storage.addExpenses(this.expenses);
   }
 };

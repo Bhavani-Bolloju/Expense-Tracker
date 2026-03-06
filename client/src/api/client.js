@@ -7,7 +7,6 @@ const refreshAccessToken = async function () {
       credentials: "include"
     });
 
-
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem("accessToken", data.accessToken);
@@ -39,6 +38,8 @@ const apiClient = async function (endpoint, options = {}) {
     },
     credentials: "include"
   };
+
+  // console.log(headerOptions, "api client", endpoint);
 
   let response = await fetch(`${API_BASE}${endpoint}`, headerOptions);
 
