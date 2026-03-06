@@ -97,12 +97,11 @@ export function expenseTemplate(item, rowNum) {
                       aria-label="Payment method"
                     >
                       ${paymentTypes
-                        .map(
-                          (payment, i) =>
-                            `  <option class="capitalize" value="${payment.toLowerCase()}" key="${i}">
+                        .map((payment, i) => {
+                          return ` <option class="capitalize" value="${payment}" key="${i}" ${payment == item.payment ? "Selected" : ""}>
                             ${payment.toLowerCase().split("_").join(" ")}
-                          </option>`
-                        )
+                          </option>`;
+                        })
                         .join("")}
                     </select>
                   </span>
@@ -153,13 +152,13 @@ export function addNewExpenseFormTemplate() {
                 required
               />
               
-               <datalist id="category">
-                  ${[...categoryType]
+               <select id="category">
+                  ${categoryType
                     .map((type) => {
                       return `<option value="${type}"></option>`;
                     })
                     .join("")}
-                </datalist>
+                </select>
             </td>
 
             <td class="px-2.5 py-3 text-start">
