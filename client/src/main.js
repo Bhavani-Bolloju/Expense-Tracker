@@ -22,10 +22,11 @@ import {
   handleFilterCategory,
   handleSearchWithKeywords,
   handleNextPage,
-  handlePrevPage
+  handlePrevPage,
+  handleLogout
 } from "./features/expenses";
 
-import { handleLogout } from "./api/auth";
+
 
 import { registerEvents } from "./core/events";
 
@@ -77,3 +78,4 @@ registerEvents({
   onLogout: handleLogout
 });
 
+//  window.location.href = "/signin.html";

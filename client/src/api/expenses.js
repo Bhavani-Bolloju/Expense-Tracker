@@ -1,82 +1,72 @@
 import apiClient from "./client";
 export const getAllExpenses = async () => {
-  try {
-    const req = await apiClient("/api/expenses");
-    const res = await req.json();
-    // console.log(res, "get all expenses fn");
-    if (!req.ok) {
-      throw new Error(res.error);
-    }
-    return res;
-  } catch (error) {
-    console.log(error, "from getting all expenses");
+  const req = await apiClient("/api/expenses");
+
+  if (!req.ok) {
+    const error = await req.json();
+    throw new Error(error.error || "Failed to fetch expenses");
   }
+
+  const res = await req.json();
+  return res;
 };
 
 export const addNewExpense = async (expenseData) => {
-  try {
-    const req = await apiClient("/api/expenses", {
-      method: "POST",
-      body: JSON.stringify(expenseData)
-    });
+  const req = await apiClient("/api/expenses", {
+    method: "POST",
+    body: JSON.stringify(expenseData)
+  });
 
-    const res = await req.json();
-
-    if (!req.ok) {
-      throw new Error(res.error);
-    }
-
-    return res;
-  } catch (error) {
-    console.log(error, "error adding new expense");
+  if (!req.ok) {
+    const error = await req.json();
+    throw new Error(error.error || "failed to create new expense");
   }
+
+  const res = await req.json();
+  return res;
 };
 
 export const deleteExpense = async (id) => {
-  try {
-    const req = await apiClient(`/api/expenses/${id}`, {
-      method: "DELETE"
-    });
+  const req = await apiClient(`/api/expenses/${id}`, {
+    method: "DELETE"
+  });
 
-    const res = await req.json();
-
-    return res;
-  } catch (error) {
-    console.log(error, "client delete expense");
+  if (!req.ok) {
+    const error = await req.json();
+    throw new Error(error.error || "Failed to delete expense");
   }
+
+  const res = await req.json();
+  return res;
 };
 
 export const updateExpense = async (id, data) => {
-  try {
-    const req = await apiClient(`/api/expenses/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(data)
-    });
-    const res = await req.json();
-    console.log(res, "res after update");
+  const req = await apiClient(`/api/expenses/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(data)
+  });
 
-    return res;
-  } catch (error) {
-    console.log(error, "client delete expense");
+  if (!req.ok) {
+    const error = await req.json();
+    throw new Error(error.error || "Failed to update");
   }
+
+  const res = await req.json();
+  return res;
 };
 
 export const multiExpensesDelete = async (ids) => {
-  try {
-    const req = await apiClient("/api/expenses/bulk-delete", {
-      method: "DELETE",
-      body: JSON.stringify(ids)
-    });
+  const req = await apiClient("/api/expenses/bulk-delete", {
+    method: "DELETE",
+    body: JSON.stringify(ids)
+  });
 
-    const res = await req.json();
-
-    if (req.ok) {
-      return res;
-    }
-
-    // console.log(res, "after delete")
-  } catch (error) {
-    console.log(error, "error deleting multiple ids");
+  if (!req.ok) {
+    const error = await req.json();
+    throw new Error(error.error || "Failed to delete expenses");
   }
+
+  const res = await req.json();
+  return res;
 };
 

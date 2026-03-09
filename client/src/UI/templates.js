@@ -141,21 +141,11 @@ export function addNewExpenseFormTemplate() {
                 aria-label="Expense date"
               />
             </td>
-            <td class="px-5 py-3">
-              <input
-                placeholder="enter category"
-                class="input_category"
-                name="category"
-                list = "category"
-                form="expenseForm"
-                aria-label="Expense category type"
-                required
-              />
-              
-               <select id="category">
+            <td class="px-5 py-3">              
+                <select id="category">
                   ${categoryType
                     .map((type) => {
-                      return `<option value="${type}"></option>`;
+                      return `<option value="${type}">${type}</option>`;
                     })
                     .join("")}
                 </select>

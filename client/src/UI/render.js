@@ -15,7 +15,15 @@ import { formatDate } from "../utils/format";
 
 import { pagination } from "../services/pagination";
 
+import { emptyList } from "./elements";
+
 export function renderExpenses(expenses) {
+  if (expenses.length == 0) {
+    emptyList.classList.remove("hidden");
+  } else {
+    emptyList.classList.add("hidden");
+  }
+
   const list = expenses
     ?.map((item, index) => {
       return expenseTemplate(item, index + 1);

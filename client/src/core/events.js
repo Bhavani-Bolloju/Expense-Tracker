@@ -37,6 +37,8 @@ export function registerEvents({
 }) {
   addExpenseBtn.addEventListener("click", onAddExpense);
   expenseForm.addEventListener("submit", onSubmitForm);
+  btnLogout.addEventListener("click", onLogout);
+
   expensesContainer.addEventListener("click", onCancelAddExpense);
 
   expensesContainer.addEventListener("click", onEditExpense);
@@ -66,7 +68,5 @@ export function registerEvents({
 
   btnNextEl.addEventListener("click", onNextPage);
   btnPrevEl.addEventListener("click", onPrevPage);
-
-  btnLogout.addEventListener("click", onLogout);
 }
 

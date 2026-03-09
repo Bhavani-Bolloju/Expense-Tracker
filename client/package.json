@@ -15,7 +15,8 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
     "date-fns": "^4.1.0",
-    "nanoid": "^5.1.6"
+    "nanoid": "^5.1.6",
+    "notyf": "^3.10.0"
   },
   "description": "",
   "main": "vite.config.js",
@@ -23,3 +24,4 @@
   "author": "",
   "license": "ISC"
 }
+

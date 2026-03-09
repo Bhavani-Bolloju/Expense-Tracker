@@ -1,4 +1,7 @@
 import { signup } from "./api/auth";
+
+import notyf from "./UI/notification";
+
 const registerForm = document.querySelector(".form-register");
 
 registerForm.addEventListener("submit", async (e) => {
@@ -8,11 +11,15 @@ registerForm.addEventListener("submit", async (e) => {
   const inputData = Object.fromEntries(formData.entries());
 
   try {
-    const data = await signup(inputData);
+    await signup(inputData);
 
-    window.location.href = "/signin.html";
+    notyf.success("User registered");
+
+    setTimeout(() => {
+      window.location.href = "/signin.html";
+    }, 1500);
   } catch (error) {
-    console.log(error, "error in catch");
+    notyf.error(error.message);
   }
 });
 

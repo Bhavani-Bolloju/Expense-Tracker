@@ -38,6 +38,10 @@ import {
 
 import { getExpenses } from "../main";
 
+import { logout } from "../api/auth";
+
+import notyf from "../UI/notification";
+
 export const handleAddExpense = function (e) {
   expensesContainer.insertAdjacentHTML(
     "afterbegin",
@@ -63,15 +67,25 @@ export const handleSubmitForm = async function (e) {
   const newExpense = { ...inputData, id: nanoid(4) };
 
   //update state
-  state.updateExpenses(newExpense);
+  // state.updateExpenses(newExpense);
 
-  await addNewExpense({
-    description: newExpense.description,
-    category: newExpense.category,
-    amount: newExpense.amount,
-    payment: newExpense.payment,
-    date: newExpense.date
-  });
+  try {
+    await addNewExpense({
+      description: newExpense.description,
+      category: newExpense.category,
+      amount: newExpense.amount,
+      payment: newExpense.payment,
+      date: newExpense.date
+    });
+
+    console.log("notify user of new expense");
+
+    notyf.success("new expenses add");
+  } catch (error) {
+    notyf.error(error.message);
+  }
+
+  console.log("after try  catch , add new expense");
 
   const expenses = tableStateManager.getProcessedItems(state.expenses);
   const items = pagination.getPageItems(expenses);
@@ -84,11 +98,8 @@ export const handleSubmitForm = async function (e) {
 
   renderExpenses(items);
   //remove form
-  const formRow = expensesContainer.querySelector(".fill-expenses-row");
+  // const formRow = expensesContainer.querySelector(".fill-expenses-row");
 
-  // formRow?.remove();
-
-  //enable add expense btn
   addExpenseBtn.disabled = false;
   addExpenseBtn.setAttribute("aria-expanded", false);
 };
@@ -478,6 +489,19 @@ export const handlePrevPage = function () {
   renderExpenses(expenseItems);
   renumberRows();
   resetSelects();
+};
+
+export const handleLogout = async function () {
+  try {
+    await logout();
+    notyf.success("Come back soon!!");
+
+    setTimeout(() => {
+      window.location.href = "/signin.html";
+    }, 1500);
+  } catch (error) {
+    notyf.error(error.error);
+  }
 };
 
 //btn-clear-amount
