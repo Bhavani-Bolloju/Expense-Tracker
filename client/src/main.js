@@ -1,10 +1,3 @@
-import { storage } from "./services/storage";
-import { state } from "./core/state";
-import { dummyData } from "./core/state";
-import { renderExpenses, updateTotalPages } from "./UI/render";
-
-import { pagination } from "./services/pagination";
-
 import {
   handleAddExpense,
   handleSubmitForm,
@@ -32,7 +25,6 @@ import { registerEvents } from "./core/events";
 import { addFilterCategoryOptions } from "./UI/render";
 
 import { categoryType } from "./core/state";
-
 
 getExpenses();
 

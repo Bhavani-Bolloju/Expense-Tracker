@@ -41,7 +41,6 @@ import notyf from "../UI/notification";
 export const getExpenses = async function () {
   try {
     const res = await getAllExpenses();
-
     state.expenses = res;
     pagination.setTotalItems(state.expenses.length);
     const currPageItems = pagination.getPageItems(state.expenses);

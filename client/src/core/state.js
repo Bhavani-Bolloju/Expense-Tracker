@@ -1,5 +1,3 @@
-import { storage } from "../services/storage";
-
 export const dummyData = [
   {
     id: "1aer",
@@ -227,8 +225,6 @@ export const state = {
 
   updateExpenses: function (expense) {
     this.expenses.unshift(expense);
-    storage.removeExpenses("expenses");
-    storage.addExpenses(this.expenses);
   },
   updateEditedExpense: function (id, newExpense) {
     const index = this.expenses.findIndex((item) => {
@@ -237,17 +233,14 @@ export const state = {
     const item = this.expenses[index];
     const updatedExpense = { ...item, ...newExpense };
     this.expenses[index] = updatedExpense;
-    storage.addExpenses(this.expenses);
   },
 
   removeExpense: function (id) {
     this.expenses = this.expenses.filter((item) => item.id !== id);
-    storage.addExpenses(this.expenses);
   },
 
   removeMultipleExpenses: function (ids) {
     this.expenses = this.expenses.filter((item) => !ids.has(item._id));
-    storage.addExpenses(this.expenses);
   }
 };
 
