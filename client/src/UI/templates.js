@@ -4,8 +4,8 @@ import { paymentTypes, categoryType } from "../core/state";
 
 export function expenseTemplate(item, rowNum) {
   const row = `<tr class="expense-item item-${
-    item._id
-  } group static" data-id="${item._id}" >
+    item?._id
+  } group static" data-id="${item?._id}" >
                 <td class="td">
                   <input type="checkbox" class="check_${item._id}" data-check="${
                     item._id
@@ -141,8 +141,10 @@ export function addNewExpenseFormTemplate() {
                 aria-label="Expense date"
               />
             </td>
-            <td class="px-5 py-3">              
-                <select id="category">
+            <td class="px-5 py-3">
+      
+              
+               <select id="category" class="input_category" name="category" form="expenseForm" aria-label="Expense category type" required >
                   ${categoryType
                     .map((type) => {
                       return `<option value="${type}">${type}</option>`;

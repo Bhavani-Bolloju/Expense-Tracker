@@ -47,8 +47,8 @@ export function renderNewExpense(expense, rowId) {
 export function toggleEditExpense(rowId) {
   // console.log(row, "el edit");
   const row = document.querySelector(`.item-${rowId}`);
-  row.classList.toggle("edit");
-  row.classList.toggle("static");
+  row?.classList.toggle("edit");
+  row?.classList.toggle("static");
 }
 
 export function createNewFormElement(rowId) {
@@ -61,7 +61,7 @@ export function createNewFormElement(rowId) {
 
 export function removeNewFormElement(rowId) {
   const formEl = document.querySelector(`#edit_form-${rowId}`);
-  formEl.remove();
+  formEl?.remove();
 }
 
 export function updateSavedExpense(rowId, inputData) {

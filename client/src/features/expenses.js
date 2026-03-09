@@ -66,9 +66,6 @@ export const handleSubmitForm = async function (e) {
   const inputData = Object.fromEntries(formData.entries());
   const newExpense = { ...inputData, id: nanoid(4) };
 
-  //update state
-  // state.updateExpenses(newExpense);
-
   try {
     await addNewExpense({
       description: newExpense.description,
@@ -78,30 +75,26 @@ export const handleSubmitForm = async function (e) {
       date: newExpense.date
     });
 
-    console.log("notify user of new expense");
-
     notyf.success("new expenses add");
+
+    state.updateExpenses(newExpense);
+
+    const expenses = tableStateManager.getProcessedItems(state.expenses);
+    const items = pagination.getPageItems(expenses);
+
+    const totalPages = pagination.totalPageCount;
+    const currPage = pagination.currentPageNum;
+
+    updateTotalPages(totalPages);
+    updateCurrentPage(currPage);
+
+    renderExpenses(items);
+
+    addExpenseBtn.disabled = false;
+    addExpenseBtn.setAttribute("aria-expanded", false);
   } catch (error) {
     notyf.error(error.message);
   }
-
-  console.log("after try  catch , add new expense");
-
-  const expenses = tableStateManager.getProcessedItems(state.expenses);
-  const items = pagination.getPageItems(expenses);
-
-  const totalPages = pagination.totalPageCount;
-  const currPage = pagination.currentPageNum;
-
-  updateTotalPages(totalPages);
-  updateCurrentPage(currPage);
-
-  renderExpenses(items);
-  //remove form
-  // const formRow = expensesContainer.querySelector(".fill-expenses-row");
-
-  addExpenseBtn.disabled = false;
-  addExpenseBtn.setAttribute("aria-expanded", false);
 };
 
 export const handleCancelAddExpense = function (e) {
@@ -151,19 +144,24 @@ export const handleSubmitEditExpense = async function (e) {
   const formData = new FormData(form);
   const inputData = Object.fromEntries(formData.entries());
 
-  const updatedExpense = await updateExpense(formId, inputData);
+  try {
+    const updatedExpense = await updateExpense(formId, inputData);
 
-  //update storage
-  state.updateEditedExpense(formId, updatedExpense.newExpense);
+    notyf.success("saved edited expense");
+    //update storage
+    state.updateEditedExpense(formId, updatedExpense.newExpense);
 
-  const expenses = tableStateManager.getProcessedItems(state.expenses);
+    const expenses = tableStateManager.getProcessedItems(state.expenses);
 
-  const items = pagination.getPageItems(expenses);
+    const items = pagination.getPageItems(expenses);
 
-  toggleEditExpense(formId);
-  renderExpenses(items);
+    toggleEditExpense(formId);
+    renderExpenses(items);
 
-  renumberRows();
+    renumberRows();
+  } catch (error) {
+    notyf.error(error.message);
+  }
 };
 
 export const handleCancelEdit = function (e) {
@@ -186,13 +184,16 @@ export const handleDeleteExpense = async function (e) {
   const row = e.target.closest("tr");
 
   const id = row.dataset.id;
-  console.log(id, "id to be removed");
 
-  const res = await deleteExpense(id);
+  try {
+    await deleteExpense(id);
 
-  console.log(res, "after delete");
+    getExpenses();
 
-  getExpenses();
+    notyf.success("Deleted expense");
+  } catch (error) {
+    notyf.error(error.message);
+  }
 };
 
 export const handleSelectAllExpenses = function (e) {
