@@ -6,7 +6,6 @@ export class Pagination {
   }
 
   setTotalItems(totalCount) {
-    console.log(totalCount, "total count");
     this._totalItems =
       totalCount >= this.itemsPerPage ? totalCount : this.itemsPerPage;
   }

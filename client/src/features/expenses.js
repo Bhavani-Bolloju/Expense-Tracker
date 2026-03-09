@@ -12,18 +12,15 @@ import {
   renderExpenses,
   clearAmountSortingIndicators,
   clearDateSortingIndicators,
-  resetSelects
-} from "../UI/render";
-
-import { state } from "../core/state";
-
-import {
+  resetSelects,
+  updateTotalPages,
   toggleEditExpense,
   createNewFormElement,
   renumberRows,
-  updateTotalPages,
   updateCurrentPage
 } from "../UI/render";
+
+import { state } from "../core/state";
 
 import { addNewExpenseFormTemplate } from "../UI/templates";
 import { pagination } from "../services/pagination";
@@ -33,14 +30,27 @@ import {
   addNewExpense,
   deleteExpense,
   updateExpense,
-  multiExpensesDelete
+  multiExpensesDelete,
+  getAllExpenses
 } from "../api/expenses";
-
-import { getExpenses } from "../main";
 
 import { logout } from "../api/auth";
 
 import notyf from "../UI/notification";
+
+export const getExpenses = async function () {
+  try {
+    const res = await getAllExpenses();
+
+    state.expenses = res;
+    pagination.setTotalItems(state.expenses.length);
+    const currPageItems = pagination.getPageItems(state.expenses);
+    renderExpenses(currPageItems);
+    updateTotalPages(pagination.totalPageCount);
+  } catch (error) {
+    notyf.error(error.message);
+  }
+};
 
 export const handleAddExpense = function (e) {
   expensesContainer.insertAdjacentHTML(

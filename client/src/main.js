@@ -23,35 +23,16 @@ import {
   handleSearchWithKeywords,
   handleNextPage,
   handlePrevPage,
-  handleLogout
+  handleLogout,
+  getExpenses
 } from "./features/expenses";
 
-
-
 import { registerEvents } from "./core/events";
-
-import { getAllExpenses } from "./api/expenses";
 
 import { addFilterCategoryOptions } from "./UI/render";
 
 import { categoryType } from "./core/state";
 
-//load & render initial expenses to the DOM
-let saved = storage.loadExpenses();
-
-function init(expenses) {
-  state.expenses = expenses;
-  pagination.setTotalItems(state.expenses.length);
-  const currPageItems = pagination.getPageItems(state.expenses);
-  renderExpenses(currPageItems);
-  updateTotalPages(pagination.totalPageCount);
-}
-
-export async function getExpenses() {
-  const res = await getAllExpenses();
-  console.log(res, "res");
-  init(res);
-}
 
 getExpenses();
 
@@ -79,3 +60,4 @@ registerEvents({
 });
 
 //  window.location.href = "/signin.html";
+

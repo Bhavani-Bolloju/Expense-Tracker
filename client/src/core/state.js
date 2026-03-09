@@ -235,12 +235,8 @@ export const state = {
       return item._id === id;
     });
     const item = this.expenses[index];
-
-    // console.log(item, "item to be updated", newExpense);
     const updatedExpense = { ...item, ...newExpense };
-
     this.expenses[index] = updatedExpense;
-
     storage.addExpenses(this.expenses);
   },
 
