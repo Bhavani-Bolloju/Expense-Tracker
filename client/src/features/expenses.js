@@ -194,15 +194,21 @@ export const handleDeleteExpense = async function (e) {
 
   const id = row.dataset.id;
 
-  try {
-    await deleteExpense(id);
+  const confirmDelete = notyf.error({
+    message: "Click here to confirm",
+    dismissible: true,
+    icon: false
+  });
 
-    getExpenses();
-
-    notyf.success("Deleted expense");
-  } catch (error) {
-    notyf.error(error.message);
-  }
+  confirmDelete.on("click", async () => {
+    try {
+      await deleteExpense(id);
+      getExpenses();
+      notyf.success("Deleted expense");
+    } catch (error) {
+      notyf.error(error.message);
+    }
+  });
 };
 
 export const handleSelectAllExpenses = function (e) {
@@ -292,35 +298,35 @@ export const handleMultiSelectedExpensesDelete = async function (e) {
     }
   });
 
-  await multiExpensesDelete([...deleteIds]);
+  if (!confirm(`Delete ${deleteIds.size} selected expenses?`)) {
+    return; // User clicked Cancel
+  }
 
-  //remove all the items from the state
-  state.removeMultipleExpenses(deleteIds);
+  try {
+    await multiExpensesDelete([...deleteIds]);
+    state.removeMultipleExpenses(deleteIds);
+    const expenses = tableStateManager.getProcessedItems(state.expenses);
 
-  console.log(state.expenses, deleteIds);
+    pagination.setTotalItems(expenses.length);
 
-  //update UI
+    const items = pagination.getPageItems(expenses);
 
-  const expenses = tableStateManager.getProcessedItems(state.expenses);
+    const totalPages = pagination.totalPageCount;
+    const currPage = pagination.currentPageNum;
 
-  pagination.setTotalItems(expenses.length);
+    updateTotalPages(totalPages);
+    updateCurrentPage(currPage);
 
-  const items = pagination.getPageItems(expenses);
+    renderExpenses(items);
+    //fix the row numbers
+    renumberRows();
 
-  const totalPages = pagination.totalPageCount;
-  const currPage = pagination.currentPageNum;
+    selectAllCheckbox.checked = false;
 
-  updateTotalPages(totalPages);
-  updateCurrentPage(currPage);
-
-  renderExpenses(items);
-  //fix the row numbers
-  renumberRows();
-
-  selectAllCheckbox.checked = false;
-
-  //uncheck select all -> remove display of total selected items, display add expenses btn
-  toggleMultiSelect(0);
+    toggleMultiSelect(0);
+  } catch (error) {
+    notyf.error(error.message);
+  }
 };
 
 export const handleSortingDate = function (e) {

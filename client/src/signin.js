@@ -5,7 +5,7 @@ import notyf from "./UI/notification";
 const signInForm = document.querySelector(".form-signIn");
 
 if (localStorage.getItem("logoutSuccess")) {
-  notyf.success("Logout successfully!!!");
+  notyf.success("come back soon !!!");
   localStorage.removeItem("logoutSuccess");
 }
 
