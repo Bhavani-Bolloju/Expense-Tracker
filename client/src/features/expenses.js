@@ -504,11 +504,10 @@ export const handlePrevPage = function () {
 export const handleLogout = async function () {
   try {
     await logout();
-    notyf.success("Come back soon!!");
 
-    setTimeout(() => {
-      window.location.href = "/signin.html";
-    }, 1500);
+    localStorage.setItem("logoutSuccess", true);
+
+    window.location.href = "/signin.html";
   } catch (error) {
     notyf.error(error.error);
   }

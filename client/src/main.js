@@ -26,6 +26,13 @@ import { addFilterCategoryOptions } from "./UI/render";
 
 import { categoryType } from "./core/state";
 
+import notyf from "./UI/notification";
+
+if (localStorage.getItem("loginSuccess")) {
+  notyf.success("Welcome back!");
+  localStorage.removeItem("loginSuccess"); 
+}
+
 getExpenses();
 
 addFilterCategoryOptions(categoryType);

@@ -13,11 +13,7 @@ registerForm.addEventListener("submit", async (e) => {
   try {
     await signup(inputData);
 
-    notyf.success("User registered");
-
-    setTimeout(() => {
-      window.location.href = "/signin.html";
-    }, 1500);
+    window.location.href = "/signin.html";
   } catch (error) {
     notyf.error(error.message);
   }

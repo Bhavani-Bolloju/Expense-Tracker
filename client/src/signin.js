@@ -4,6 +4,11 @@ import notyf from "./UI/notification";
 
 const signInForm = document.querySelector(".form-signIn");
 
+if (localStorage.getItem("logoutSuccess")) {
+  notyf.success("Logout successfully!!!");
+  localStorage.removeItem("logoutSuccess");
+}
+
 signInForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -18,11 +23,10 @@ signInForm.addEventListener("submit", async (e) => {
 
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("loginSuccess", true);
 
     //navigate to the dashboard
-    setTimeout(() => {
-      window.location.href = "/dashboard.html";
-    }, 1500);
+    window.location.href = "/dashboard.html";
   } catch (error) {
     notyf.error(error.message);
   }
