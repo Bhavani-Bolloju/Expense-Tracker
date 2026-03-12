@@ -30,7 +30,7 @@ import notyf from "./UI/notification";
 
 if (localStorage.getItem("loginSuccess")) {
   notyf.success("Welcome back!");
-  localStorage.removeItem("loginSuccess"); 
+  localStorage.removeItem("loginSuccess");
 }
 
 getExpenses();
