@@ -168,6 +168,7 @@ export const handleSubmitEditExpense = async function (e) {
     const items = pagination.getPageItems(expenses);
 
     toggleEditExpense(formId);
+    
     renderExpenses(items);
 
     renumberRows();
