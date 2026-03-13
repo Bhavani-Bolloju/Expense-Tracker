@@ -1,7 +1,4 @@
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://keen-chimera-661bf9.netlify.app/"
-];
+const allowedOrigins = ["http://localhost:5173", process.env.FRONTEND_URL];
 
 module.exports = allowedOrigins;
 
