@@ -159,8 +159,9 @@ export const handleSubmitEditExpense = async function (e) {
     const updatedExpense = await updateExpense(formId, inputData);
 
     notyf.success("saved edited expense");
+
     //update storage
-    state.updateEditedExpense(formId, updatedExpense.newExpense);
+    state.updateEditedExpense(formId, updatedExpense.expense);
 
     const expenses = tableStateManager.getProcessedItems(state.expenses);
 
