@@ -39,6 +39,9 @@ const removeExpense = async (req, res) => {
 const updateExpense = async (req, res) => {
   const { category, description, amount, payment, date } = req.body;
   const id = req.params.id;
+  
+  
+  console.log(id, "id to be udpated")
 
   try {
     const expense = await Expense.findOne({ _id: id }).exec();

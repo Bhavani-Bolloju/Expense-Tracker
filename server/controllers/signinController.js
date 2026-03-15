@@ -58,7 +58,8 @@ const authHandler = async (req, res) => {
       user: {
         id: foundUser._id,
         email: foundUser.email,
-        username: foundUser.username
+        username: foundUser.username,
+        avatarURL: foundUser.avatarURL
       }
     });
   } catch (error) {

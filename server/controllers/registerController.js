@@ -26,10 +26,17 @@ const handleRegister = async function (req, res) {
   try {
     //hash password
     const hashedPwd = await bcrypt.hash(password, 10);
-    //add to the DB
-    const user = await User.create({ username, email, password: hashedPwd });
 
-    console.log(user, "new user created and add to mongoDB");
+    //generate avatar
+    const avatarURL = `https://ui-avatars.com/api/?name=${username}&background=random&color=fff&size=130`;
+
+    //add to the DB
+    const user = await User.create({
+      username,
+      email,
+      password: hashedPwd,
+      avatarURL
+    });
 
     //send back the res
     return res.status(200).json({ success: `${username} account is created` });

@@ -14,6 +14,10 @@ const userScheme = new Schema({
     required: true,
     type: String
   },
+  avatarURL: {
+    required: true,
+    type: String
+  },
   refreshToken: String
 });
 
