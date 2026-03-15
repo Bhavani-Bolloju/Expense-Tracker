@@ -26,6 +26,7 @@ const totalPagesEl = document.querySelector(".total_pages");
 const btnLogout = document.querySelector(".btn_logout");
 
 const emptyList = document.querySelector(".empty-list");
+const userProfile = document.querySelector(".profile-image");
 
 export {
   addExpenseBtn,
@@ -47,6 +48,7 @@ export {
   currPageEl,
   totalPagesEl,
   btnLogout,
-  emptyList
+  emptyList,
+  userProfile
 };
 

@@ -22,7 +22,7 @@ import {
 
 import { registerEvents } from "./core/events";
 
-import { addFilterCategoryOptions } from "./UI/render";
+import { addFilterCategoryOptions, updateUserProfile } from "./UI/render";
 
 import { categoryType } from "./core/state";
 
@@ -31,6 +31,11 @@ import notyf from "./UI/notification";
 if (localStorage.getItem("loginSuccess")) {
   notyf.success("Welcome back!");
   localStorage.removeItem("loginSuccess");
+}
+
+if (localStorage.getItem("user")) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  updateUserProfile(user.avatarURL, user.username);
 }
 
 getExpenses();

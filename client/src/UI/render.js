@@ -9,13 +9,19 @@ import {
   selectFilterCategory,
   totalPagesEl,
   currPageEl,
-  selectAllCheckbox
+  selectAllCheckbox,
+  userProfile
 } from "./elements";
 import { formatDate } from "../utils/format";
 
 import { pagination } from "../services/pagination";
 
 import { emptyList } from "./elements";
+
+export function updateUserProfile(avatarURL, username) {
+  userProfile.setAttribute("src", avatarURL);
+  userProfile.setAttribute("alt", username);
+}
 
 export function renderExpenses(expenses) {
   if (expenses.length == 0) {

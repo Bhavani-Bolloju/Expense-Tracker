@@ -59,11 +59,12 @@ export const handleAddExpense = function (e) {
     addNewExpenseFormTemplate()
   );
 
+  //focus first input element of the form
   const formRow = expensesContainer
     .querySelector(".fill-expenses-row")
     .querySelector(".input_date");
-
   formRow.focus();
+
   addExpenseBtn.setAttribute("aria-expanded", true);
 
   addExpenseBtn.disabled = true;
@@ -75,10 +76,10 @@ export const handleSubmitForm = async function (e) {
   const formData = new FormData(e.target);
 
   const inputData = Object.fromEntries(formData.entries());
-  const newExpense = { ...inputData, id: nanoid(4) };
+  const newExpense = { ...inputData };
 
   try {
-    await addNewExpense({
+    const expense = await addNewExpense({
       description: newExpense.description,
       category: newExpense.category,
       amount: newExpense.amount,
@@ -88,7 +89,7 @@ export const handleSubmitForm = async function (e) {
 
     notyf.success("new expenses add");
 
-    state.updateExpenses(newExpense);
+    state.updateExpenses(expense);
 
     const expenses = tableStateManager.getProcessedItems(state.expenses);
     const items = pagination.getPageItems(expenses);
@@ -168,7 +169,7 @@ export const handleSubmitEditExpense = async function (e) {
     const items = pagination.getPageItems(expenses);
 
     toggleEditExpense(formId);
-    
+
     renderExpenses(items);
 
     renumberRows();

@@ -142,8 +142,6 @@ export function addNewExpenseFormTemplate() {
               />
             </td>
             <td class="px-5 py-3">
-      
-              
                <select id="category" class="input_category" name="category" form="expenseForm" aria-label="Expense category type" required >
                   ${categoryType
                     .map((type) => {
