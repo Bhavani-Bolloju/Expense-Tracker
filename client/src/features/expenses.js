@@ -514,13 +514,15 @@ export const handlePrevPage = function () {
 
 export const handleLogout = async function () {
   try {
-    await logout();
+    const res = await logout();
+
+    console.log("after log out client", res);
 
     localStorage.setItem("logoutSuccess", true);
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
 
-    // window.location.href = "/signin.html";
+    window.location.href = "/signin.html";
   } catch (error) {
     notyf.error(error.error);
   }
