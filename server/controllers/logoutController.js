@@ -3,8 +3,6 @@ const User = require("../model/User");
 const handleLogout = async (req, res) => {
   const cookies = req.cookies;
 
-  console.log(cookies, "logout handler");
-
   if (!cookies?.jwt) return res.status(204).json({ error: "no content" });
 
   const refreshToken = cookies?.jwt;
@@ -18,7 +16,7 @@ const handleLogout = async (req, res) => {
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax" // 'Lax' in dev, 'None' in prod
     });
 
-    return res.status(200).json({ message: "no use found, logging off" });
+    return res.json({ message: "no use found, logging off" });
   }
 
   foundUser.refreshToken = "";
@@ -30,7 +28,7 @@ const handleLogout = async (req, res) => {
     sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax" // 'Lax' in dev, 'None' in prod
   });
 
-  res.status(200).json({ message: "logged out successfully" });
+  return res.json({ message: "logged out" });
 };
 
 module.exports = { handleLogout };

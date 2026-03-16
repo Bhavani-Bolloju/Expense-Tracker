@@ -518,12 +518,12 @@ export const handleLogout = async function () {
 
     console.log("after calling logout handler");
 
-    localStorage.setItem("logoutSuccess", true);
+    // localStorage.setItem("logoutSuccess", true);
 
     window.location.href = "/signin.html";
   } catch (error) {
     console.log("error in logout handler", error);
-    notyf.error(error.error);
+    notyf.error(error);
   }
 };
 

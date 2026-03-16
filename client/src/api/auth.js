@@ -49,6 +49,7 @@ export const logout = async function (e) {
   }
   localStorage.clear();
   const res = await req.json();
+  console.log(res, "after client logout");
   return res;
 };
 
