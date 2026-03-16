@@ -41,15 +41,18 @@ export const logout = async function (e) {
     credentials: "include"
   });
 
-  console.log(req, "client logout req response");
-
   if (!req.ok) {
     const error = await req.json();
     throw new Error(error.error || "logout error");
   }
-  localStorage.clear();
+
+  console.log(req.status, "req");
+
+  if (req.status === 204) {
+    return null;
+  }
+
   const res = await req.json();
-  console.log(res, "after client logout");
   return res;
 };
 
