@@ -44,7 +44,7 @@ const authHandler = async (req, res) => {
     foundUser.refreshToken = refreshToken;
     await foundUser.save();
 
-    // console.log(accessToken, refreshToken, 'tokens server');
+    console.log(accessToken, refreshToken, "tokens server");
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,

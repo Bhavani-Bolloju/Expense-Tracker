@@ -3,7 +3,11 @@ const User = require("../model/User");
 const handleLogout = async (req, res) => {
   const cookies = req.cookies;
 
+  console.log(cookies, "logout module cookies");
+
   if (!cookies?.jwt) return res.status(204).json({ error: "no content" });
+
+  console.log(cookies.jwt, "jwt cookie");
 
   const refreshToken = cookies?.jwt;
 

@@ -34,6 +34,8 @@ app.use(verifyJWT);
 
 app.use("/api/expenses", require("./routes/api/expenses"));
 
+console.log("server running yayy..............");
+
 mongoose.connection.once("open", () => {
   console.log("connected to the mongoDB");
   app.listen(PORT, () => console.log(`server running on port ${PORT}`));
