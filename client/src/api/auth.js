@@ -40,6 +40,9 @@ export const logout = async function (e) {
     method: "POST",
     credentials: "include"
   });
+
+  console.log(req, "client logout req response");
+
   if (!req.ok) {
     const error = await req.json();
     throw new Error(error.error || "logout error");
