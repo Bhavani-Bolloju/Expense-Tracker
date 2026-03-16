@@ -49,6 +49,7 @@ export const logout = async function (e) {
   console.log(req.status, "req");
 
   if (req.status === 204) {
+    console.log("error 204");
     return null;
   }
 

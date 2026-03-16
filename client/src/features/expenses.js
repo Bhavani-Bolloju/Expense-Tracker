@@ -518,11 +518,13 @@ export const handleLogout = async function () {
 
     console.log("after log out client", res);
 
-    localStorage.setItem("logoutSuccess", true);
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
+    if (res) {
+      localStorage.setItem("logoutSuccess", true);
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
 
-    window.location.href = "/signin.html";
+      window.location.href = "/signin.html";
+    }
   } catch (error) {
     notyf.error(error.error);
   }
