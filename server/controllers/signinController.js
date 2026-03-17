@@ -51,7 +51,7 @@ const authHandler = async (req, res) => {
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // false in dev, true in prod
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // 'Lax' in dev, 'None' in prod
+      sameSite: "Lax", // 'Lax' in dev, 'None' in prod
       maxAge: 24 * 60 * 60 * 1000
     });
 

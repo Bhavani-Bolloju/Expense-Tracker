@@ -16,12 +16,11 @@ const PORT = process.env.PORT || 3000;
 
 connectDB();
 
-app.set("trust proxy", 1);
-app.use(cookieParser());
-
 app.use(express.json());
+
 app.use(cors(corsOptions));
-// app.options("*", cors(corsOptions));
+
+app.use(cookieParser());
 
 app.use("/register", require("./routes/register"));
 
