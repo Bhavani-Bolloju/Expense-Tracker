@@ -48,8 +48,6 @@ const authHandler = async (req, res) => {
 
     // console.log(accessToken, refreshToken, "tokens server");
 
-    app.set("trust proxy", 1);
-
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // false in dev, true in prod
