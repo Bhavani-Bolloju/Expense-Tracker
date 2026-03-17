@@ -11,9 +11,11 @@ const corsOptions = {
     }
   },
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  allowedHeaders: ["Content-Type", "Authorization"]
 };
+
+console.log(corsOptions, "cors options");
 
 module.exports = { corsOptions };
 
- 

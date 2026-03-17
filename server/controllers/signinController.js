@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 
 const bcrypt = require("bcrypt");
 
+const app = require("express");
+
 const authHandler = async (req, res) => {
   const { email, password } = req.body;
 
@@ -44,7 +46,9 @@ const authHandler = async (req, res) => {
     foundUser.refreshToken = refreshToken;
     await foundUser.save();
 
-    console.log(accessToken, refreshToken, "tokens server");
+    // console.log(accessToken, refreshToken, "tokens server");
+
+    app.set("trust proxy", 1);
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
