@@ -1,11 +1,11 @@
 # Expense Tracker
 A web application that allows users to manage and track their expenses in one place. Users can add, edit, delete, categorize, and filter expenses.
+### [Live Demo Link](https://keen-chimera-661bf9.netlify.app/)
 
 ## Tech Stack
 **Frontend**: HTML, CSS, JavaScript  
 **Backend**: Node.js, Express  
 **Database**: MongoDB, Mongoose  
-
 **Additional libraries:**
 - Tailwind CSS
 - Notyf
@@ -68,5 +68,26 @@ npm run dev
 npm install  
 npm run dev 
 ```
-
 Then register or sign in to start managing expenses.
+
+## Folder structure
+
+**Backend**
+- `config/` - DB/config setup && CORS setup
+- `controllers/` - request handling logic
+- `middleware/` - auth verify
+- `model/` - Mongoose schemas
+- `routes/` - API routes
+
+**Frontend**
+- `api/` → handles all API calls
+- `core/` → manages application state, data, and events
+- `features/` → contains handlers and callback functions (business logic)
+- `services/` → handles pagination, filtering, and data processing
+- `UI/` → DOM templates and rendering logic
+- `utils/` → helper/utility functions
+
+
+
+
+
